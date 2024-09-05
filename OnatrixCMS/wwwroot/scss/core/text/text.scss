@@ -5,45 +5,49 @@ body {
     color: var(--color-bodyText);
 }
 
-.h2Headlines
+.h1Headline {
+    @media(min-width: 10px) {
+        font-size: 1.5rem;
+        font-weight: 800;
+        line-height: 1.5;
+    }
+
+    @media(min-width: 768px) {
+        font-size: 4rem;
+    }
+}
+
+.h2Headline
 {
     @media(min-width: 10px)
     {
-        color: var(--color-gray);
         font-size: 1.4rem;
         font-weight: 700;
         line-height: 1.5;
-        margin: 0;
     }
 
     @media(min-width: 768px)
     {
         font-size: 2.2rem;
     }
-
 }
 
 .h3Headline
 {
-    color: var(--color-sand);
     font-size: 1.3rem;
     font-weight: 800;
-    margin: 0;
 }
 
 .h4Headline
 {
     font-size: 1.5rem;
     font-weight: 600;
-    margin: 0;
 }
 
-.h5Headlines
+.h5Headline
 {
-    color: var(--color-sand);
     font-size: 1rem;
     font-weight: 700;
-    margin: 0;
     text-transform: uppercase;
 }
 
@@ -51,13 +55,16 @@ body {
 {
     font-weight: 200;
     font-size: 1.2rem;
-    margin: 0;
 }
 
-.pageText
+.pText
 {
     font-size: 0.9rem;
-    margin: 0rem;
+}
+
+.noMargin
+{
+    margin: 0;
 }
 
 .dangerText

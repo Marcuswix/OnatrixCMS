@@ -3,6 +3,7 @@
 @using Umbraco.Cms.Core.Models.PublishedContent
 @using Umbraco.Cms.Core.Routing
 @using Umbraco.Extensions
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
 
 @inject IPublishedValueFallback PublishedValueFallback
 @inject IPublishedUrlProvider PublishedUrlProvider
@@ -12,7 +13,19 @@
     var header = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "header");
 
     // Hämta adressen
-    var logotype = header?.Value<IPublishedContent>("companyLogotype")?.Url() ?? "";
+    var logotype = header?.Value<IPublishedContent>("logotype")?.Url() ?? "";
+
+    var backgroundColor = header?.Value<PickedColor>("backgroundColor")?.Label.ToLower() ?? "none";  
+}
+
+@if(backgroundColor != null || backgroundColor != "none")
+{
+<style>
+    .backgroundColor
+    {
+        background-color: var(--color-@backgroundColor);
+    }
+</style>
 }
 
 <!-- Header -->

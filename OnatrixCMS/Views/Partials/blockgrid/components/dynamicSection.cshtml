@@ -7,14 +7,14 @@
     var sectionTitle = Model?.Content.Value<string>("sectionTitle") ?? "";
     var sectionId = sectionTitle?.ToString().ToLower().Trim().Replace(" ", "-");
 
-    var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "spacing-top" : "";
-    var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "spacing-bottom" : "";
-    var centerContent = (Model!.Content.Value<bool>("centerContentInSection")) ? "center-content" : "";
+    var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "addSpaceToTop" : "";
+    var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "addSpaceToBottom" : "";
+    var centerContent = (Model!.Content.Value<bool>("centerContentInSection")) ? "centerContent" : "";
 
     var sectionBackgroundImage = Model?.Content.Value<IPublishedContent>("sectionBackgroundImage")?.Url() ?? null; 
     var sectionBackgroundImageAltText = Model?.Content.Value<string>("sectionBackgroundImageAltText") ?? "Section Image"; 
 
-    var sectionBackgroundColor = Model?.Content.Value<PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? "white";
+    var sectionBackgroundColor = Model?.Content.Value<PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? "transparent";
 }
 
 @if(sectionBackgroundColor != null)
@@ -28,12 +28,12 @@
 }
 
 
-<section id="@sectionId" class="@spacingTopClass spacingBottomClass">
+<section id="@sectionId" class="sections sectionDesign @spacingTopClass @spacingBottomClass">
     <div class="container @centerContent">
         @if(!string.IsNullOrEmpty(sectionBackgroundImage))
         {
             <img class="background-image" src="@sectionBackgroundImage" alt="@sectionBackgroundImageAltText" />
         }
-        @await Html.GetBlockGridItemAreasHtmlAsync(Model)
+        @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
     </div>
 </section>

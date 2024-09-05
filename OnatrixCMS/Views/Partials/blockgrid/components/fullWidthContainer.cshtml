@@ -4,9 +4,9 @@
 @using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
 
 @{
-    var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "spacing-top" : "";
-    var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "spacing-bottom" : "";
-    var centerContent = (Model!.Content.Value<bool>("centerContentInSection")) ? "center-content" : "";
+    var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "addSpaceToTop" : "";
+    var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "addSpaceToBottom" : "";
+    var centerContent = (Model!.Content.Value<bool>("centerContentInSection")) ? "centerContent" : "";
 
     var containerBackgroundColor = Model?.Content.Value<PickedColor>("ContainerBackgroundColor")?.Label.ToLower() ?? "transparent";
     
@@ -15,13 +15,13 @@
 @if(containerBackgroundColor != null || containerBackgroundColor != "transparent")
 {
 <style>
-    .containerDesign
+    .fullWidthContainerBackgroundColor
     {
         background-color: var(--color-@containerBackgroundColor);
     }
 </style>
 }
 
-<div class="container-full-width @centerContent @spacingTopClass @spacingBottomClass">
-    @await Html.GetBlockGridItemAreasHtmlAsync(Model)
+<div class="container-full-width fullWidthContainerBackgroundColor @centerContent @spacingTopClass @spacingBottomClass">
+    @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
 </div>

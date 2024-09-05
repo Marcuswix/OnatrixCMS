@@ -19,24 +19,28 @@
     // Hämta social media blocklist
     var socialMediaBlocks = topHeader?.Value<BlockListModel>("socialmedia");
 
-    var backgroundColor = topHeader?.Value<ColorPickerValueConverter.PickedColor>("backgroundColor")?.Label.ToLower() ?? "white";
+    var backgroundColor = topHeader?.Value<ColorPickerValueConverter.PickedColor>("backgroundColor")?.Label.ToLower() ?? "none";
 
     var blockCount = socialMediaBlocks?.Count() ?? 0;
 
     var countSocialMediaItems = 0;
 }
 
-<style>
+@if(backgroundColor != null || backgroundColor != "none")
+{
+    <style>
 
-    .siteContainer
-    {
-        background-color: var(--color-@backgroundColor);
-    }
+        .topHeaderBackgroundColor
+        {
+            background-color: var(--color-@backgroundColor);
+        }
 
-</style>
+    </style>
+}
+
 
 <!-- Top Header -->
-<div class="siteContainer">
+<div class="siteContainer topHeaderBackgroundColor">
     <div class="container">
         <div class="contentContainer">
             <p class="topHeaderText">@address</p>

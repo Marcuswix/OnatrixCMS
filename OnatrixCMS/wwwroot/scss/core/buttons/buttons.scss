@@ -1,6 +1,6 @@
 @mixin btn
 {
-    display: flex;
+    display: inline-flex;
     cursor: pointer;
     justify-content: center;
     align-items: center;
@@ -13,19 +13,16 @@
 
     &:hover
     {
-        background-color: var(--color-grayMedium);
+        background-color: var(--color-mediumgray);
         color: var(--color-white);
     }
 }
 
-.btnTheme
+.btn
 {
     @include btn;
     max-width: 180px;
     font-size: 1.1rem;
-    background-color: var(--color-gray);
-    color: var(--color-white);
-
 }
 
 .btnBeige

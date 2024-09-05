@@ -11,7 +11,7 @@
 @if(textColor != null || textColor != "textgray")
 {
 <style>
-    .textColor
+    .h5textColor
     {
         color: var(--color-@textColor);
     }
@@ -20,7 +20,7 @@
 
 @if(!string.IsNullOrEmpty(headingContent))
 {
-    <h5>
+    <h5 class="h5Headline h5textColor">
         @headingContent
     </h5>
 }

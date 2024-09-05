@@ -11,7 +11,7 @@
 @if(textColor != null || textColor != "textgray")
 {
 <style>
-    .textColor
+    .h3textColor
     {
         color: var(--color-@textColor);
     }
@@ -20,7 +20,7 @@
 
 @if(!string.IsNullOrEmpty(headingContent))
 {
-    <h3>
+    <h3 class="h3Headline h3textColor">
         @headingContent
     </h3>
 }

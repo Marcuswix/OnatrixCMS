@@ -7,21 +7,21 @@
     var sectionTitle = Model?.Content.Value<string>("sectionTitle") ?? "";
     var sectionId = sectionTitle?.ToString().ToLower().Trim().Replace(" ", "-");
 
-    var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "spacing-top" : "";
-    var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "spacing-bottom" : "";
-    var centerContent = (Model!.Content.Value<bool>("centerContentInSection")) ? "center-content" : "";
+    var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "addSpaceToTop" : "";
+    var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "addSpaceToBottom" : "";
+    var centerContent = (Model!.Content.Value<bool>("centerContentInSection")) ? "centerContent" : "";
 
     var sectionBackgroundImage = Model?.Content.Value<IPublishedContent>("sectionBackgroundImage")?.Url() ?? null; 
     var sectionBackgroundImageAltText = Model?.Content.Value<string>("sectionBackgroundImageAltText") ?? "Section Image"; 
 
-    var sectionBackgroundColor = Model?.Content.Value<PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? "white";
+    var sectionBackgroundColor = Model?.Content.Value<PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? "transparent";
     
 }
 
 @if(sectionBackgroundColor != null)
 {
 <style>
-    .sectionDesign
+    .fullWidthSectionBackgroundColor
     {
         background-color: var(--color-@sectionBackgroundColor);
     }
@@ -29,12 +29,14 @@
 }
 
 
-<section id="@sectionId" class="@spacingTopClass spacingBottomClass">
-    <div class="@centerContent">
+<section id="@sectionId" class="section-full-width fullWidthSectionBackgroundColor @spacingTopClass @spacingBottomClass @centerContent">
+        
         @if(!string.IsNullOrEmpty(sectionBackgroundImage))
         {
-            <img class="background-image" src="@sectionBackgroundImage" alt="@sectionBackgroundImageAltText" />
+            <div class="backgroundImagesContainer">
+                <img class="backgroundImage" src="@sectionBackgroundImage" alt="@sectionBackgroundImageAltText" />
+            </div>
         }
-        @await Html.GetBlockGridItemAreasHtmlAsync(Model)
-    </div>
+        @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
+        
 </section>
