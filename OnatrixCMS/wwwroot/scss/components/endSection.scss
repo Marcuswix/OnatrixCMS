@@ -1,0 +1,157 @@
+@import "../core/mixins/_mixins.scss";
+
+//Mobil
+@media(min-width: 10px)
+{
+    .sectionEndSection
+    {
+        background-color: var(--color-darkWhite);
+        overflow: hidden; 
+
+        .endSectionContainer
+        {
+            display: grid;
+            grid-template-columns: 1fr;
+            overflow: hidden;
+            position: relative;
+            place-items: center;
+            height: 100%;
+
+            .endSectionImageContainer
+            {
+                display: none;
+
+                .endSectionFirstImage
+                {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    transform: translate(10%, 10%);
+                    z-index: 1;
+                }
+                .endSectionSecondImage
+                {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    z-index: 2;
+                    width: 130%;
+                }
+                .endSectionThirdImage
+                {
+                    margin-top: auto;
+                    z-index: 3;
+                }
+            }
+
+            .endSectionTextContainer
+            {
+                padding-block: 4rem;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                row-gap: 2rem;
+                width: 100%;
+                text-align: center;
+
+                .h2Headlines
+                {
+                    font-size: 2rem;
+                }
+
+                .endSectionTextItem{
+                    display: flex;
+                    justify-content: left;
+                    column-gap: 0.5rem;
+
+                    .iconContainer
+                    {
+                        @include center;
+                        
+                        .icon
+                        {
+                            width: 2rem;
+                            height: 2rem;
+                        }
+
+                    }
+
+                    .endSectionContentContainer
+                    {
+                        font-size: 1.5rem;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.4rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(min-width: 768px)
+{
+
+}
+
+@media(min-width: 1400px)
+{
+    .sectionEndSection
+    {
+        padding-top: 4rem;
+        background-color: var(--color-darkWhite);
+
+        .endSectionContainer
+        {
+            padding-top: 0;
+            display: grid;
+            grid-template-columns: 55% 45%;
+            overflow: hidden;
+
+            .endSectionImageContainer
+            {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                width: 70%;
+                opacity: 1;
+            }
+
+            .endSectionParentContainer
+            {
+                width: 100%;
+
+                .endSectionTextContainer
+                {
+                    row-gap: 1.6rem;
+
+                    .h2Headlines
+                    {
+                        text-align: left;
+                    }
+    
+                    .endSectionTextItem{
+
+                        .iconContainer
+                        {
+                            display: block;
+                            
+                            .icon
+                            {
+                                width: 20px;
+                                height: 20px;
+                            }
+    
+                        }
+    
+                        .endSectionContentContainer
+                        {
+                            text-align: left;
+                            font-size: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

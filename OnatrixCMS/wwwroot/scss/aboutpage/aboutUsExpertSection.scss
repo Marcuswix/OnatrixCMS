@@ -1,0 +1,211 @@
+@import "../../scss/core/mixins/_mixins.scss";
+
+@mixin boxes {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.2rem;
+    box-shadow: 0px 0px 12px var(--color-grayLight);
+    transition: all ease-in-out 120ms;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 0px 0px 24px var(--color-grayLight);
+        transform: scale(1.1); 
+    }
+}
+
+//Mobil first
+@media(min-width: 10px)
+{
+    .containerExpert
+    {
+        padding-block: 4rem;
+    }
+
+    .sectionsHeadlineContainer {
+        @include centerFlex;
+        text-align: center;
+        width: 100%;
+    }
+
+    .aboutUsExpertContentContainer
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .expertSlider
+    {
+        @include center;
+    }
+
+    .aboutUsGridBigHeadline
+    {
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .aboutUsExpertContentContainer
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .aboutUsGridSmallHeadline
+    {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .aboutUsGridSmallDescription
+    {
+        font-size: 0.9rem;
+        font-weight: 300;
+        margin: 0;
+        color: var(--color-grayMedium)
+    }
+
+    .aboutUsGridContainerBig {
+        display: none;
+
+        .aboutUsGridItemBig
+        {
+            @include boxes();
+            .aboutUsGridImageBig
+            {
+                max-width: 100%;
+            }
+        }
+    }
+
+    .aboutUsGridItemTextContainer
+    {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1.5rem;
+    }
+
+    .aboutUsGridContainerSmall {
+        display: none;
+    }
+}
+
+@media(min-width: 768px)
+{
+
+}
+
+@media(min-width: 1400px)
+{
+    .containerExpert {
+        padding-block: 6rem;
+    }
+
+    .sectionsHeadlineContainer
+    {
+        @include centerFlex;
+        text-align: center;
+        width: 100%;
+    }
+
+    .aboutUsExpertContentContainer
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .expertSlider
+    {
+        display: none;
+    }
+
+    .aboutUsGridBigHeadline
+    {
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .aboutUsExpertContentContainer
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .aboutUsGridSmallHeadline
+    {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .aboutUsGridSmallDescription
+    {
+        font-size: 0.9rem;
+        font-weight: 300;
+        margin: 0;
+        color: var(--color-grayMedium)
+    }
+
+    .aboutUsGridContainerBig {
+        display: grid;
+        place-items: center;
+        gap: 2rem;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        .aboutUsGridItemBig
+        {
+            max-width: 370px;
+            max-height: 482px;
+            @include boxes();
+
+            .aboutUsGridImageBig
+            {
+                max-width: 370px;
+                max-height: 370px;
+            }
+        }
+    }
+
+    .aboutUsGridItemTextContainer
+    {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1.5rem;
+    }
+
+    .aboutUsGridContainerSmall {
+        display: grid;
+        gap: 2rem;
+        place-items: center;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+
+        .aboutUsGridItemSmall
+        {
+            max-width: 270px;
+            max-height: 356px;
+            @include boxes();
+
+            .aboutUsGridImageSmall
+            {
+                max-width: 270px;
+                max-height: 270px;
+            }
+        }
+    }
+    .aboutUsGridContainerSmall
+    {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}

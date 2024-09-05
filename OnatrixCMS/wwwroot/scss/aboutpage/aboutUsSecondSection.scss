@@ -1,0 +1,117 @@
+//Mobil first
+@media(min-width: 100px)
+{
+    .aboutUsTrustedSection
+    {
+        position: relative;
+        background-color: var(--color-darkWhite);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0rem;
+
+        .containerAboutUsSecondSection
+        {
+            padding-block: 2rem;
+        }
+
+        .aboutUsTrustedSectionTextContainer
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .aboutUsSectionTextContentContainer
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+
+            .companyName
+            {
+                font-size: 1.5rem;
+                font-weight: 600;
+            }
+        }
+
+        .aboutUsTrustedSectionImage
+        {
+            max-width: 72%;
+        }
+
+        .containerAboutUsSecondSection
+        {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+@media(min-width: 768px)
+{
+    .aboutUsTrustedSection
+    {
+        padding-top: 2rem;
+
+        .aboutUsTrustedSectionTextContainer
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .aboutUsSectionTextContentContainer
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+
+            .companyName
+            {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+        }
+    }  
+}
+
+@media(min-width: 1400px)
+{
+    .aboutUsTrustedSection
+    {
+        .containerAboutUsSecondSection
+        {
+            padding-block: 5rem;
+        }
+
+        .aboutUsSectionTextContentContainer
+        {
+
+            .companyName
+            {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+        }
+
+        .aboutUsTrustedSectionImage
+        {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+        }
+
+        .containerAboutUsSecondSection
+        {
+            .aboutUsTrustedSectionTextContainer
+            {
+                max-width: 32rem;
+            }
+        }
+    }
+}

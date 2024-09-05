@@ -1,0 +1,27 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+    var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "spacing-top" : "";
+    var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "spacing-bottom" : "";
+    var centerContent = (Model!.Content.Value<bool>("centerContentInSection")) ? "center-content" : "";
+
+    var containerBackgroundColor = Model?.Content.Value<PickedColor>("ContainerBackgroundColor")?.Label.ToLower() ?? "transparent";
+    
+}
+
+@if(containerBackgroundColor != null || containerBackgroundColor != "transparent")
+{
+<style>
+    .containerDesign
+    {
+        background-color: var(--color-@containerBackgroundColor);
+    }
+</style>
+}
+
+<div class="container @centerContent @spacingTopClass @spacingBottomClass">
+    @await Html.GetBlockGridItemAreasHtmlAsync(Model)
+</div>

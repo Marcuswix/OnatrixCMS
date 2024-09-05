@@ -1,0 +1,25 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+
+<section class="sectionAbout">
+
+    <img class="sectionTopImage" src="/designImages/GlobeBottom.svg" alt="a svg-picture of a globle" />
+    <img class="sectionBottomImage" src="/designImages/GlobeTop.svg" alt="a svg-picture of a globle" />
+
+    <div class="container">
+
+        <div class="sectionTitleContainer">
+
+            <h2 class="h2Headlines">@Model.Value("sectionTitle")</h2>
+            <nav class="navSectionTitle">
+                <a href="#" class="anotherPageNav">Home</a>
+                <i class="fa-solid fa-angle-right"></i>
+                <p class="currentPageNav">@Model.Value("sectionTitle")</p>
+            </nav>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,15 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+    var picture = Model?.Content.Value<IPublishedContent>("pictureUrl")?.Url() ?? null;
+    var pictureName = Model.Content.Value<string>("pictureName") ?? null;
+    var pictureAltText = Model?.Content.Value<string>("pictureAltText") ?? "A picture";  
+}
+
+@if(picture != null)
+{
+    <img src="@picture" name="@pictureName" alt="@pictureAltText" />
+}

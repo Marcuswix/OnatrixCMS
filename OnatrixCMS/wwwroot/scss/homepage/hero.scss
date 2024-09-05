@@ -1,0 +1,245 @@
+@import "../core/mixins/_mixins.scss";
+
+//Mobil first >576px
+@media(min-width: 10px)
+{
+    .sectionContainer
+    {
+        @include sectionContainer;
+    }
+
+    .topContent
+    {
+        position: relative;
+        width: 100vw;
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        align-items: center;
+        align-content: center;
+        padding-bottom: 4rem;
+        overflow: hidden;
+
+        .showcaseImage
+        {
+            display: none;
+        }
+
+        .leftTextContentContainer
+        { 
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .showcaseHeadline
+            {
+                padding: 1rem;
+                font-weight: 800;
+                font-size: 2rem;
+                color: var(--color-gray);
+            }
+        }
+    }
+
+    .bottomContent
+    {
+        text-align: center;
+        padding-block: 4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+
+        .leftTextContentLowerContainer
+        {
+            display: grid;
+            row-gap: 1rem;
+        }
+
+        .imageSig
+        {
+            margin-bottom: 0.5rem;
+        }
+
+        .contactForm
+        {
+            width: 100%;
+            height: auto;
+            box-shadow: 0px 1px 12px var(--color-grayLight);
+
+            .formHeader
+            {
+                background-color: var(--color-gray);
+                color: var(--color-beige);
+                padding: 2rem;
+                display: flex;
+                align-items: center;
+                
+                .h3Headline
+                {
+                    color: var(--color-beige);
+                    font-size: 1.8rem;
+                    font-weight: 700;
+                    margin: 0;
+                }
+            }
+
+            .formContent
+            {
+                padding: 2rem;
+                display: grid;
+                row-gap: 1rem;
+
+                .formTermsText
+                {
+                    padding-block: 1rem;
+                    .termsText
+                    {
+                        font-size: 0.9rem;
+                        color: var(--color-gray);
+                        margin-bottom: 0;
+                    }
+                }
+    
+                .formInput
+                {
+                    padding: 1rem;
+                    border: 1px solid var(--color-grayLight);
+                    border-radius: 0.2rem;
+                    font-size: 0.9rem;
+                    font-style: italic;
+                }
+
+                .formInputSelect
+                {
+                    padding: 1rem;
+                    border: 1px solid var(--color-grayLight);
+                    border-radius: 0.2rem;
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 0.9rem;
+
+                    .formSelect
+                    {
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
+    
+    .sectionBorder
+    {
+        width: 8rem;
+        background-color: var(--color-grayLight);
+        height: 1px;
+        box-shadow: 0px 1px 12px var(--color-grayLight);
+    }
+}
+
+//Tablet second >768px
+@media(min-width: 768px)
+{
+    .topContent
+    {
+        width: 100%;
+        
+        .showcaseImage
+        {
+            position: absolute;
+            display: flex;
+            min-height: 260px;
+            top: 0;
+            width: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+    }
+
+    .bottomContent
+    {
+        padding-block: 2rem;
+    }
+    .sectionBorder
+    {
+        display: none;
+    }
+}
+
+//Desktop last >1400px
+@media(min-width: 1400px)
+{
+    .sectionBorder
+    {  
+        display: none;
+    }
+    .topContent
+    {
+        position: relative;
+        height: 552px;
+        display: grid;
+        grid-template-rows: 1fr;
+        padding-bottom: 0rem;
+
+        .showcaseImage
+        {
+            height: 552px;
+            opacity: 1;
+            position: absolute;
+            z-index: -1;
+        }
+
+        .leftTextContentContainer
+        {
+            text-align: left;
+            width: 44%;
+            gap: 1rem;
+            align-items: start;
+    
+            .showcaseHeadline
+            {
+                padding: 0;
+                font-weight: 800;
+                font-size: 4rem;
+                color: var(--color-gray);
+            }
+        }
+    }
+
+    .bottomContent {
+        text-align: left;
+        padding-block: 6rem;
+        display: grid;
+        grid-template-columns: 60% 40%;
+        justify-content: space-between;
+
+        .leftTextContentLowerContainer {
+            display: grid;
+            row-gap: 1rem;
+            max-width: 38rem;
+
+            .imageSig {
+                margin-block: 0.5rem;
+            }
+        }
+
+        .heroFormContainer {
+            
+            position: relative;
+
+            .contactForm {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                transform: translate(0%, 25%);
+                width: 32rem;
+                height: auto;
+                box-shadow: 0px 1px 12px var(--color-grayLight);
+                background-color: var(--color-white);
+            }
+        }
+    }  
+}

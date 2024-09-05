@@ -1,0 +1,74 @@
+@import "../core/mixins/_mixins.scss";
+
+//Mobil first
+@media(min-width: 10px)
+{
+    .trusted
+    {
+        padding-top: 2rem
+    }
+
+    .textContentContainer
+    {
+        @include center;
+        position: relative;
+
+        .backgroundImageTrusted
+        {
+            position: absolute;
+            top: 15%;
+            z-index: -1;
+            width: 100%;
+        }
+
+        .textContent
+        {
+            @include centerFlex;
+            gap: 2rem;
+            max-width: 48rem;
+            padding-bottom: 2rem;
+            text-align: center;
+    
+            .sand
+            {
+                color: var(--color-sand);
+            }
+        }
+    }
+
+    .bottomImage
+    {
+        width: 100%;
+    }
+}
+
+//Tablet
+@media(min-width: 768px)
+{
+    .trusted
+    {
+        padding-top: 6rem
+    }
+
+    .textContentContainer
+    {
+
+        .textContent
+        {
+            padding-bottom: 4rem;
+        }
+    }
+}
+
+//Desktop
+@media(min-width: 1400px)
+{
+    .textContentContainer
+    {
+
+        .textContent
+        {
+            padding-bottom: 6rem;
+        }
+    }
+}

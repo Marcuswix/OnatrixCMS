@@ -1,0 +1,16 @@
+@import "../mixins/mixins";
+
+//Desktop last >1400px
+@media(min-width: 1400px)
+{
+    .wrapper
+    {
+        display: grid;
+        grid-template-rows: auto 1fr;
+
+        @include desktop
+        {
+            grid-template-rows: auto auto 1fr auto;
+        }
+    }
+}

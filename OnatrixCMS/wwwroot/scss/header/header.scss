@@ -1,0 +1,173 @@
+//Mobil first >576px
+@media(min-width: 10px)
+{
+    .headerContainer
+    {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-block: 1rem;
+
+        .logotypeContainer
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+        }
+
+        .headerNavDesktop
+        {
+            display: none;
+            gap: 4rem;
+
+            .navLinkText
+            {
+                margin-top: 0.6rem;
+                font-weight: 700;
+                color: var(--color-gray);
+                text-decoration: none;
+                transition: all ease-in-out 120ms;
+
+                &:hover
+                {
+                    text-decoration: underline;
+                    color: var(--color-grayMedium);
+                }
+            }
+        }
+
+        .searchContainer
+        {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+
+            .inputSearch
+            {
+                border: none    ;
+            }
+        }
+
+        .barContainer
+        {
+            display: flex;
+
+            .fa-solid.fa-bars
+            {
+                font-size: 1.6rem;
+                transition: all ease-in-out 120ms;
+
+                &:active
+                {
+                    color: var(--color-grayMedium);
+                }
+            }
+        }
+
+        .sideMenu
+        {
+            position: fixed;
+            right: -60%;
+            top: 0;
+            height: 100vh;
+            width: 55%;
+            background-color: var(--color-gray);
+            z-index: 2;
+            transition: right 0.3s ease;
+
+            .xmarkContainer
+            {
+                display: flex;
+                justify-content: right;
+                margin-right: 0.5rem;
+                padding: 1rem;
+                padding-bottom: 0.2rem;
+                height: 58px;
+
+                .fa-solid.fa-xmark
+                {
+                    font-size: 1.6rem;
+                    color: var(--color-white);
+                    transition: all ease-in-out 120ms;
+                    
+    
+                    &:active
+                    {
+                        color: var(--color-grayMedium);
+                    } 
+                }
+            }
+
+            .navSideMenu
+            {
+                display: grid;
+                grid-template-columns: 1fr;
+                transition: all ease-in-out 240ms;
+
+
+                .navLinkTextBar
+                {
+                    padding-inline: 1rem;
+                    padding-block: 0.8rem;
+                    color: var(--color-white);
+                    text-decoration: none;
+                    border-bottom: 1px solid var(--color-grayMedium);
+                    transition: all ease-in-out 120ms;
+
+                    &:hover
+                    {
+                        background-color: var(--color-grayMedium);
+                    }
+
+                    &:active
+                    {
+                        background-color: var(--color-grayMedium);
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+
+//Tablet second >768px
+@media(min-width: 768px)
+{
+}
+
+//Desktop last >1400px
+@media(min-width: 992px)
+{
+    .headerContainer
+    {
+        .headerNavDesktop
+        {
+            display: flex;
+        }
+    }
+
+}
+
+//Desktop last >1400px
+@media(min-width: 1200px)
+{
+    .headerContainer
+    {
+        .barContainer
+        {
+            display: none;
+        }
+
+        .searchContainer
+        {
+            display: flex;
+        }
+
+        .headerNavDesktop
+        {
+            display: flex;
+        }
+    }
+}

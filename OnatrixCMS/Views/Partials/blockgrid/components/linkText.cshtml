@@ -1,0 +1,25 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+    var linkText = Model?.Content.Value<string>("text") ?? null;
+    var linkTextColor = Model?.Content.Value<PickedColor>("textColor")?.Label.ToLower() ?? "textgray";
+    var linkUrl = Model?.Content.Value<string>("linkUrl") ?? "/";
+}
+
+@if(linkTextColor != null)
+{
+<style>
+    .linkColorDesign
+    {
+        color: var(--color-@linkTextColor);
+    }
+</style>
+}
+
+@if(!string.IsNullOrEmpty(linkText))
+{
+    <a href="@linkUrl">@linkText</a>
+}

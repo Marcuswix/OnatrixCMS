@@ -1,0 +1,49 @@
+@mixin btn
+{
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 18px;
+    padding-block: 12px;
+    border-radius: 0.2rem;
+    border: none;
+    transition: all ease-in-out 120ms;
+    text-decoration: none; 
+
+    &:hover
+    {
+        background-color: var(--color-grayMedium);
+        color: var(--color-white);
+    }
+}
+
+.btnTheme
+{
+    @include btn;
+    max-width: 180px;
+    font-size: 1.1rem;
+    background-color: var(--color-gray);
+    color: var(--color-white);
+
+}
+
+.btnBeige
+{
+    @include btn;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: var(--color-beige);
+    color: var(--color-gray);
+}
+
+.aLink
+{
+    color: var(--color-bodyText);
+    text-decoration: none;
+    transition: all ease-in-out 120ms;
+    
+    &:hover{
+        color: var(--color-grayMedium);
+    }
+}

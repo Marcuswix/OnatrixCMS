@@ -1,0 +1,51 @@
+@import "../core/mixins/_mixins.scss";
+
+//Mobil first
+@media(min-width: 10px)
+{
+    .containerCoups
+    {
+        padding-block: 1rem;  
+    }
+
+    .itemsContainerCoups
+    {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        place-items: center;
+        justify-items: center;
+        gap: 1rem;
+
+        .coupImage
+        {
+            width: 80%;
+        }
+    }
+}
+
+
+//Tablet
+@media(min-width: 768px)
+{
+
+    .itemsContainerCoups
+    {
+
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+}
+
+//Desktop
+@media(min-width: 1400px)
+{
+    .containerCoups
+    {
+        padding-block: 4rem;  
+    }
+
+    .itemsContainerCoups
+    {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+}

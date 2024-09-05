@@ -1,0 +1,28 @@
+@import "../core/mixins/_mixins.scss";
+
+.footer
+{
+    background-color: var(--color-black);
+}
+
+.containerFooter {
+    padding-block: 1rem;
+
+    .footerContent {
+        .footerText {
+            color: var(--color-gray);
+            margin: 0;
+        }
+
+        .aLinkFooter {
+            color: var(--color-sand);
+            transition: color ease-in-out 120ms;
+            text-decoration: none;
+
+            &:hover {
+                color: var(--color-beige);
+                text-decoration: underline;
+            }
+        }
+    }
+}

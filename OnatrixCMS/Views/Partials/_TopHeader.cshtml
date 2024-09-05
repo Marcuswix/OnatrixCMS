@@ -1,0 +1,74 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<IPublishedContent>
+@using Umbraco.Cms.Core
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+
+@inject IPublishedValueFallback PublishedValueFallback
+@inject IPublishedUrlProvider PublishedUrlProvider
+
+@{
+    // Hämta "Top Header" innehållsnoden
+    var topHeader = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "topHeader");
+
+    // Hämta adressen
+    var address = topHeader?.Value<string>("address");
+
+    // Hämta social media blocklist
+    var socialMediaBlocks = topHeader?.Value<BlockListModel>("socialmedia");
+
+    var backgroundColor = topHeader?.Value<ColorPickerValueConverter.PickedColor>("backgroundColor")?.Label.ToLower() ?? "white";
+
+    var blockCount = socialMediaBlocks?.Count() ?? 0;
+
+    var countSocialMediaItems = 0;
+}
+
+<style>
+
+    .siteContainer
+    {
+        background-color: var(--color-@backgroundColor);
+    }
+
+</style>
+
+<!-- Top Header -->
+<div class="siteContainer">
+    <div class="container">
+        <div class="contentContainer">
+            <p class="topHeaderText">@address</p>
+
+            @if(socialMediaBlocks != null)
+            {
+                <div class="socialMediaContainer">
+
+                    @foreach(var block in socialMediaBlocks)
+                    {
+                        var isLast = ++countSocialMediaItems == blockCount;
+
+                        var blockItem = block.Content;
+                        var socialmediaUrl = blockItem.Value<string>("socialmediaUrl");
+                        var socialmediaImage = blockItem.Value<IPublishedContent>("socialmediaImage")?.Url() ?? "";
+
+                        <a class="@(isLast ? "socialMediaButtonLast" : "socialMediaButton")" href="@socialmediaUrl">
+                            <img src="@socialmediaImage" alt="Socialmedia icon" /> 
+                        </a>
+                    }
+
+                </div>
+            }
+            else
+            {
+                <div class="socialMediaContainer">
+                    <a href="#" class="socialMediaButton"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="socialMediaButton"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="socialMediaButtonLast"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,182 @@
+@import "../core/mixins/_mixins.scss";
+
+//Mobil first
+@media(min-width: 10px)
+{
+    .success
+    {
+        background: linear-gradient(to bottom,  var(--color-gray) 90%, var(--color-white) 10%);
+        @include sectionContainer;
+        @include center;
+        position: relative;
+    }
+    .successContainerParent
+    {
+        padding-top: 2rem;
+    }
+
+    .successContainer {
+        position: relative;
+
+        .successImage {
+            width: 100%;
+            z-index: 0;
+            position: absolute;
+            right: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .sectionContainerParent {
+        padding-top: 2rem;
+    }
+
+    .sectionsHeadlinesContainer
+    {
+        text-align: center;
+        .ourServicesHeadlines
+        {
+            .white
+            {
+                color: var(--color-white);
+            }
+        }
+    }
+
+    .successItemContainer
+    {
+        padding-block: 2rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        .successItem
+        {
+            .bigNumbersContainer
+            {
+                text-align: center;
+
+                .bigNumbers
+                {
+                    font-size: 4rem;
+                    font-weight: 600;
+                    color: var(--color-sand);
+                    
+                    &:hover
+                    {
+                        transform: scale(1.2);
+                    }
+                }
+
+                .white
+                {
+                    padding-inline: 3rem;
+                    color: var(--color-white);
+                }
+            }
+        }
+    }
+
+    .bottomImageContainer
+    {
+        padding-top: 1rem;
+        @include centerFlex;
+
+        .successBottomImage
+        {
+            position: relative;
+            width: 100%;
+        }
+    }
+}
+
+//Tablet
+@media(min-width: 768px)
+{
+    .success
+    {
+        background: linear-gradient(to bottom,  var(--color-gray) 80%, var(--color-white) 20%);
+        padding-bottom: 0;
+    }
+    .successContainerParent 
+    {
+        padding-top: 0rem;
+
+        .successImage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .successItemContainer {
+            grid-template-columns: 1fr 1fr 1fr;
+
+            .successItem {
+                .bigNumbersContainer {
+
+                    .bigNumbers {
+                        font-size: 4rem;
+                    }
+
+                    .white {
+                        padding-inline: 0rem;
+                    }
+                }
+            }
+        }
+
+        .bottomImageContainer {
+            padding-top: 1rem;
+
+            .successBottomImage {
+                width: 75%;
+            }
+        }
+    }
+}
+
+//Desktop
+@media(min-width: 1400px)
+{
+    .success
+    {
+        padding-top: 1rem;
+    }
+
+    .successContainerParent
+    {
+        padding-top: 4rem;
+
+        .successItemContainer
+        {
+            .successItem
+            {
+
+                .bigNumbersContainer
+                {
+                    .bigNumbers
+                    {
+                        font-size: 6rem;
+                        transition: all ease-in-out 120ms;
+
+                        &:hover
+                        {
+                            scale: 1.05;
+                        }
+                    }
+                
+                    .white
+                    {
+                        max-width: 20rem;
+                    }
+                }
+            }
+        }
+
+        .bottomImageContainer
+        {
+            padding-top: 1rem;
+        }
+    }
+}

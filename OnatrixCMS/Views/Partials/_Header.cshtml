@@ -1,0 +1,54 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+
+@inject IPublishedValueFallback PublishedValueFallback
+@inject IPublishedUrlProvider PublishedUrlProvider
+
+@{
+    // Hämta "Top Header" innehållsnoden
+    var header = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "header");
+
+    // Hämta adressen
+    var logotype = header?.Value<IPublishedContent>("companyLogotype")?.Url() ?? "";
+}
+
+<!-- Header -->
+<div class="container">
+    <div class="headerContainer">
+        <div class="logotypeContainer">
+            <a href="@Model.Root().Url()"><img src="@logotype" alt="Company logotype"></a>
+        </div>
+
+        <div>
+            @Html.Partial("Navigation")
+        </div>
+
+        <div class="searchContainer">
+            <input class="inputSearch">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <div class="barContainer" onclick="showMenu()">
+            <i id="bars" class="fa-solid fa-bars"></i>
+        </div>
+
+        <div id="sideMenu" class="sideMenu">
+            <div class="xmarkContainer" onclick="hideMenu()">
+                <i id="xmark" class="fa-solid fa-xmark"></i>
+            </div>
+            <nav class="navSideMenu">
+                <a href="#" class="navLinkTextBar">About</a>
+                <a href="#" class="navLinkTextBar">Services</a>
+                <a href="#" class="navLinkTextBar">Projects</a>
+                <a href="#" class="navLinkTextBar">Contact</a>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/4d5d7d75c3.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"></script>
+<script src="/scripts/main.js"></script>

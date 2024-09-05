@@ -1,0 +1,99 @@
+@import "../core/mixins/_mixins.scss";
+//Mobil first >576px
+@media(min-width: 10px)
+{
+    .ourServices
+    {
+        padding-block: 1rem;
+        @include sectionContainer;
+        background-color: var(--color-darkWhite);
+    }
+
+    .ourServicesHeadlinesContainer
+    {
+        @include center;
+        text-align: center;
+        padding-bottom: 2rem;
+
+        .ourServicesHeadlines
+        {
+            @include center;
+            gap: 1rem;
+            max-width: 36rem;
+        }
+    }
+
+    .businessGrid
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+
+        .businessGridItem
+        {
+            @include center;
+            flex-direction: column;
+            border-radius: 0.2rem;
+            background-color: var(--color-white);
+            box-shadow: 0px 0px 6px var(--color-grayLight);
+
+            .gridItemImage
+            {
+                width: 100%;
+            }
+            .gridItemHeadlineContainer
+            {
+                text-align: center;
+                padding: 1.5rem;
+            }
+
+            .gridItemTextContainer
+            {
+                padding: 1.5rem;
+            }
+        }
+    }
+
+}
+
+//Tablet second >768px
+@media(min-width: 768px)
+{
+    .ourServices {
+        padding-block: 2rem;
+    }
+    .businessGrid
+    {
+        grid-template-columns: 1fr 1fr;
+
+        .businessGridItem
+        {
+            transition: all ease-in-out 120ms;
+
+            &:hover{
+                transform: scale(1.05);
+                box-shadow: 0px 0px 26px var(--color-grayLight);
+            }
+        }
+    }
+}
+
+//Desktop last >1400px
+@media(min-width: 1400px)
+{
+    .ourServices {
+        padding-block: 6rem;
+    }
+    .businessGrid
+    {
+        grid-template-columns: 1fr 1fr 1fr;
+
+        .businessGridItem
+        {
+            .gridItemHeadlineContainer
+            {
+                text-align: left;
+            }
+        }
+    }
+}
