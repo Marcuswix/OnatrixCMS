@@ -1,0 +1,13 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+    var centerContent = (Model!.Content.Value<bool>("centerContent")) ? "centerContentHorizontal" : "";
+    var alignTextCenter = (Model!.Content.Value<bool>("alignTextCenter")) ? "centerText" : "";
+}
+
+<div class="@centerContent @alignTextCenter elementContainer">
+    @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
+</div>

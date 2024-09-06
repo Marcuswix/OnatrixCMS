@@ -10,28 +10,21 @@
     var sectionTitleColor = Model?.Content.Value<PickedColor>("sectionTitleColor")?.Label.ToLower() ?? "sand";
     var sectionHeadlineColor = Model?.Content.Value<PickedColor>("sectionHeadlineColor")?.Label.ToLower() ?? "textgray";
 
-    var centerText = (Model!.Content.Value<bool>("textAlignCenter")) ? "centerText" : "";    
-}
+    var centerText = (Model!.Content.Value<bool>("textAlignCenter")) ? "centerText" : ""; 
 
-<style>
-    .sectionh2textColor
-    {
-        color: var(--color-@sectionHeadlineColor);
-    }
-    .sectionh5textColor
-    {
-        color: var(--color-@sectionTitleColor);
-    }
-</style>
+    var headerAlign = (Model!.Content.Value<bool>("healineAlignCenter")) ? "sectionHeadlineParentCenter" : "sectionHeadlineParentLeft";   
+}
 
 @if(!string.IsNullOrEmpty(sectionHeadline))
 {
-    <div class="sectionHeadlines @centerText">
-        <h5 class="h5Headline sectionh5textColor">
-            @sectionTitle
-        </h5>
-        <h2 class="h2Headline sectionh2textColor">
-            @sectionHeadline
-        </h2>
+    <div class="@headerAlign">
+        <div class="sectionHeadline @centerText">
+            <h5 style="color: var(--color-@sectionTitleColor)" class="h5Headline noMargin sectionh5textColor @centerText">
+                @sectionTitle
+            </h5>
+            <h2 style="color: var(--color-@sectionHeadlineColor)" class="h2Headline noMargin sectionh2textColor @centerText">
+                @sectionHeadline
+            </h2>
+        </div>
     </div>
 }

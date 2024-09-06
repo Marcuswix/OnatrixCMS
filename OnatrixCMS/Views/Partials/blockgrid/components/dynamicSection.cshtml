@@ -18,18 +18,8 @@
     var sectionBackgroundColor = Model?.Content.Value<PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? "transparent";
 }
 
-@if(sectionBackgroundColor != null)
-{
-    <style>
-        .sectionBackgroundColor
-        {
-            background-color: var(--color-@sectionBackgroundColor);
-        }
-    </style>
-}
 
-
-<section id="@sectionId" class="section sectionBackgroundColor @spacingTopClass @spacingBottomClass @standardSectionHeight">
+<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor)" class="section sectionBackgroundColor @spacingTopClass @spacingBottomClass @standardSectionHeight">
     <div class="container @centerContent">
         @if(!string.IsNullOrEmpty(sectionBackgroundImage))
         {

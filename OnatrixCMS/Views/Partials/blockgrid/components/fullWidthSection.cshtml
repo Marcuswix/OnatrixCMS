@@ -19,18 +19,8 @@
     
 }
 
-@if(sectionBackgroundColor != null)
-{
-<style>
-    .fullWidthSectionBackgroundColor
-    {
-        background-color: var(--color-@sectionBackgroundColor);
-    }
-</style>
-}
 
-
-<section id="@sectionId" class="section-full-width fullWidthSectionBackgroundColor @spacingTopClass @spacingBottomClass @standardSectionHeight @centerContent">
+<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor)" class="section-full-width fullWidthSectionBackgroundColor @spacingTopClass @spacingBottomClass @standardSectionHeight @centerContent">
         
         @if(!string.IsNullOrEmpty(sectionBackgroundImage))
         {

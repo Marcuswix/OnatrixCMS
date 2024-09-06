@@ -42,6 +42,7 @@
   text-decoration: none;
   min-width: 180px;
   font-size: 1.1rem;
+  font-weight: 500;
 }
 .btn:hover {
   background-color: var(--color-mediumgray);
@@ -137,6 +138,13 @@ body {
   margin: 0;
 }
 
+.sectionHeadlines {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 580px;
+}
+
 .centerText {
   text-align: center;
 }
@@ -210,6 +218,10 @@ body {
   height: 100%;
 }
 
+.elementContainer {
+  max-width: 720px;
+}
+
 .space1 {
   padding-block: 0.5rem;
 }
@@ -226,31 +238,88 @@ body {
   padding-block: 4rem;
 }
 
-.addSpaceToTop {
-  padding-top: 2rem;
+@media (min-width: 10px) {
+  .addSpaceToTop {
+    padding-top: 1rem;
+  }
+}
+@media (min-width: 768px) {
+  .addSpaceToTop {
+    padding-top: 2rem;
+  }
+}
+@media (min-width: 1400px) {
+  .addSpaceToTop {
+    padding-top: 6rem;
+  }
 }
 
-.addSpaceToBottom {
-  padding-bottom: 2rem;
+@media (min-width: 10px) {
+  .addSpaceToBottom {
+    padding-bottom: 1rem;
+  }
+}
+@media (min-width: 768px) {
+  .addSpaceToBottom {
+    padding-bottom: 2rem;
+  }
+}
+@media (min-width: 1400px) {
+  .addSpaceToBottom {
+    padding-bottom: 6rem;
+  }
 }
 
 .addSpaceBetweenElements {
   padding-block: 1rem;
 }
 
-.centerContent {
+.sectionHeadlineParentCenter {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.sectionHeadlineParentLeft {
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: start;
 }
 
-.backgroundImage {
-  opacity: 1;
-  position: absolute;
-  z-index: -1;
+.sectionHeadline {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  max-width: 540px;
 }
 
+.centerContentHorizontal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.centerContentVertical {
+  display: grid;
+  align-items: center;
+}
+
+@media (min-width: 10px) {
+  .backgroundImage {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .backgroundImage {
+    opacity: 1;
+    position: absolute;
+    z-index: -1;
+    display: flex;
+  }
+}
 .umb-block-grid__layout-container {
   position: relative;
   display: grid;

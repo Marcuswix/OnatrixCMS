@@ -8,19 +8,9 @@
     var textColor = Model?.Content.Value<PickedColor>("textColor")?.Label.ToLower() ?? "textgray";  
 }
 
-@if(textColor != null || textColor != "textgray")
-{
-<style>
-    .textColor
-    {
-        color: var(--color-@textColor);
-    }
-</style>
-}
-
 @if(!string.IsNullOrEmpty(paragraphContent))
 {
-    <p class="pText">
+    <p style="color: var(--color-@textColor)" class="pText noMargin">
         @paragraphContent
     </p>
 }

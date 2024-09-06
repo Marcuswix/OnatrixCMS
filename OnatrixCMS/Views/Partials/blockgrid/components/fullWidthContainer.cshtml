@@ -6,23 +6,15 @@
 @{
     var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "addSpaceToTop" : "";
     var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "addSpaceToBottom" : "";
-    var centerContent = (Model!.Content.Value<bool>("centerContentInSection")) ? "centerContent" : "";
+    var centerContentHorizontal = (Model!.Content.Value<bool>("centerContentHorizontal")) ? "centerContentHorizontal" : "";
+    var centerContentVertical = (Model!.Content.Value<bool>("centerContentVertical")) ? "centerContentVertical" : "";
+    var fullHeightContainer = (Model!.Content.Value<bool>("fullHeightContainer")) ? "fullHeightContainer" : "";
     var fullHeightContainer = (Model!.Content.Value<bool>("fullHeightContainer")) ? "fullHeightContainer" : "";
 
     var containerBackgroundColor = Model?.Content.Value<PickedColor>("ContainerBackgroundColor")?.Label.ToLower() ?? "transparent";
     
 }
 
-@if(containerBackgroundColor != null || containerBackgroundColor != "transparent")
-{
-<style>
-    .fullWidthContainerBackgroundColor
-    {
-        background-color: var(--color-@containerBackgroundColor);
-    }
-</style>
-}
-
-<div class="container-full-width fullWidthContainerBackgroundColor @centerContent @spacingTopClass @spacingBottomClass @fullHeightContainer">
+<div style="background-color: var(--color-@containerBackgroundColor)" class="container-full-width fullWidthContainerBackgroundColor @centerContentHorizontal @centerContentVertical @spacingTopClass @spacingBottomClass @fullHeightContainer">
     @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
 </div>

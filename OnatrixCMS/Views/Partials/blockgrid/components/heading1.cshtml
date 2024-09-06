@@ -8,19 +8,9 @@
     var textColor = Model?.Content.Value<PickedColor>("textColor")?.Label.ToLower() ?? "textgray";  
 }
 
-@if(textColor != null || textColor != "textgray")
-{
-<style>
-    .h1textColor
-    {
-        color: var(--color-@textColor);
-    }
-</style>
-}
-
 @if(!string.IsNullOrEmpty(headingContent))
 {
-    <h1 class="h1Headline h1textColor">
+    <h1 style="color: var(--color-@textColor);"class="h1Headline noMargin">
         @headingContent
     </h1>
 }

@@ -66,6 +66,13 @@ body {
     margin: 0;
 }
 
+.sectionHeadlines {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 580px;
+}
+
 .centerText
 {
     text-align: center;

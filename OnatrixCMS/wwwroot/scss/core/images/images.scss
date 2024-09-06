@@ -1,5 +1,17 @@
-.backgroundImage {
-    opacity: 1;
-    position: absolute;
-    z-index: -1;
+.backgroundImage 
+{
+
+    @media(min-width: 10px) {
+        display: none;
+    }
+
+    @media(min-width: 768px) {
+        opacity: 1;
+        position: absolute;
+        z-index: -1;
+        display: flex;
+    }
+
+    @media(min-width: 1400px) {
+    }
 }
