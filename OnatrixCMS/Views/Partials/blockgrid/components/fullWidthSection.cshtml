@@ -10,6 +10,7 @@
     var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "addSpaceToTop" : "";
     var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "addSpaceToBottom" : "";
     var centerContent = (Model!.Content.Value<bool>("centerContentInSection")) ? "centerContent" : "";
+    var standardSectionHeight = (Model!.Content.Value<bool>("standardSectionHeight")) ? "standardSectionHeight" : "";
 
     var sectionBackgroundImage = Model?.Content.Value<IPublishedContent>("sectionBackgroundImage")?.Url() ?? null; 
     var sectionBackgroundImageAltText = Model?.Content.Value<string>("sectionBackgroundImageAltText") ?? "Section Image"; 
@@ -29,14 +30,15 @@
 }
 
 
-<section id="@sectionId" class="section-full-width fullWidthSectionBackgroundColor @spacingTopClass @spacingBottomClass @centerContent">
+<section id="@sectionId" class="section-full-width fullWidthSectionBackgroundColor @spacingTopClass @spacingBottomClass @standardSectionHeight @centerContent">
         
         @if(!string.IsNullOrEmpty(sectionBackgroundImage))
         {
-            <div class="backgroundImagesContainer">
                 <img class="backgroundImage" src="@sectionBackgroundImage" alt="@sectionBackgroundImageAltText" />
-            </div>
-        }
+        } 
+        <div class="container">
+
         @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
         
+        </div>
 </section>

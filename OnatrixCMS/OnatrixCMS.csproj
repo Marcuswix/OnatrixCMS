@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\DefaultPictures\" />
-    <Folder Include="wwwroot\scss\core\components\" />
   </ItemGroup>
 
   <ItemGroup>

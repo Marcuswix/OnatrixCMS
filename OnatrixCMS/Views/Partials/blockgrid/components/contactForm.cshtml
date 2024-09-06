@@ -1,0 +1,56 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+    var btnColor = Model?.Content.Value<PickedColor>("buttonColor")?.Label.ToLower() ?? "darkgray";
+    var btnTextColor = Model?.Content.Value<PickedColor>("buttonTextColor")?.Label.ToLower() ?? "beige";
+    var btnText = Model?.Content.Value<string>("buttonText") ?? null;
+    var headlineText = Model?.Content.Value<string>("headlineText") ?? null;
+    var fromheadlineBackgroundColor = Model?.Content.Value<PickedColor>("headlineBackgroundColor")?.Label.ToLower() ?? null;
+    var fromheadlineTextColor = Model?.Content.Value<PickedColor>("headlineTextColor")?.Label.ToLower() ?? null;   
+    var infoText = Model?.Content.Value<string>("infoText") ?? null; 
+}
+
+<style>
+    .formBtnColors
+    {
+        color: var(--color-@btnTextColor);
+        background-color: var(--color-@btnColor);
+    }
+    .fromheadlineColors
+    {
+        color: var(--color-@fromheadlineTextColor);
+        background-color: var(--color-@fromheadlineBackgroundColor);
+    }
+</style>
+
+@if(!string.IsNullOrEmpty(btnText))
+{
+<div class="formContainer">
+
+    <form class="contactForm">
+        <div class="formHeader fromheadlineColors">
+            <h3 class="formh3Headline">@headlineText</h3>
+        </div>
+            <div class="formContent">
+                <div class="formTermsText">
+                    <i class="termsText">@infoText</i>
+                </div>
+                
+                <input class="formInput" placeholder="Name">
+                <span class="dangerText">A name is requried</span>
+                <input class="formInput" placeholder="Email Address">
+                <span class="dangerText">A name is requried</span>
+                <input class="formInput" placeholder="Phone">
+                <span class="dangerText">A name is requried</span>
+                <label class="formInputSelect">Financial consulting<select class="formSelect"></select></label>
+                <span class="dangerText">A name is requried</span>
+                <button type="submit" class="btn formBtnColors">@btnText</button>
+                <span class="dangerText">A name is requried</span>
+            </div>
+    </form>
+
+</div>
+}

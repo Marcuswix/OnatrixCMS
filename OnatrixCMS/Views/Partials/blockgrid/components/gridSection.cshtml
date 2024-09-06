@@ -1,0 +1,45 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+@using Umbraco.Cms.Core
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+
+@inject IPublishedValueFallback PublishedValueFallback
+@inject IPublishedUrlProvider PublishedUrlProvider
+
+@{
+    var gridBoxes = Model?.Content.Value<BlockListModel>("boxes");
+}
+<!-- Section Our Services -->
+<div class="businessGrid">
+    @if(gridBoxes != null)
+    {
+                @foreach (var box in gridBoxes)
+                {
+
+                var blockItem = box.Content;
+                var blockHeadline = blockItem.Value<string>("boxHeadline");
+                var blockText = blockItem.Value<string>("boxText");
+                var blockImage = blockItem.Value<IPublishedContent>("boxImage")?.Url() ?? "";
+
+                    <div class="businessGridItem">
+                        <a class="aLink" href="#">
+                            <div class="gridItemHeadlineContainer">
+                                <h4 class="h4Headline">@blockHeadline</h4>
+                            </div>
+
+                    <img class="gridItemImage" src="@blockImage" alt="">
+
+                            <div class="gridItemTextContainer">
+                                <p>@blockText</p>
+                            </div>
+                        </a>
+                    </div>
+                }            
+    }
+</div>
