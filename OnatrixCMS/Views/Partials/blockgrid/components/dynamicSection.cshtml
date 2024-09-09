@@ -19,11 +19,15 @@
 }
 
 
-<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor)" class="section sectionBackgroundColor @spacingTopClass @spacingBottomClass @standardSectionHeight">
+<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor)" class="section @spacingTopClass @spacingBottomClass @standardSectionHeight">
     <div class="container @centerContent">
         @if(!string.IsNullOrEmpty(sectionBackgroundImage))
         {
-            <img class="backgroundImage" src="@sectionBackgroundImage" alt="@sectionBackgroundImageAltText" />
+            <div class="backgroundImageContainer">
+
+                <img class="backgroundImage" src="@sectionBackgroundImage" alt="@sectionBackgroundImageAltText" />
+
+            </div>
         }
         @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
     </div>

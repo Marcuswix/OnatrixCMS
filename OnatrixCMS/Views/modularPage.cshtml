@@ -3,6 +3,12 @@
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
 	Layout = "mainLayout.cshtml";
+	ViewBag.Title = Model?.Value("pageTitle") ?? null;
 }
+
+@if(!string.IsNullOrEmpty(ViewBag.Title) && ViewBag.Title != "Home")
+{
+	@await Html.PartialAsync("partials/_PageTitle.cshtml")
+} 
 
 @await Html.GetBlockGridHtmlAsync(Model.Layout)

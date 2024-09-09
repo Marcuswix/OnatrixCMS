@@ -18,14 +18,14 @@
 
 @if (selection?.Length > 0)
 {
-    <nav class="headerNavDesktop">
-        <ul>
+        <ul class="navUl">
             @foreach (var item in selection)
             {
-                <li class="@(item.IsAncestorOrSelf(Model) ? "current" : null)">
-                    <a href="@item.Url(PublishedUrlProvider)" class="navLinkText">@item.Name</a>
+                var test = item.IsAncestorOrSelf(Model);
+                <li class="navLi">
+                    <a href="@item.Url(PublishedUrlProvider)" class="@(item.IsAncestorOrSelf(Model) ? "current" : null) navLinkText">@item.Name</a>
                 </li>
+                <div class="lineBetween"></div>
             }
         </ul>
-    </nav>
 }

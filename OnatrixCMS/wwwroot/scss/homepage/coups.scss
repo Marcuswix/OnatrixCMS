@@ -8,17 +8,21 @@
         padding-block: 1rem;  
     }
 
-    .itemsContainerCoups
-    {
+    .itemsContainerCoups {
         display: grid;
         grid-template-columns: 1fr 1fr;
         place-items: center;
         justify-items: center;
         gap: 1rem;
 
-        .coupImage
-        {
+        .coupImage {
             width: 80%;
+            transition: transform ease-in-out 120ms;
+            cursor: pointer;
+
+            &:hover {
+                transform: scale(1.05);
+            }
         }
     }
 }

@@ -6,8 +6,9 @@
 @{
     var centerContent = (Model!.Content.Value<bool>("centerContent")) ? "centerContentHorizontal" : "";
     var alignTextCenter = (Model!.Content.Value<bool>("alignTextCenter")) ? "centerText" : "";
+    var paddingAround = (Model!.Content.Value<bool>("paddingAround")) ? "paddingAround" : "";
 }
 
-<div class="@centerContent @alignTextCenter elementContainer">
+<div name="elementContainer" class="@centerContent @alignTextCenter @paddingAround elementContainer">
     @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
 </div>

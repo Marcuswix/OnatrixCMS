@@ -1,0 +1,39 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+
+    var headlineTextColor = Model?.Content.Value<PickedColor>("headlineTextColor")?.Label.ToLower() ?? "textgray";
+    var textColor = Model?.Content.Value<PickedColor>("textColor")?.Label.ToLower() ?? "textgray";
+    var headline1 = Model.Content.Value<string>("Headline1") ?? null;
+    var text1 = Model.Content.Value<string>("text1") ?? null;
+    var headline2 = Model.Content.Value<string>("Headline2") ?? null;
+    var text2 = Model.Content.Value<string>("text2") ?? null;
+    var headline3 = Model.Content.Value<string>("Headline3") ?? null;
+    var text3 = Model.Content.Value<string>("text3") ?? null;
+}
+
+<div class="successItemContainer">
+            <div class="successItem">
+                <div class="bigNumbersContainer">
+                    <h1 style="color: var(--color-@headlineTextColor)" class="bigNumbers noMargin">@headline1</h1>
+                    <p style="color: var(--color-@textColor); font-size: 1.2rem" class="noMargin">@text1</p>
+                </div>
+            </div>
+
+            <div class="successItem">
+                <div class="bigNumbersContainer">
+                    <h1 class="bigNumbers noMargin">@headline2</h1>
+                    <p style="color: var(--color-@textColor); font-size: 1.2rem" class="noMargin">@text2</p>
+                </div>
+            </div>
+
+            <div class="successItem">
+                <div class="bigNumbersContainer">
+                    <h1 class="bigNumbers noMargin">@headline3</h1>
+                    <p style="color: var(--color-@textColor); font-size: 1.2rem" class="noMargin">@text3</p>
+                </div>
+            </div>
+</div>

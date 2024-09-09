@@ -1,9 +1,9 @@
 //Mobil first
 @media(min-width: 10px)
 {
-    .sectionAbout
+    .pageTitleSection
     {
-        background-color: var(--color-darkWhite);
+        background-color: var(--color-darkwhite);
         position: relative;
         height: 140px;
         width: 100%;
@@ -27,11 +27,6 @@
             left: 0;
             bottom: 0;
             z-index: 0;
-        }
-
-        .container
-        {
-            padding-top: 0;
         }
 
         .sectionTitleContainer
@@ -66,7 +61,7 @@
 
 @media(min-width: 1400px)
 {
-    .sectionAbout
+    .pageTitleSection
     {
         height: 245px;
 
@@ -82,14 +77,14 @@
                 .anotherPageNav
                 {
                     text-decoration: none;
-                    color: var(--color-gray);
+                    color: var(--color-darkgray);
                     cursor: pointer;
                     transition: all ease-in-out 120ms;
 
                     &:hover
                     {
                         text-decoration: underline;
-                        color: var(--color-grayMedium);
+                        color: var(--color-mediumgray);
                     }
                 }
 

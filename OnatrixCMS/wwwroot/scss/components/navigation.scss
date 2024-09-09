@@ -1,0 +1,61 @@
+// Mobil >576px
+@media(min-width: 10px) {
+
+    .navUl {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .navLi {
+        list-style: none;
+        padding: 1rem;
+        transition: all ease-in-out 120ms;
+
+        .navLinkText {
+            margin-top: 0.6rem;
+            font-weight: 700;
+            color: var(--color-white);
+            text-decoration: none;
+            transition: all ease-in-out 120ms;
+
+            &:hover {
+                color: var(--color-lightgray) !important;
+            }
+        }
+
+        .current {
+            color: var(--color-sand) !important;
+        }
+    }
+
+    .lineBetween {
+        width: 100%;
+        height: 1px;
+        background-color: var(--color-mediumgray);
+        box-shadow: 1px 0px 24px var(--color-lightgray);
+    }
+}
+
+
+//Desktop 1400px
+@media(min-width: 1400px) {
+
+    .navUl {
+        display: flex;
+        gap: 2.5rem;
+
+        .navLi {
+            list-style: none;
+            padding: 0rem;
+
+            .navLinkText {
+                color: var(--color-darkgray);
+            }
+        }
+
+        .lineBetween{
+            display: none;
+        }
+    }
+}

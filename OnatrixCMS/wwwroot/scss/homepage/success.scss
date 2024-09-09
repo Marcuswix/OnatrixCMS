@@ -3,47 +3,6 @@
 //Mobil first
 @media(min-width: 10px)
 {
-    .success
-    {
-        background: linear-gradient(to bottom,  var(--color-gray) 90%, var(--color-white) 10%);
-        @include sectionContainer;
-        @include center;
-        position: relative;
-    }
-    .successContainerParent
-    {
-        padding-top: 2rem;
-    }
-
-    .successContainer {
-        position: relative;
-
-        .successImage {
-            width: 100%;
-            z-index: 0;
-            position: absolute;
-            right: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-    }
-
-    .sectionContainerParent {
-        padding-top: 2rem;
-    }
-
-    .sectionsHeadlinesContainer
-    {
-        text-align: center;
-        .ourServicesHeadlines
-        {
-            .white
-            {
-                color: var(--color-white);
-            }
-        }
-    }
-
     .successItemContainer
     {
         padding-block: 2rem;
@@ -76,39 +35,11 @@
             }
         }
     }
-
-    .bottomImageContainer
-    {
-        padding-top: 1rem;
-        @include centerFlex;
-
-        .successBottomImage
-        {
-            position: relative;
-            width: 100%;
-        }
-    }
 }
 
 //Tablet
 @media(min-width: 768px)
 {
-    .success
-    {
-        background: linear-gradient(to bottom,  var(--color-gray) 80%, var(--color-white) 20%);
-        padding-bottom: 0;
-    }
-    .successContainerParent 
-    {
-        padding-top: 0rem;
-
-        .successImage {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
         .successItemContainer {
             grid-template-columns: 1fr 1fr 1fr;
 
@@ -125,28 +56,11 @@
                 }
             }
         }
-
-        .bottomImageContainer {
-            padding-top: 1rem;
-
-            .successBottomImage {
-                width: 75%;
-            }
-        }
-    }
 }
 
 //Desktop
 @media(min-width: 1400px)
 {
-    .success
-    {
-        padding-top: 1rem;
-    }
-
-    .successContainerParent
-    {
-        padding-top: 4rem;
 
         .successItemContainer
         {
@@ -162,7 +76,7 @@
 
                         &:hover
                         {
-                            scale: 1.05;
+                            Transform: scale(1.05);
                         }
                     }
                 
@@ -173,10 +87,4 @@
                 }
             }
         }
-
-        .bottomImageContainer
-        {
-            padding-top: 1rem;
-        }
-    }
 }

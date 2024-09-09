@@ -12,67 +12,22 @@
 @{
     // Hämta "Top Header" innehållsnoden
     var topHeader = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "topHeader");
-
     // Hämta adressen
     var address = topHeader?.Value<string>("address");
 
-    // Hämta social media blocklist
-    var socialMediaBlocks = topHeader?.Value<BlockListModel>("socialmedia");
-
-    var backgroundColor = topHeader?.Value<ColorPickerValueConverter.PickedColor>("backgroundColor")?.Label.ToLower() ?? "none";
-
-    var blockCount = socialMediaBlocks?.Count() ?? 0;
-
-    var countSocialMediaItems = 0;
+    var backgroundColor = topHeader?.Value<ColorPickerValueConverter.PickedColor>("backgroundColor")?.Label.ToLower() ?? "transparent";
 }
-
-@if(backgroundColor != null || backgroundColor != "none")
-{
-    <style>
-
-        .topHeaderBackgroundColor
-        {
-            background-color: var(--color-@backgroundColor);
-        }
-
-    </style>
-}
-
 
 <!-- Top Header -->
-<div class="siteContainer topHeaderBackgroundColor">
+<div style="background-color: var(--color-@backgroundColor)" class="siteContainer">
     <div class="container">
         <div class="contentContainer">
             <p class="topHeaderText">@address</p>
-
-            @if(socialMediaBlocks != null)
-            {
                 <div class="socialMediaContainer">
 
-                    @foreach(var block in socialMediaBlocks)
-                    {
-                        var isLast = ++countSocialMediaItems == blockCount;
-
-                        var blockItem = block.Content;
-                        var socialmediaUrl = blockItem.Value<string>("socialmediaUrl");
-                        var socialmediaImage = blockItem.Value<IPublishedContent>("socialmediaImage")?.Url() ?? "";
-
-                        <a class="@(isLast ? "socialMediaButtonLast" : "socialMediaButton")" href="@socialmediaUrl">
-                            <img src="@socialmediaImage" alt="Socialmedia icon" /> 
-                        </a>
-                    }
+                    @await Html.PartialAsync("_Socialmedia.cshtml")
 
                 </div>
-            }
-            else
-            {
-                <div class="socialMediaContainer">
-                    <a href="#" class="socialMediaButton"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#" class="socialMediaButton"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#" class="socialMediaButtonLast"><i class="fa-brands fa-linkedin"></i></a>
-                </div>
-            }
-
         </div>
     </div>
 </div>

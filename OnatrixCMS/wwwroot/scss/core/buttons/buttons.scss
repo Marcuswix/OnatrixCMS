@@ -13,8 +13,8 @@
 
     &:hover
     {
-        background-color: var(--color-mediumgray);
-        color: var(--color-white);
+        background-color: var(--color-mediumgray) !important;
+        color: var(--color-white) !important;
     }
 }
 
@@ -37,11 +37,11 @@
 
 .aLink
 {
-    color: var(--color-bodyText);
+    color: var(--color-textgray);
     text-decoration: none;
     transition: all ease-in-out 120ms;
     
     &:hover{
-        color: var(--color-grayMedium);
+        color: var(--color-mediumgray);
     }
 }

@@ -1,0 +1,33 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+    var pageTitle = Model?.Content.Value<string>("pageTitle");
+    var textColor = Model?.Content.Value<PickedColor>("textColor")?.Label.ToLower() ?? "textgray";
+    var backgroundColor = Model?.Content.Value<PickedColor>("backgroundColor")?.Label.ToLower(); 
+}
+
+@if(!string.IsNullOrEmpty(pageTitle))
+{
+    <section style="background-color: var(--color-@backgroundColor); color: var(--color-@textColor)" class="pageTitleSection">
+
+        <img class="sectionTopImage" src="/defaultPictures/svgImages/GlobTop.svg" alt="a svg-picture of a globle" />
+        <img class="sectionBottomImage" src="/defaultPictures/svgImages/GlobBottom.svg" alt="a svg-picture of a globle" />
+
+
+            <div class="sectionTitleContainer">
+
+                <h2 class="h2Headline noMargin">@pageTitle</h2>
+                <nav class="navSectionTitle">
+                    <a href="#" class="anotherPageNav">Home</a>
+                    <i class="fa-solid fa-angle-right"></i>
+                    <p class="currentPageNav">@pageTitle</p>
+                </nav>
+            </div>
+
+    </section>
+}
+
+

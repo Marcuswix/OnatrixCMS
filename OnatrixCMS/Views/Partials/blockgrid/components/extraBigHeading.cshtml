@@ -1,0 +1,17 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+    var headingContent = Model?.Content.Value<string>("text");
+    var textColor = Model?.Content.Value<PickedColor>("textColor")?.Label.ToLower() ?? "textgray";
+    var textSize = Model?.Content.Value<string>("textSize") ?? "4";  
+}
+
+@if(!string.IsNullOrEmpty(headingContent))
+{
+    <h1 style="color: var(--color-@textColor); font-size: @($"{textSize}rem")" class="noMargin">
+        @headingContent
+    </h1>
+}

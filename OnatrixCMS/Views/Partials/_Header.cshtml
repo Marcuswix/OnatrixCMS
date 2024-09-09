@@ -11,32 +11,33 @@
 @{
     // Hämta "Top Header" innehållsnoden
     var header = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "header");
-
     // Hämta adressen
-    var logotype = header?.Value<IPublishedContent>("logotype")?.Url() ?? "";
+    var logotype = header?.Value<IPublishedContent>("logotype")?.Url() ?? null;
 
-    var backgroundColor = header?.Value<PickedColor>("backgroundColor")?.Label.ToLower() ?? "none";  
-}
-
-@if(backgroundColor != null || backgroundColor != "none")
-{
-<style>
-    .backgroundColor
-    {
-        background-color: var(--color-@backgroundColor);
-    }
-</style>
+    var backgroundColor = header?.Value<PickedColor>("backgroundColor")?.Label.ToLower() ?? "transparent";  
 }
 
 <!-- Header -->
-<div class="container">
+<div style="background-color: var(--color-@backgroundColor)" class="container">
     <div class="headerContainer">
         <div class="logotypeContainer">
-            <a href="@Model.Root().Url()"><img src="@logotype" alt="Company logotype"></a>
+
+                <a href="@Model.Root().Url()">
+                @if (logotype != null)
+                {
+                    <img src="@logotype" alt="Company logotype">
+                }
+                else
+                {
+                    <img src="/defaultPictures/logotype/logotypeGray.svg" alt="Company logotype">
+                }
+                </a>
         </div>
 
         <div>
-            @Html.Partial("Navigation")
+            <nav class="navDesktop">
+                @await Html.PartialAsync("_Navigation.cshtml")
+            </nav>
         </div>
 
         <div class="searchContainer">
@@ -53,10 +54,7 @@
                 <i id="xmark" class="fa-solid fa-xmark"></i>
             </div>
             <nav class="navSideMenu">
-                <a href="#" class="navLinkTextBar">About</a>
-                <a href="#" class="navLinkTextBar">Services</a>
-                <a href="#" class="navLinkTextBar">Projects</a>
-                <a href="#" class="navLinkTextBar">Contact</a>
+                @await Html.PartialAsync("_Navigation.cshtml")
             </nav>
         </div>
     </div>
@@ -64,4 +62,4 @@
 
 <script src="https://kit.fontawesome.com/4d5d7d75c3.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"></script>
-<script src="/scripts/main.js"></script>
+<script src="/Scripts/main.js"></script>

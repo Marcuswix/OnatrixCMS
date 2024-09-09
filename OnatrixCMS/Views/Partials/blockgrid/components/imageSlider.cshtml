@@ -1,0 +1,37 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
+@{
+    var slides = Model.Content.Value<IEnumerable<Umbraco.Cms.Core.Models.Blocks.BlockListItem>>("slides");
+}
+
+    <div class="itemsContainerCoups">
+
+            @if(slides != null)
+            {
+                foreach(var slide in slides)
+                {
+                    var picture = slide.Content.Value<IPublishedContent>("picture")?.Url(); 
+                    var piuctureDescription = slide.Content.Value<string>("pictureDescription") ?? null;
+                    var pictureUrl = slide.Content.Value<string>("pictureUrl") ?? null;
+                    var urlIsExternal = slide.Content.Value<bool>("urlIsExternal");
+
+                    if(!string.IsNullOrEmpty(pictureUrl))
+                    {
+                        if(urlIsExternal == true)
+                        {
+                            <a href="@pictureUrl" target="_blank"><img class="coupImage" src="@picture" alt="@piuctureDescription"></a>
+                        }
+                        else
+                        {
+                            <a href="@pictureUrl"><img class="coupImage" src="@picture" alt="@piuctureDescription"></a>
+                        }
+                    }
+                    else
+                    {
+                        <img class="coupImage" src="@picture" />
+                    }
+                }
+            }
+    </div>

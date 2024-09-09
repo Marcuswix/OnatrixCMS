@@ -1,0 +1,41 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+@inject IPublishedUrlProvider PublishedUrlProvider
+
+@{
+    var selection = Model.Ancestors().ToArray();
+    var homePageDisplayName = "Home";
+    var isFirstItem = true;  
+}
+
+    <section class="pageTitleSection">
+
+        <img class="sectionTopImage" src="/defaultPictures/svgImages/GlobTop.svg" alt="a svg-picture of a globle" />
+        <img class="sectionBottomImage" src="/defaultPictures/svgImages/GlobBottom.svg" alt="a svg-picture of a globle" />
+
+
+            <div class="sectionTitleContainer">
+
+                <h2 class="h2Headline noMargin">@Model.Name</h2>
+                <nav class="navSectionTitle">
+
+                @if (selection?.Length > 0)
+                {
+                        @foreach (var item in selection.OrderBy(x => x.Level))
+                        {
+                            var displayName = isFirstItem ? homePageDisplayName : item.Name;
+                            <a class="anotherPageNav" href="@item.Url(PublishedUrlProvider)">@displayName</a>
+                            <i class="fa-solid fa-angle-right"></i>
+                            isFirstItem = false;
+                        }
+                        <div class="currentPageNav">@Model.Name</div>
+                }
+
+                </nav>
+            </div>
+
+    </section>
