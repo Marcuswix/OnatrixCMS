@@ -28,6 +28,11 @@
 		<main>
 			@RenderBody()
 		</main>
+		
+		@if(ViewBag.Title != "Home")
+		{
+			@await Html.PartialAsync("endSection")
+		}
 
 		@await Html.PartialAsync("_Footer")
 

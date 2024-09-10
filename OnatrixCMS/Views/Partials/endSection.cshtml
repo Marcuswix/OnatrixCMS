@@ -1,54 +1,84 @@
-﻿<section class="sectionEndSection">
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@inject IPublishedValueFallback PublishedValueFallback
+@inject IPublishedUrlProvider PublishedUrlProvider
+
+@{
+    var companyInformation = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "companyInformation");
+    var companyDetails = companyInformation?.Value<IEnumerable<BlockListItem>>("companyDetails") ?? null;
+
+    var endSection = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "endSection");
+    var headline = endSection?.Value<string>("headline") ?? "";
+    var textColor = endSection?.Value<PickedColor>("headlineTextColor")?.Label.ToLower() ?? "textgray";
+    var backgroundColor = endSection?.Value<PickedColor>("backgroundColor")?.Label.ToLower() ?? "transparent";
+    var tagColor = endSection?.Value<PickedColor>("tagColor")?.Label.ToLower() ?? "sand";
+}
+<section style="background-color: var(--color-@backgroundColor)" class="sectionEndSection">
 
     <div class="container endSectionContainer">
 
         <div class="endSectionImageContainer">
-            <img class="endSectionFirstImage" src="/designImages/endSectionImages/Dot.svg" alt="a svg-picture" />
-            <img class="endSectionSecondImage" src="/designImages/endSectionImages/Bg.svg" alt="a svg-picture" />
-            <img class="endSectionThirdImage" src="/designImages/endSectionImages/endSectionPicture.svg" alt="a picture of a man" />
+            <img class="endSectionFirstImage" src="/defaultPictures/endSectionImages/Dot.svg" alt="a svg-picture" />
+            <img class="endSectionSecondImage" src="/defaultPictures/endSectionImages/Bg.svg" alt="a svg-picture" />
+            <img class="endSectionThirdImage" src="/defaultPictures/endSectionImages/Img-5-e1695109900349 1.svg" alt="a picture of a man" />
         </div>
 
         <div class="endSectionParentContainer">
             <div class="endSectionTextContainer">
-                <h2 class="h2Headlines">Let us know about your next project</h2>
-                <div class="endSectionTextItem">
-                    <div class="iconContainer">
-                        <svg class="icon" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.41495 0C6.18442 0.00238235 4.04592 0.889514 2.46869 2.46674C0.891465 4.04397 0.00433547 6.18247 0.00195312 8.413V8.646C0.00195312 10.992 1.34695 13.726 4.00195 16.772C5.19958 18.1433 6.50363 19.418 7.90195 20.584L8.41495 21L8.93095 20.583C10.3293 19.417 11.6334 18.1424 12.831 16.771C15.484 13.725 16.831 10.991 16.831 8.645V8.413C16.8286 6.18195 15.941 4.043 14.3632 2.46568C12.7853 0.88837 10.646 0.00158818 8.41495 0V0ZM15.186 8.646C15.186 12.611 10.077 17.41 8.41495 18.867C6.75195 17.41 1.64395 12.61 1.64395 8.646V8.413C1.64395 7.52375 1.8191 6.64322 2.1594 5.82166C2.4997 5.0001 2.99849 4.25362 3.62728 3.62483C4.25607 2.99603 5.00256 2.49725 5.82411 2.15695C6.64567 1.81665 7.52621 1.6415 8.41545 1.6415C9.3047 1.6415 10.1852 1.81665 11.0068 2.15695C11.8284 2.49725 12.5748 2.99603 13.2036 3.62483C13.8324 4.25362 14.3312 5.0001 14.6715 5.82166C15.0118 6.64322 15.187 7.52375 15.187 8.413L15.186 8.646Z" fill="#D9C3A9" />
-                        </svg>
-                    </div>
-                    <div class="endSectionContentContainer">
-                        <b>Office location</b>
-                        <p>Klarabergsviadukten 90, 111 52 Stockholm</p>
-                    </div>
-                </div>
-                <div class="endSectionTextItem">
-                    <div class="iconContainer">
-                        <svg class="icon" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16.174 2.22L13.947 0L9.32 4.619L11.113 6.471C10.5474 7.44808 9.8536 8.34505 9.05 9.138C8.25234 9.94568 7.35116 10.6441 6.37 11.215L4.554 9.422L0 13.949L2.215 16.179C2.62652 16.5917 3.15631 16.866 3.73083 16.9638C4.30535 17.0617 4.89608 16.9782 5.421 16.725C7.85736 15.5234 10.078 13.9268 11.993 12C13.9208 10.0856 15.5184 7.86521 16.721 5.429C16.905 5.05005 17.0004 4.63424 17 4.213C17.0001 3.8428 16.9272 3.47622 16.7855 3.13423C16.6438 2.79224 16.436 2.48157 16.174 2.22ZM15.526 4.846C14.388 7.14933 12.8766 9.24838 11.053 11.058C9.24369 12.8815 7.14499 14.393 4.842 15.531C4.56572 15.6637 4.255 15.7072 3.9529 15.6554C3.65081 15.6036 3.3723 15.4592 3.156 15.242L1.877 13.955L4.557 11.291L6.104 12.818L6.518 12.634C7.81039 11.9831 8.98355 11.1186 9.988 10.077C11.0272 9.07806 11.8877 7.90848 12.532 6.619L12.711 6.211L11.183 4.634L13.947 1.874L15.232 3.159C15.4501 3.37488 15.5955 3.65329 15.6482 3.95558C15.7009 4.25788 15.6582 4.56908 15.526 4.846Z" fill="#D9C3A9" />
-                        </svg>
-                    </div>
-                    <div class="endSectionContentContainer">
-                        <b>Office location</b>
-                        <p>Klarabergsviadukten 90, 111 52 Stockholm</p>
-                    </div>
-                </div>
-                <div class="endSectionTextItem">
-                    <div class="iconContainer">
-                        <svg class="icon" viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1.993 12.8991C1.46499 12.8972 0.959135 12.6866 0.585774 12.3133C0.212413 11.9399 0.00184482 11.4341 0 10.9061L0 2.40606C0.00210814 1.87823 0.212793 1.37263 0.586125 0.999482C0.959458 0.626337 1.46516 0.415906 1.993 0.414062L15.008 0.414063C15.5358 0.416171 16.0414 0.626855 16.4146 1.00019C16.7877 1.37352 16.9982 1.87923 17 2.40706V10.9071C16.9982 11.4351 16.7876 11.9409 16.4142 12.3143C16.0409 12.6876 15.535 12.8982 15.007 12.9001L1.993 12.8991ZM1.329 10.9061C1.32926 11.0821 1.39931 11.2508 1.52377 11.3753C1.64824 11.4998 1.81698 11.5698 1.993 11.5701H15.008C15.184 11.5698 15.3528 11.4998 15.4772 11.3753C15.6017 11.2508 15.6717 11.0821 15.672 10.9061V2.81406L8.5 8.14806L1.328 2.81406L1.329 10.9061ZM8.5 6.49306L14.887 1.74306H2.114L8.5 6.49306Z" fill="#D9C3A9" />
-                        </svg>
-                    </div>
-                    <div class="endSectionContentContainer">
-                        <b>Office location</b>
-                        <p>Klarabergsviadukten 90, 111 52 Stockholm</p>
-                    </div>
-                </div>
+                <h2 style="color: var(--color-@textColor)" class="h2Headline endSectionTextAlign">@headline</h2>
+
+                @if(companyDetails != null)
+                {
+                    @foreach (var item in companyDetails)
+                    {
+                        var detail = item.Content;
+                        string icon = "";
+                        var tag = detail?.Value<string>("tagSelector")?.ToLower() ?? null;
+
+                        switch(tag)
+                        {
+                            case "location": 
+                            icon = "fa-location-dot";
+                            break;
+                            case "phone":
+                            icon = "fa-phone";
+                            break;
+                            case "email":
+                            icon = "fa-envelope";
+                            break;
+                            default:
+                            icon = "fa-circle";
+                            break;
+                        }
+                        <div class="endSectionTextItem">
+                            <div class="iconContainer">
+                                <i style="color: var(--color-@tagColor)" class="fa-solid @icon"></i>
+                            </div>
+                            <div class="endSectionContentContainer">
+                                <b style="color: var(--color-@textColor)">
+                                    @if (detail?.Value("informationDetail") != null)
+                                    {
+                                        @detail?.Value("informationDetail")
+                                    }
+                                    else
+                                    {
+
+                                    }    
+                                </b>
+                                <p style="color: var(--color-@textColor)">@detail?.Value("informationDetailContent")</p>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
-
-
         </div>
-
     </div>
 </section>
 

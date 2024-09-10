@@ -371,6 +371,41 @@ body {
     width: 100%;
   }
 }
+.paginationInnerContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  padding-top: 2rem;
+}
+.paginationInnerContainer .change {
+  color: var(--color-textgray);
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+.paginationInnerContainer .pages {
+  display: flex;
+  gap: 0.6rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.paginationInnerContainer .number {
+  color: var(--color-textgray);
+  font-size: 1.2rem;
+  text-decoration: none;
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+}
+.paginationInnerContainer .inactive {
+  color: var(--color-lightgray);
+}
+.paginationInnerContainer .active {
+  border: solid 1px var(--color-lightgray);
+  border-radius: 50%;
+}
+
 .umb-block-grid__layout-container {
   position: relative;
   display: grid;
@@ -727,7 +762,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-darkWhite);
   }
   .ourServicesHeadlinesContainer {
     display: grid;
@@ -755,7 +789,7 @@ body {
     flex-direction: column;
     border-radius: 0.2rem;
     background-color: var(--color-white);
-    box-shadow: 0px 0px 6px var(--color-grayLight);
+    box-shadow: 0px 0px 6px var(--color-lightgray);
   }
   .businessGrid .businessGridItem .gridItemImage {
     width: 100%;
@@ -776,11 +810,12 @@ body {
     grid-template-columns: 1fr 1fr;
   }
   .businessGrid .businessGridItem {
+    overflow: hidden;
     transition: all ease-in-out 120ms;
   }
   .businessGrid .businessGridItem:hover {
     transform: scale(1.05);
-    box-shadow: 0px 0px 26px var(--color-grayLight);
+    box-shadow: 0px 0px 26px var(--color-lightgray);
   }
 }
 @media (min-width: 1400px) {
@@ -1032,6 +1067,47 @@ body {
     padding-bottom: 6rem;
   }
 }
+@media (min-width: 10px) {
+  .sectionServicesContainer {
+    display: flex;
+    flex-direction: column;
+    padding-block: 1rem;
+  }
+  .sectionServicesContainer .smallContainer {
+    display: block;
+    width: 100%;
+  }
+  .sectionServicesContainer .verticalLineBetween {
+    height: 100%;
+    background-color: var(--color-lightgray);
+    width: 1px;
+  }
+  .sectionServicesContainer .bigContainer {
+    display: block;
+    width: 100%;
+  }
+}
+@media (min-width: 1400px) {
+  .sectionServicesContainer {
+    display: grid;
+    grid-template-columns: 1fr auto 3fr;
+    gap: 3rem;
+    padding-block: 4rem;
+  }
+  .sectionServicesContainer .smallContainer {
+    display: block;
+    width: 100%;
+  }
+  .sectionServicesContainer .verticalLineBetween {
+    height: 100%;
+    background-color: var(--color-lightgray);
+    width: 1px;
+  }
+  .sectionServicesContainer .bigContainer {
+    display: block;
+    width: 100%;
+  }
+}
 .container {
   width: 100%;
 }
@@ -1048,7 +1124,6 @@ body {
 
 @media (min-width: 10px) {
   .sectionEndSection {
-    background-color: var(--color-darkWhite);
     overflow: hidden;
   }
   .sectionEndSection .endSectionContainer {
@@ -1066,7 +1141,7 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    transform: translate(10%, 10%);
+    transform: translate(0%, 0%);
     z-index: 1;
   }
   .sectionEndSection .endSectionContainer .endSectionImageContainer .endSectionSecondImage {
@@ -1089,7 +1164,7 @@ body {
     width: 100%;
     text-align: center;
   }
-  .sectionEndSection .endSectionContainer .endSectionTextContainer .h2Headlines {
+  .sectionEndSection .endSectionContainer .endSectionTextContainer .endSectionTextAlign {
     font-size: 2rem;
   }
   .sectionEndSection .endSectionContainer .endSectionTextContainer .endSectionTextItem {
@@ -1116,13 +1191,11 @@ body {
 @media (min-width: 1400px) {
   .sectionEndSection {
     padding-top: 4rem;
-    background-color: var(--color-darkWhite);
   }
   .sectionEndSection .endSectionContainer {
-    padding-top: 0;
-    display: grid;
+    padding-inline: 2rem;
     grid-template-columns: 55% 45%;
-    overflow: hidden;
+    gap: 2rem;
   }
   .sectionEndSection .endSectionContainer .endSectionImageContainer {
     position: relative;
@@ -1135,9 +1208,10 @@ body {
     width: 100%;
   }
   .sectionEndSection .endSectionContainer .endSectionParentContainer .endSectionTextContainer {
+    max-width: 376px;
     row-gap: 1.6rem;
   }
-  .sectionEndSection .endSectionContainer .endSectionParentContainer .endSectionTextContainer .h2Headlines {
+  .sectionEndSection .endSectionContainer .endSectionParentContainer .endSectionTextContainer .endSectionTextAlign {
     text-align: left;
   }
   .sectionEndSection .endSectionContainer .endSectionParentContainer .endSectionTextContainer .endSectionTextItem .iconContainer {

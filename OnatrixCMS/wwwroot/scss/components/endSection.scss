@@ -3,13 +3,10 @@
 //Mobil
 @media(min-width: 10px)
 {
-    .sectionEndSection
-    {
-        background-color: var(--color-darkWhite);
-        overflow: hidden; 
+    .sectionEndSection {
+        overflow: hidden;
 
-        .endSectionContainer
-        {
+        .endSectionContainer {
             display: grid;
             grid-template-columns: 1fr;
             overflow: hidden;
@@ -17,35 +14,32 @@
             place-items: center;
             height: 100%;
 
-            .endSectionImageContainer
-            {
+            .endSectionImageContainer {
                 display: none;
 
-                .endSectionFirstImage
-                {
+                .endSectionFirstImage {
                     position: absolute;
                     top: 0;
                     right: 0;
-                    transform: translate(10%, 10%);
+                    transform: translate(0%, 0%);
                     z-index: 1;
                 }
-                .endSectionSecondImage
-                {
+
+                .endSectionSecondImage {
                     position: absolute;
                     bottom: 0;
                     left: 0;
                     z-index: 2;
                     width: 130%;
                 }
-                .endSectionThirdImage
-                {
+
+                .endSectionThirdImage {
                     margin-top: auto;
                     z-index: 3;
                 }
             }
 
-            .endSectionTextContainer
-            {
+            .endSectionTextContainer {
                 padding-block: 4rem;
                 display: flex;
                 justify-content: center;
@@ -54,30 +48,25 @@
                 width: 100%;
                 text-align: center;
 
-                .h2Headlines
-                {
+                .endSectionTextAlign {
                     font-size: 2rem;
                 }
 
-                .endSectionTextItem{
+                .endSectionTextItem {
                     display: flex;
                     justify-content: left;
                     column-gap: 0.5rem;
 
-                    .iconContainer
-                    {
+                    .iconContainer {
                         @include center;
-                        
-                        .icon
-                        {
+
+                        .icon {
                             width: 2rem;
                             height: 2rem;
                         }
-
                     }
 
-                    .endSectionContentContainer
-                    {
+                    .endSectionContentContainer {
                         font-size: 1.5rem;
                         display: flex;
                         flex-direction: column;
@@ -96,20 +85,15 @@
 
 @media(min-width: 1400px)
 {
-    .sectionEndSection
-    {
+    .sectionEndSection {
         padding-top: 4rem;
-        background-color: var(--color-darkWhite);
 
-        .endSectionContainer
-        {
-            padding-top: 0;
-            display: grid;
+        .endSectionContainer {
+            padding-inline: 2rem;
             grid-template-columns: 55% 45%;
-            overflow: hidden;
+            gap: 2rem;
 
-            .endSectionImageContainer
-            {
+            .endSectionImageContainer {
                 position: relative;
                 display: flex;
                 flex-direction: column;
@@ -117,35 +101,29 @@
                 opacity: 1;
             }
 
-            .endSectionParentContainer
-            {
+            .endSectionParentContainer {
                 width: 100%;
 
-                .endSectionTextContainer
-                {
+                .endSectionTextContainer {
+                    max-width: 376px; 
                     row-gap: 1.6rem;
 
-                    .h2Headlines
-                    {
+                    .endSectionTextAlign {
                         text-align: left;
                     }
-    
-                    .endSectionTextItem{
 
-                        .iconContainer
-                        {
+                    .endSectionTextItem {
+
+                        .iconContainer {
                             display: block;
-                            
-                            .icon
-                            {
+
+                            .icon {
                                 width: 20px;
                                 height: 20px;
                             }
-    
                         }
-    
-                        .endSectionContentContainer
-                        {
+
+                        .endSectionContentContainer {
                             text-align: left;
                             font-size: 1rem;
                         }

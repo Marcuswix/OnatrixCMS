@@ -123,23 +123,23 @@
         }
 }
 
-    .sectionHeadline {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-        max-width: 540px;
-    }
+.sectionHeadline {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    max-width: 540px;
+}
 
-    .centerContentHorizontal {
+.centerContentHorizontal {
         @include center;
         align-items: center;
     }
 
-    .centerContent {
-        height: 100%;
-        display: grid;
-        align-items: center;
-    }
+.centerContent {
+    height: 100%;
+    display: grid;
+    align-items: center;
+}
 
     .centerContentVertical {
         display: grid;
@@ -170,24 +170,65 @@
     }
 }
 
-    .imageContainer {
+.imageContainer {
         position: relative;
 
 
-        .image {
-            @media(min-width: 10px) {
-                width: 100%;
-            }
+    .image {
+        @media(min-width: 10px) {
+            width: 100%;
+        }
 
-            @media(min-width: 768px) {
-                display: flex;
-                width: 100%;
-            }
+        @media(min-width: 768px) {
+            display: flex;
+            width: 100%;
+        }
 
-            @media(min-width: 1400px) {
-            }
+        @media(min-width: 1400px) {
         }
     }
+}
+
+
+.paginationInnerContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+    padding-top: 2rem;
+
+    .change {
+        color: var(--color-textgray);
+        font-size: 1.2rem;
+        text-decoration: none;
+    }
+
+    .pages {
+        display: flex;
+        gap: 0.6rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .number {
+        color: var(--color-textgray);
+        font-size: 1.2rem;
+        text-decoration: none;
+        padding-block: 0.5rem;
+        padding-inline: 1rem; 
+    }
+
+    .inactive {
+        color: var(--color-lightgray);
+    }
+
+    .active {
+        border: solid 1px var(--color-lightgray);
+        border-radius: 50%;
+    }
+}
     //Umbraco Css
     .umb-block-grid__layout-container {
         position: relative;

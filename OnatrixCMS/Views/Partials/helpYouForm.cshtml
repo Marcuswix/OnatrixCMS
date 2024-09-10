@@ -1,0 +1,33 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
+@{
+    var home = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "ModularPage") ?? null;
+
+    var service = home?.Children.FirstOrDefault(x => x.ContentType.Alias == "Services") ?? null;
+
+    var riskManagment = service?.Children.FirstOrDefault(x => x.ContentType.Alias == "RiskManagement") ?? null;
+    var headlineText = riskManagment?.Value<string>("headlineText") ?? null; 
+    var infoText = riskManagment?.Value<string>("text") ?? null; 
+}
+
+@if(!string.IsNullOrEmpty(headlineText))
+{
+    <div class="formContainer">
+
+        <form class="contactForm">
+            <div class="formHeader fromheadlineColors">
+                <h4 class="h4Headline">@headlineText</h4>
+            </div>
+                <div class="formContent">
+                    <div class="formTermsText">
+                        <i class="termsText">@infoText</i>
+                    </div>
+                    
+                    <input class="formInput" placeholder="Email Address">
+                    <span class="dangerText">A name is requried</span>
+                    <button type="submit" hidden class="btn formBtnColors"></button>
+                </div>
+        </form>
+
+    </div>
+}

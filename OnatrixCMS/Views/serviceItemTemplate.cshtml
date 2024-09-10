@@ -1,0 +1,29 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "mainLayout.cshtml";
+	ViewBag.Title = Model.Name;
+}
+
+@if(!string.IsNullOrEmpty(ViewBag.Title) && ViewBag.Title != "Home")
+{
+	@await Html.PartialAsync("partials/_PageTitle.cshtml")
+} 
+
+<section>
+	<div class="container">
+		<div class="sectionServicesContainer">
+			
+			<div class="smallContainer">
+				@await Html.PartialAsync("partials/helpYouForm.cshtml")
+			</div>
+
+			<div class="verticalLineBetween"></div>
+
+			<div class="bigContainer">
+				@Model.Value("pageContent")
+			</div>
+		</div>
+	</div>
+</section>
+

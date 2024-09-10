@@ -1,12 +1,11 @@
 @import "../core/mixins/_mixins.scss";
-//Mobil first >576px
+//Mobil >576px
 @media(min-width: 10px)
 {
     .ourServices
     {
         padding-block: 1rem;
         @include sectionContainer;
-        background-color: var(--color-darkWhite);
     }
 
     .ourServicesHeadlinesContainer
@@ -23,32 +22,28 @@
         }
     }
 
-    .businessGrid
-    {
+    .businessGrid {
         display: grid;
         grid-template-columns: 1fr;
         gap: 2rem;
 
-        .businessGridItem
-        {
+        .businessGridItem {
             @include center;
             flex-direction: column;
             border-radius: 0.2rem;
             background-color: var(--color-white);
-            box-shadow: 0px 0px 6px var(--color-grayLight);
+            box-shadow: 0px 0px 6px var(--color-lightgray);
 
-            .gridItemImage
-            {
-                width: 100%;
-            }
-            .gridItemHeadlineContainer
-            {
+                .gridItemImage {
+                    width: 100%;
+                }
+
+            .gridItemHeadlineContainer {
                 text-align: center;
                 padding: 1.5rem;
             }
 
-            .gridItemTextContainer
-            {
+            .gridItemTextContainer {
                 padding: 1.5rem;
             }
         }
@@ -56,27 +51,27 @@
 
 }
 
-//Tablet second >768px
-@media(min-width: 768px)
-{
+@media(min-width: 768px) {
     .ourServices {
         padding-block: 2rem;
     }
-    .businessGrid
-    {
+
+    .businessGrid {
         grid-template-columns: 1fr 1fr;
 
-        .businessGridItem
-        {
+        .businessGridItem {
+            overflow: hidden;
             transition: all ease-in-out 120ms;
 
-            &:hover{
+            &:hover {
                 transform: scale(1.05);
-                box-shadow: 0px 0px 26px var(--color-grayLight);
+                box-shadow: 0px 0px 26px var(--color-lightgray);
             }
         }
     }
 }
+
+
 
 //Desktop last >1400px
 @media(min-width: 1400px)
