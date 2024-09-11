@@ -11,4 +11,4 @@
 	@await Html.PartialAsync("partials/_PageTitle.cshtml")
 } 
 
-@await Html.GetBlockGridHtmlAsync(Model.Layout)
+@await Html.GetBlockGridHtmlAsync(Model?.Layout)

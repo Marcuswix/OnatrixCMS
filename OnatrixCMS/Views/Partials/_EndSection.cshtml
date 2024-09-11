@@ -62,16 +62,21 @@
                                 <i style="color: var(--color-@tagColor)" class="fa-solid @icon"></i>
                             </div>
                             <div class="endSectionContentContainer">
-                                <b style="color: var(--color-@textColor)">
-                                    @if (detail?.Value("informationDetail") != null)
-                                    {
-                                        @detail?.Value("informationDetail")
-                                    }
-                                    else
-                                    {
+                                <div>
+                                    <div class="secondIconContainer">
+                                        <i style="color: var(--color-@tagColor)" class="fa-solid @icon"></i>
+                                    </div>
+                                    <b style="color: var(--color-@textColor)">
+                                        @if (detail?.Value("informationDetail") != null)
+                                        {
+                                            @detail?.Value("informationDetail")
+                                        }
+                                        else
+                                        {
 
-                                    }    
-                                </b>
+                                        }
+                                    </b>
+                                </div>  
                                 <p style="color: var(--color-@textColor)">@detail?.Value("informationDetailContent")</p>
                             </div>
                         </div>

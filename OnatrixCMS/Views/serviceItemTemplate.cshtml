@@ -1,8 +1,12 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
+
 	Layout = "mainLayout.cshtml";
 	ViewBag.Title = Model.Name;
+
+	var leftSide = Model.Value("modularLeftSide") as IEnumerable<object> ?? null;
 }
 
 @if(!string.IsNullOrEmpty(ViewBag.Title) && ViewBag.Title != "Home")
@@ -15,10 +19,14 @@
 		<div class="sectionServicesContainer">
 			
 			<div class="smallContainer">
-				@await Html.PartialAsync("partials/helpYouForm.cshtml")
+				@if(leftSide != null && leftSide?.Count() > 0)
+				{
+					@await Html.GetBlockGridHtmlAsync(Model, "modularLeftSide")
+				}
+				@await Html.PartialAsync("partials/_HelpYouForm.cshtml")
 			</div>
 
-			<div class="verticalLineBetween"></div>
+			<div class="lineBetween"></div>
 
 			<div class="bigContainer">
 				@Model.Value("pageContent")

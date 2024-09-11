@@ -1,21 +1,22 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
-	Layout = "mainLayout.cshtml";
-	ViewBag.Title = Model?.Value("pageHeadline") ?? null;
+    Layout = "mainLayout.cshtml";
+    ViewBag.Title = Model?.Value("pageHeadline") ?? null;
 
-	var selection = Umbraco?.Content(Guid.Parse("69c40923-74c6-4282-9b7c-57ac00e1094c"))?
+    var selection = Umbraco?.Content(Guid.Parse("69c40923-74c6-4282-9b7c-57ac00e1094c"))?
     .ChildrenOfType("serviceItemTemplate")?
     .Where(x => x.IsVisible());
 
-    var itemsPerPage = 6;
+    int itemsPerPage = 6;
 
     if(!int.TryParse(Context.Request.Query["page"], out int currentPage))
     currentPage = 1;
 
     var totalItems = selection?.Count() ?? 0;
-    var pageItems = selection?.Skip((currentPage -1) * itemsPerPage).Take(itemsPerPage);
+    var pageItems = selection?.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage); 
 }
+
 
 @if(!string.IsNullOrEmpty(ViewBag.Title) && ViewBag.Title != "Home")
 {
@@ -65,21 +66,20 @@
                     @if (currentPage > 1)
 
                     {
-                        <a href="?page=@(currentPage - 1)" class="change">PREV</a>
+                        <a href="?page=@(currentPage - 1)" class="change">Prev</a>
                     }
 
                     else
 
                     {
-                        <span class="change inactive">PREV</span>
+                        <span class="change inactive">Prev</span>
                     }
 
                     <ul class="pages">
                         @for (int i = 1; i <= Math.Ceiling((decimal)totalItems / itemsPerPage); i++)
-
                         {
-                            <li>
-                                <a class="@((i == currentPage) ? "number active" : "number")" href="?page=@i">@i</a>
+                            <li class="@((i == currentPage) ? "active pagLi" : "pagLi")">
+                                <a class="number" href="?page=@i">@i</a>
                             </li>
                         }
                     </ul>
@@ -87,13 +87,13 @@
                     @if (currentPage < Math.Ceiling((decimal)totalItems / itemsPerPage))
 
                     {
-                        <a class="change" href="?page=@(currentPage + 1)">NEXT</a>
+                        <a class="change" href="?page=@(currentPage + 1)">Next</a>
                     }
 
                     else
 
                     {
-                        <span class="change inactive" href="?page=@(currentPage - 1)">NEXT</span>
+                        <span class="change inactive" href="?page=@(currentPage - 1)">Next</span>
                     }
                 </div>
 

@@ -1,98 +1,122 @@
 //Mobil first >576px
 @media(min-width: 10px)
 {
-    .headerContainer {
+    .headerOuterContainer {
+        width: 100%;
+        overflow: hidden;
+        padding-inline: 1rem;
         position: relative;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-block: 0.5rem;
+        height: 76px;
+        z-index: 100;
+        box-shadow: 0px 10px 24px var(--color-lightgray);
 
-        .logotypeContainer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
 
-        .navDesktop {
-            display: none;
-            gap: 4rem;
-        }
+        .container {
+            position: relative;
+            width: 100%;
 
-        .searchContainer {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-
-            .inputSearch {
-                border: none;
-            }
-        }
-
-        .barContainer {
-            display: flex;
-
-            .fa-solid.fa-bars {
-                font-size: 1.6rem;
-                transition: all ease-in-out 120ms;
-
-                &:active {
-                    color: var(--color-mediumgray);
-                }
-            }
-        }
-
-        .sideMenu {
-            position: fixed;
-            right: -60%;
-            top: 0;
-            height: 100vh;
-            width: 55%;
-            background-color: var(--color-darkgray);
-            z-index: 2;
-            transition: right 0.3s ease;
-
-            .xmarkContainer {
+            .headerInnerContainer {
+                position: fixed;
+                width: auto;
+                height: auto;
+                top: 0;
+                left: 0;
+                width: 100%;
                 display: flex;
-                justify-content: right;
-                margin-right: 0.5rem;
+                justify-content: space-between;
+                align-items: center;
                 padding: 1rem;
-                padding-bottom: 0.2rem;
-                height: 58px;
-
-                .fa-solid.fa-xmark {
-                    font-size: 1.6rem;
-                    color: var(--color-white);
-                    transition: all ease-in-out 120ms;
+                box-shadow: 0px 10px 24px var(--color-lightgray);
 
 
-                    &:active {
-                        color: var(--color-mediumgray);
+                .logotypeContainer {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .navDesktop {
+                    display: none;
+                    gap: 4rem;
+                }
+
+                .searchContainer {
+                    display: none;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 0.5rem;
+
+                    .inputSearch {
+                        border: none;
                     }
                 }
-            }
 
-            .navSideMenu {
-                display: grid;
-                grid-template-columns: 1fr;
-                transition: all ease-in-out 240ms;
+                .barContainer {
+                    display: flex;
+
+                    .fa-solid.fa-bars {
+                        font-size: 1.6rem;
+                        transition: all ease-in-out 120ms;
+
+                        &:active {
+                            color: var(--color-mediumgray);
+                        }
+                    }
+                }
+
+                .sideMenu {
+                    position: fixed;
+                    right: -70%;
+                    top: 0;
+                    height: 100vh;
+                    width: 55%;
+                    background-color: var(--color-darkgray);
+                    z-index: 2;
+                    transition: right 0.3s ease;
+                    box-shadow: -5px 0px 24px var(--color-mediumgray);
+
+                    .xmarkContainer {
+                        display: flex;
+                        justify-content: right;
+                        margin-right: 0.5rem;
+                        padding: 1rem;
+                        padding-bottom: 0.2rem;
+                        height: 58px;
+
+                        .fa-solid.fa-xmark {
+                            font-size: 1.6rem;
+                            color: var(--color-white);
+                            transition: all ease-in-out 120ms;
 
 
-                .navLinkTextBar {
-                    padding-inline: 1rem;
-                    padding-block: 0.8rem;
-                    color: var(--color-white);
-                    text-decoration: none;
-                    border-bottom: 1px solid var(--color-mediumgray);
-                    transition: all ease-in-out 120ms;
-
-                    &:hover {
-                        background-color: var(--color-mediumgray);
+                            &:active {
+                                color: var(--color-mediumgray);
+                            }
+                        }
                     }
 
-                    &:active {
-                        background-color: var(--color-mediumgray);
+                    .navSideMenu {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        transition: all ease-in-out 240ms;
+
+
+                        .navLinkTextBar {
+                            padding-inline: 1rem;
+                            padding-block: 0.8rem;
+                            color: var(--color-white);
+                            text-decoration: none;
+                            border-bottom: 1px solid var(--color-mediumgray);
+                            transition: all ease-in-out 120ms;
+
+                            &:hover {
+                                background-color: var(--color-mediumgray);
+                            }
+
+                            &:active {
+                                background-color: var(--color-mediumgray);
+                            }
+                        }
                     }
                 }
             }
@@ -103,27 +127,37 @@
 //Tablet second >768px
 @media(min-width: 768px)
 {
-}
-
-//Desktop last >1400px
-@media(min-width: 992px)
-{
+    .headerOuterContainer {
+        height: 18px;
+    }
 }
 
 //Desktop last >1400px
 @media(min-width: 1400px)
 {
-    .headerContainer {
-        .barContainer {
-            display: none;
-        }
+    .headerOuterContainer {
+        height: auto;
 
-        .searchContainer {
-            display: flex;
-        }
+        .container {
+            .headerInnerContainer {
+                position: relative;
+                width: 100%;
+                padding: 0.5rem;
+                box-shadow: none;
 
-        .navDesktop {
-            display: flex;
+                .barContainer {
+                    display: none;
+                }
+
+                .searchContainer {
+                    display: flex;
+                }
+
+                .navDesktop {
+                    display: flex;
+                }
+            }
         }
     }
+
 }

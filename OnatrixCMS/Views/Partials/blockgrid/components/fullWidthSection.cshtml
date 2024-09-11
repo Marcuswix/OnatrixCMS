@@ -10,9 +10,6 @@
     var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "addSpaceToTop" : "";
     var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "addSpaceToBottom" : "";
     var centerContent = (Model!.Content.Value<bool>("centerContentInSection")) ? "centerContent" : "";
-    var standardSectionHeight = (Model!.Content.Value<bool>("standardSectionHeight")) ? "standardSectionHeight" : "";
-    var imageMaxHeight = Model?.Content.Value<string>("backgroundImageMaxHeight") ?? "";
-    var imageMinHeight = Model?.Content.Value<string>("backgroundImageMinHeight") ?? "";
 
     var sectionBackgroundImage = Model?.Content.Value<IPublishedContent>("sectionBackgroundImage")?.Url() ?? null; 
     var sectionBackgroundImageAltText = Model?.Content.Value<string>("sectionBackgroundImageAltText") ?? "Section Image"; 
@@ -22,16 +19,10 @@
 }
 
 
-<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor)" class="section @spacingTopClass @spacingBottomClass @standardSectionHeight @centerContent">
-        
-        @if(!string.IsNullOrEmpty(sectionBackgroundImage))
-        {
-        <div class="backgroundImageContainer">
-                <img style="@($"max-height: {imageMaxHeight}px; min-height: {imageMinHeight}px;")" class="backgroundImage" src="@sectionBackgroundImage" alt="@sectionBackgroundImageAltText" />
-        </div>
-        } 
-
-        <div class="sectionFullWidth">
-                @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
+<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor); background-image: url(@sectionBackgroundImage)" class="section @spacingTopClass @spacingBottomClass @centerContent">       
+        <div class="backgroundImageContainer"> 
+                <div class="backgroundImageContent">
+                        @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
+                </div>
         </div>      
 </section>

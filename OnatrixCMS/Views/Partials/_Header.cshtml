@@ -18,8 +18,9 @@
 }
 
 <!-- Header -->
-<div style="background-color: var(--color-@backgroundColor)" class="container">
-    <div class="headerContainer">
+<div style="background-color: var(--color-@backgroundColor)" class="headerOuterContainer">
+    <div style="background-color: var(--color-@backgroundColor)" class="container">
+    <div style="background-color: var(--color-@backgroundColor)" class="headerInnerContainer">
         <div class="logotypeContainer">
 
                 <a href="@Model.Root().Url()">
@@ -57,6 +58,7 @@
                 @await Html.PartialAsync("_Navigation.cshtml")
             </nav>
         </div>
+    </div>
     </div>
 </div>
 
