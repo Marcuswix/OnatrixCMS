@@ -1,13 +1,13 @@
-//Mobil first >576px
+@import "../mixins/_mixins.scss";
+
+//Mobil >576px
 @media(min-width: 10px) {
 
     .contactForm {
-        position: relative;
-        display: flex;
-        flex-direction: column;
+        @include centerFlex;
         width: 100%;
         height: auto;
-        box-shadow: 0px 1px 12px var(--color-grayLight);
+        box-shadow: 0px 1px 12px var(--color-lightgray);
         z-index: 10;
 
 
@@ -60,7 +60,7 @@
     }
 }
 
-//Desktop last >1400px
+//Desktop >1400px
 @media(min-width: 1400px) {
     .formContainer {
         position: relative;

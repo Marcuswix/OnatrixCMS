@@ -1,18 +1,16 @@
-//Mobil first
+@import "../../scss/core/mixins/_mixins.scss";
+
+//Mobil
 @media(min-width: 10px)
 {
-    .pageTitleSection
-    {
+    .pageTitleSection {
         background-color: var(--color-darkwhite);
         position: relative;
         height: 140px;
         width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include centerFlexColumn;
 
-        .sectionTopImage
-        {
+        .sectionTopImage {
             width: 45%;
             position: absolute;
             right: 0;
@@ -20,8 +18,7 @@
             z-index: 0;
         }
 
-        .sectionBottomImage
-        {
+        .sectionBottomImage {
             width: 35%;
             position: absolute;
             left: 0;
@@ -29,22 +26,16 @@
             z-index: 0;
         }
 
-        .sectionTitleContainer
-        {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+        .sectionTitleContainer {
+            @include centerFlexColumn;
             gap: 1rem;
             height: 100%;
 
-            .h2Headlines
-            {
+            .h2Headlines {
                 font-size: 3rem;
             }
 
-            .navSectionTitle
-            {
+            .navSectionTitle {
                 display: none;
             }
         }
@@ -61,41 +52,32 @@
 
 @media(min-width: 1400px)
 {
-    .pageTitleSection
-    {
+    .pageTitleSection {
         height: 245px;
 
-        .sectionTitleContainer
-        {
-            .navSectionTitle
-            {
-                display: flex;
-                justify-content: center;
-                align-items: center;
+        .sectionTitleContainer {
+            .navSectionTitle {
+                @include centerFlex;
                 gap: 0.5rem;
 
-                .anotherPageNav
-                {
+                .anotherPageNav {
                     text-decoration: none;
                     color: var(--color-darkgray);
                     cursor: pointer;
                     transition: all ease-in-out 120ms;
 
-                    &:hover
-                    {
+                    &:hover {
                         text-decoration: underline;
                         color: var(--color-mediumgray);
                     }
                 }
 
-                .fa-solid.fa-angle-right
-                {
+                .fa-solid.fa-angle-right {
                     margin-top: 0.2rem;
                     font-size: 0.8rem;
                 }
 
-                .currentPageNav
-                {
+                .currentPageNav {
                     margin: 0;
                     color: var(--color-sand);
                 }

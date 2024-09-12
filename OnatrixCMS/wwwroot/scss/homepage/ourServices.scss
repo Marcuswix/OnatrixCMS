@@ -28,8 +28,7 @@
         gap: 2rem;
 
         .businessGridItem {
-            @include center;
-            flex-direction: column;
+            @include centerFlexColumn;
             border-radius: 0.2rem;
             background-color: var(--color-white);
             box-shadow: 0px 0px 6px var(--color-lightgray);

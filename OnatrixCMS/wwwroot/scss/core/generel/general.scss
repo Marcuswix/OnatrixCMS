@@ -179,21 +179,20 @@ img {
 }
 
 .imageContainer {
-        position: relative;
+    position: relative;
 
+    @media(min-width: 10px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    @media(min-width: 768px) {
+        justify-content: left;
+    }
 
     .image {
-        @media(min-width: 10px) {
             width: 100%;
-        }
-
-        @media(min-width: 768px) {
-            display: flex;
-            width: 100%;
-        }
-
-        @media(min-width: 1400px) {
-        }
     }
 }
 

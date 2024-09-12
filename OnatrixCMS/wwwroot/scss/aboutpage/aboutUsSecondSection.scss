@@ -1,14 +1,13 @@
-//Mobil first
+@import "../core/mixins/_mixins.scss";
+
+//Mobil
 @media(min-width: 100px)
 {
     .aboutUsTrustedSection
     {
         position: relative;
         background-color: var(--color-darkWhite);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        @include centerFlexColumn;
         gap: 0rem;
 
         .containerAboutUsSecondSection
@@ -65,9 +64,7 @@
 
         .aboutUsSectionTextContentContainer
         {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            @include center;
             gap: 1rem;
 
             .companyName
@@ -90,7 +87,6 @@
 
         .aboutUsSectionTextContentContainer
         {
-
             .companyName
             {
                 font-size: 1.2rem;

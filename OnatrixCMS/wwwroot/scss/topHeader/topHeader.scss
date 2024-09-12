@@ -1,81 +1,64 @@
-//Mobil first >576px
+@import "../core/mixins/_mixins.scss";
+
+//Mobil >576px
 @media(min-width: 10px)
-{   
-    .siteContainer
-    {
+{
+    .siteContainer {
         display: none;
 
-        .contentContainer
-        {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .contentContainer {
+            @include space;
             background-color: transparent;
             height: 58px;
         }
 
-        .topHeaderText
-        {
+        .topHeaderText {
             color: var(--color-white);
-            margin: 0; 
+            margin: 0;
             font-weight: 200;
             font-size: 0.9rem;
         }
 
-        .socialMediaContainer
-        {
+        .socialMediaContainer {
             display: flex;
 
-            .socialMediaButton
-            {
-                display: flex;
-                justify-content: center;
-                align-items: center;
+            @mixin socialMediaButton {
+                @include centerFlex;
                 height: 58px;
                 width: 58px;
                 color: var(--color-white);
                 background-color: transparent;
-                border-left: solid 1px #808080;
                 transition: background-color ease-in-out 120ms;
                 text-decoration: none;
-                
-                &:hover
-                {
+
+                &:hover {
                     background-color: var(--color-mediumgray);
                 }
             }
-            .socialMediaButtonLast
-            {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 58px;
-                width: 58px;
-                color: var(--color-white);
-                background-color: transparent;
-                border-inline: solid 1px #808080; 
-                transition: background-color ease-in-out 120ms;
-                
-                &:hover
-                {
-                    background-color: var(--color-mediumgray);
-                }   
+
+            .socialMediaButton {
+                @include socialMediaButton;
+                border-left: solid 1px var(--color-mediumgray);
+            }
+
+            .socialMediaButtonLast {
+                @include socialMediaButton; 
+                border-inline: solid 1px var(--color-mediumgray);              
             }
         }
     }
 }
 
-//Tablet second >768px
+//Tablet >768px
 @media(min-width: 768px)
 {
     .siteContainer
     {
         display: flex;
     }
-
 }
 
-//Desktop last >1400px
+//Desktop >1400px
 @media(min-width: 1400px)
 {
 }

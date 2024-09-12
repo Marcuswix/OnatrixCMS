@@ -1,4 +1,6 @@
-//Mobil first >576px
+@import "../core/mixins/_mixins.scss";
+
+//Mobil >576px
 @media(min-width: 10px)
 {
     .headerOuterContainer {
@@ -22,17 +24,13 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
+                @include space;
                 padding: 1rem;
                 box-shadow: 0px 10px 24px var(--color-lightgray);
 
 
                 .logotypeContainer {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    @include centerFlex;
                 }
 
                 .navDesktop {
@@ -42,9 +40,6 @@
 
                 .searchContainer {
                     display: none;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 0.5rem;
 
                     .inputSearch {
                         border: none;
@@ -124,7 +119,7 @@
     }
 }
 
-//Tablet second >768px
+//Tablet >768px
 @media(min-width: 768px)
 {
     .headerOuterContainer {
@@ -132,7 +127,7 @@
     }
 }
 
-//Desktop last >1400px
+//Desktop >1400px
 @media(min-width: 1400px)
 {
     .headerOuterContainer {
@@ -150,7 +145,8 @@
                 }
 
                 .searchContainer {
-                    display: flex;
+                    @include centerFlex;
+                    gap: 0.5rem;
                 }
 
                 .navDesktop {

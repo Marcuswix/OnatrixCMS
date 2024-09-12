@@ -2,11 +2,16 @@
     display: grid;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
 }
 
 @mixin centerFlex
 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin centerFlexColumn {
     display: flex;
     justify-content: center;
     align-items: center;

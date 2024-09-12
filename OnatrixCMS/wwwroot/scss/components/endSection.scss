@@ -41,9 +41,7 @@
 
             .endSectionTextContainer {
                 padding-block: 4rem;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
+                @include centerFlexColumn;
                 row-gap: 2rem;
                 width: 100%;
                 text-align: center;
@@ -54,7 +52,7 @@
 
                 .endSectionTextItem {
                     display: flex;
-                    justify-content: left;
+                    justify-content: start;
                     column-gap: 0.5rem;
 
                     .iconContainer {
@@ -71,11 +69,9 @@
                         flex-direction: column;
                         gap: 0.4rem;
                         width: 100%;
-                        .secondIconContainer
-                        {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
+
+                        .secondIconContainer {
+                            @include centerFlex;
                         }
                     }
                 }
@@ -111,6 +107,7 @@
                 width: 100%;
 
                 .endSectionTextContainer {
+                    align-items: start;
                     max-width: 376px;
                     row-gap: 1.6rem;
 
@@ -130,6 +127,7 @@
                         }
 
                         .endSectionContentContainer {
+                            justify-content: start;
                             text-align: left;
                             font-size: 1rem;
 
