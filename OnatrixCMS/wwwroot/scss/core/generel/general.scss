@@ -26,7 +26,6 @@
     width: 100%;
 }
 
-
 //Containers
 .containerFullWidth 
 {
@@ -134,14 +133,14 @@
     align-items: center;
 }
 
-    .centerContentVertical {
+.centerContentVertical {
         display: grid;
         align-items: center;
-    }
+}
 
-    .paddingAround {
+.paddingAround {
         padding: 12px;
-    }
+}
 
 //Images
 img {
@@ -195,7 +194,6 @@ img {
             width: 100%;
     }
 }
-
 
 .paginationInnerContainer {
     width: 100%;
@@ -257,14 +255,15 @@ img {
         display: grid;
         grid-template-columns: 1fr;
         gap: 1rem;
-        .inputContainer
-        {
-            padding:0.6rem;
+
+        .inputContainer {
+            padding: 0.6rem;
             border-radius: 0.2rem;
             background-color: var(--color-white);
+            @include space;
 
-            input
-            {
+            input {
+
                 outline: none;
                 border: none;
             }

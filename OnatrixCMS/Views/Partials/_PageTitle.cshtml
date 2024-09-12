@@ -9,7 +9,9 @@
 @{
     var selection = Model.Ancestors().ToArray();
     var homePageDisplayName = "Home";
-    var isFirstItem = true;  
+    var isFirstItem = true;
+
+    var pageTitle = Model.Value<string>("pageTitle");
 }
 
     <section class="pageTitleSection">
@@ -20,7 +22,7 @@
 
             <div class="sectionTitleContainer">
 
-                <h2 class="h2Headline noMargin">@Model.Name</h2>
+                <h2 class="h2Headline noMargin">@pageTitle</h2>
                 <nav class="navSectionTitle">
 
                 @if (selection?.Length > 0)
