@@ -5,12 +5,14 @@
 
 @{
     var paragraphContent = Model?.Content.Value<string>("text");
-    var textColor = Model?.Content.Value<PickedColor>("textColor")?.Label.ToLower() ?? "textgray";  
+    var textColor = Model?.Content.Value<PickedColor>("textColor")?.Label.ToLower() ?? "textgray";
+    var italic = (Model!.Content.Value<bool>("italic") ? "font-style: italic;" : "");
+    var bold = (Model!.Content.Value<bool>("bold") ? "font-weight: bold;" : "");
 }
 
 @if(!string.IsNullOrEmpty(paragraphContent))
 {
-    <p style="color: var(--color-@textColor)" class="pText noMargin">
+    <p style="color: var(--color-@textColor); @italic @bold" class="pText noMargin">
         @paragraphContent
     </p>
 }

@@ -6,9 +6,13 @@
 @{
     var centerContent = (Model!.Content.Value<bool>("centerContent")) ? "centerContentHorizontal" : "";
     var alignTextCenter = (Model!.Content.Value<bool>("alignTextCenter")) ? "centerText" : "";
-    var paddingAround = (Model!.Content.Value<bool>("paddingAround")) ? "paddingAround" : "";
+    var paddingAround = (Model!.Content.Value<bool>("paddingAround")) ? "addSpaceToRight addSpaceToLeft addSpaceToTopElement addSpaceToBottomElement" : "";
+    var paddingToRight = (Model!.Content.Value<bool>("addSpaceToRight")) ? "addSpaceToRightElement" : "";
+    var paddingToLeft = (Model!.Content.Value<bool>("addSpaceToLeft")) ? "addSpaceToLeftElement" : "";
+    var paddingToTop = (Model!.Content.Value<bool>("addSpaceToTop")) ? "addSpaceToTopElement" : "";
+    var paddingToBottom = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "addSpaceToBottomElement" : "";
 }
 
-<div name="elementContainer" class="@centerContent @alignTextCenter @paddingAround elementContainer">
+<div name="elementContainer" class="@centerContent @alignTextCenter @paddingAround @paddingToLeft @paddingToRight @paddingToBottom @paddingToTop elementContainer">
     @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
 </div>

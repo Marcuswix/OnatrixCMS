@@ -7,7 +7,7 @@
     var picture = Model?.Content.Value<IPublishedContent>("pictureUrl")?.Url() ?? null;
     var maxWidth = Model?.Content.Value<string>("maxWidth") ?? null;
     var pictureName = Model?.Content.Value<string>("pictureName") ?? null;
-    var pictureAltText = Model?.Content.Value<string>("pictureAltText") ?? "A picture";  
+    var pictureAltText = Model?.Content.Value<string>("pictureAltText") ?? "A picture";   
 }
 
 @if(picture != null)

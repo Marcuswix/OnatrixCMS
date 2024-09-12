@@ -13,11 +13,8 @@
 
     var sectionBackgroundImage = Model?.Content.Value<IPublishedContent>("sectionBackgroundImage")?.Url() ?? null; 
     var sectionBackgroundImageAltText = Model?.Content.Value<string>("sectionBackgroundImageAltText") ?? "Section Image"; 
-
-    var sectionBackgroundColor = Model?.Content.Value<PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? "transparent";
-    
+    var sectionBackgroundColor = Model?.Content.Value<PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? "transparent";  
 }
-
 
 <section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor); background-image: url(@sectionBackgroundImage)" class="section @spacingTopClass @spacingBottomClass @centerContent">       
         <div class="backgroundImageContainer"> 

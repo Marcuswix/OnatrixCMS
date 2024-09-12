@@ -1,0 +1,40 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+    var sectionTitle = Model?.Content.Value<string>("sectionTitle") ?? "";
+    var sectionId = sectionTitle?.ToString().ToLower().Trim().Replace(" ", "-");
+
+    var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "addSpaceToTop" : "";
+    var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "addSpaceToBottom" : "";
+
+    var sectionImage = Model?.Content.Value<IPublishedContent>("sectionImage")?.Url() ?? null; 
+    var sectionImageAltText = Model?.Content.Value<string>("sectionImageAltText") ?? "Section Image"; 
+    var sectionBackgroundColor = Model?.Content.Value<PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? "transparent";
+}
+
+<div style="background-color: var(--color-@sectionBackgroundColor)" class="container-fluid @spacingTopClass @spacingBottomClass">
+  <div class="row">
+    <!-- Vänster del: Text container -->
+    <div class="col-md-5 d-flex align-items-center">
+      <div class="container">
+        @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
+      </div>
+    </div>
+
+    <!-- Höger del: Bild -->
+    <div class="col-md-7">
+      <div class="image-container">
+        @if(!string.IsNullOrEmpty(sectionImage))
+        {
+            <img src="@sectionImage" alt="Bildbeskrivning" class="img-fluid full-width-image">
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
