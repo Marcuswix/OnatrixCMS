@@ -29,9 +29,17 @@
 .sectionFiftyFifty {
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: center;
-    align-items: center;
+    margin: auto;
+    width: 100%;
+
+    @media(min-width: 576px) {
+        grid-template-columns: 1fr;
+        align-items: center;
+    }
+
+    @media(min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 //Containers
@@ -51,25 +59,10 @@
 
 .elementContainer
 {
-    @include center; 
+    @include center;
+    width: 100%;
 }
 //Spaces
-.space1 {
-    padding-block: 0.5rem;
-}
-
-.space2 {
-    padding-block: 1rem;
-}
-
-.space3 {
-    padding-block: 2rem;
-}
-
-.space4 {
-    padding-block: 4rem;
-}
-
 .addSpaceToTop {
 
     @media(min-width: 10px) {
@@ -256,25 +249,58 @@ img {
 
     .image {
         width: 100%;
+        object-fit: cover;
     }
 }
 
-.image-container {
-    position: relative;
-}
-
-.full-width-image {
+.imageMyHalfContainer {
     width: 100%;
-    height: auto;
-    object-fit: cover;
-}
+    height: 100%;
+    @include centerFlex;
 
-@media (min-width: 768px) {
-    .image-container {
-        margin-right: calc(-50vw + 50%);
+    .imageMyHalf {
         width: 100%;
+        object-fit: cover;
+    }
 }
 
+.myHalfContainer {
+    display: flex;
+    padding-left: 12px;
+    padding-right: 12px;
+    text-align: center;
+
+
+    @media(min-width: 576px) {
+        max-width: 480px;
+        margin: auto;
+    }
+
+    @media(min-width: 768px) {
+        max-width: 720px;
+        margin: 0;
+        margin-left: auto;
+        text-align: left;
+    }
+
+    @media(min-width: 992px) {
+        max-width: 420px;
+    }
+
+    @media(min-width: 1200px) {
+        max-width: 570px;
+    }
+
+    @media(min-width: 1400px) {
+        max-width: 660px;
+    }
+}
+
+.border
+{
+   border: solid 1px var(--color-lightgray);
+   border-radius: 0.2rem;
+}
 
 .helpYouFormContainer {
     width: 100%;
@@ -308,49 +334,49 @@ img {
     }
 }
 
-//Umbraco Css
-.umb-block-grid__layout-container {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(var(--umb-block-grid--grid-columns, 1), minmax(0, 1fr));
-    grid-auto-flow: row;
-    grid-auto-rows: minmax(0px, min-content);
-    column-gap: var(--umb-block-grid--column-gap, 0);
-    row-gap: var(--umb-block-grid--row-gap, 0);
-}
-
-.umb-block-grid__layout-item {
-    position: relative;
-    grid-column-end: span min(calc(var(--umb-block-grid--item-column-span, 1) * 3), var(--umb-block-grid--grid-columns));
-    grid-row: span var(--umb-block-grid--item-row-span, 1);
-}
-
-    .umb-block-grid__area-container,
-    .umb-block-grid__block--view::part(area-container) {
+    //Umbraco Css
+    .umb-block-grid__layout-container {
         position: relative;
         display: grid;
-        grid-template-columns: repeat( var(--umb-block-grid--area-grid-columns, var(--umb-block-grid--grid-columns, 1)), minmax(0, 1fr) );
+        grid-template-columns: repeat(var(--umb-block-grid--grid-columns, 1), minmax(0, 1fr));
         grid-auto-flow: row;
         grid-auto-rows: minmax(0px, min-content);
-        column-gap: var(--umb-block-grid--areas-column-gap, 0);
-        row-gap: var(--umb-block-grid--areas-row-gap, 0);
+        column-gap: var(--umb-block-grid--column-gap, 0);
+        row-gap: var(--umb-block-grid--row-gap, 0);
     }
 
-    .umb-block-grid__area {
+    .umb-block-grid__layout-item {
         position: relative;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        grid-column-end: span min(calc(var(--umb-block-grid--area-column-span, 1) * 3), var(--umb-block-grid--area-grid-columns));
-        grid-row: span var(--umb-block-grid--area-row-span, 1);
+        grid-column-end: span min(calc(var(--umb-block-grid--item-column-span, 1) * 3), var(--umb-block-grid--grid-columns));
+        grid-row: span var(--umb-block-grid--item-row-span, 1);
     }
 
-    @media (min-width: 1400px) {
-        .umb-block-grid__layout-item {
-            grid-column-end: span min(var(--umb-block-grid--item-column-span, 1), var(--umb-block-grid--grid-columns));
+        .umb-block-grid__area-container,
+        .umb-block-grid__block--view::part(area-container) {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat( var(--umb-block-grid--area-grid-columns, var(--umb-block-grid--grid-columns, 1)), minmax(0, 1fr) );
+            grid-auto-flow: row;
+            grid-auto-rows: minmax(0px, min-content);
+            column-gap: var(--umb-block-grid--areas-column-gap, 0);
+            row-gap: var(--umb-block-grid--areas-row-gap, 0);
         }
 
         .umb-block-grid__area {
-            grid-column-end: span min(var(--umb-block-grid--area-column-span, 1), var(--umb-block-grid--area-grid-columns));
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            grid-column-end: span min(calc(var(--umb-block-grid--area-column-span, 1) * 3), var(--umb-block-grid--area-grid-columns));
+            grid-row: span var(--umb-block-grid--area-row-span, 1);
         }
-    }
+
+        @media (min-width: 1400px) {
+            .umb-block-grid__layout-item {
+                grid-column-end: span min(var(--umb-block-grid--item-column-span, 1), var(--umb-block-grid--grid-columns));
+            }
+
+            .umb-block-grid__area {
+                grid-column-end: span min(var(--umb-block-grid--area-column-span, 1), var(--umb-block-grid--area-grid-columns));
+            }
+        }

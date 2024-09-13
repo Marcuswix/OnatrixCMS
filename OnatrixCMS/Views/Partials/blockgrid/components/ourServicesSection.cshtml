@@ -1,39 +1,38 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
-@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
 @using Umbraco.Cms.Core
 @using Umbraco.Cms.Core.Models.PublishedContent
 @using Umbraco.Cms.Core.Routing
 @using Umbraco.Extensions
 @using Umbraco.Cms.Core.Models.Blocks
-@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
 
 @inject IPublishedValueFallback PublishedValueFallback
 @inject IPublishedUrlProvider PublishedUrlProvider
 
 @{
-    var gridBoxes = Model?.Content.Value<BlockListModel>("boxes");
+	var selection = Umbraco.Content(Guid.Parse("69c40923-74c6-4282-9b7c-57ac00e1094c"))
+    .ChildrenOfType("serviceItemTemplate")
+    .Where(x => x.IsVisible()).Take(6);
 }
 <!-- Section Our Services -->
 <div class="businessGrid">
-    @if(gridBoxes != null)
+    @if(selection.Count() != 0)
     {
-                @foreach (var box in gridBoxes)
+                @foreach (var box in selection)
                 {
 
-                var blockItem = box.Content;
-                var blockHeadline = blockItem.Value<string>("boxHeadline");
-                var blockText = blockItem.Value<string>("boxText");
-                var blockImage = blockItem.Value<IPublishedContent>("boxImage")?.Url() ?? "";
+                var blockHeadline = box.Value<string>("pageTitle") ?? "";
+                var blockText = box.Value<string>("pageIngress") ?? "";
+                var blockImage = box.Value<IPublishedContent>("thumbnailImage")?.Url() ?? "";
 
                     <div class="businessGridItem">
-                        <a class="aLink" href="#">
+                        <a class="aLink" href="@box!.Url()">
                             <div class="gridItemHeadlineContainer">
                                 <h4 class="h4Headline noMargin">@blockHeadline</h4>
                             </div>
 
-                    <img class="gridItemImage" src="@blockImage" alt="">
+                            <img class="gridItemImage" src="@blockImage" alt="A picture">
 
                             <div class="gridItemTextContainer noMargin">
                                 <p>@blockText</p>

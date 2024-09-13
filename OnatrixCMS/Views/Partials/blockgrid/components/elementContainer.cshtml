@@ -4,15 +4,18 @@
 @using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
 
 @{
-    var centerContent = (Model!.Content.Value<bool>("centerContent")) ? "centerContentHorizontal" : "";
+    var centerContent = (Model!.Content.Value<bool>("centerContent")) ? "center" : "start";
     var alignTextCenter = (Model!.Content.Value<bool>("alignTextCenter")) ? "centerText" : "";
-    var paddingAround = (Model!.Content.Value<bool>("paddingAround")) ? "addSpaceToRight addSpaceToLeft addSpaceToTopElement addSpaceToBottomElement" : "";
+    var paddingAround = (Model!.Content.Value<bool>("spaceAround")) ? "padding: 1rem" : "";
     var paddingToRight = (Model!.Content.Value<bool>("addSpaceToRight")) ? "addSpaceToRightElement" : "";
     var paddingToLeft = (Model!.Content.Value<bool>("addSpaceToLeft")) ? "addSpaceToLeftElement" : "";
-    var paddingToTop = (Model!.Content.Value<bool>("addSpaceToTop")) ? "addSpaceToTopElement" : "";
-    var paddingToBottom = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "addSpaceToBottomElement" : "";
+    var paddingToTop = (Model!.Content.Value<bool>("addSpaceToTop")) ? "addSpaceToTop" : "";
+    var paddingToBottom = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "addSpaceToBottom" : "";
+    var customSpace = Model?.Content.Value<string>("addCustomSpace") ?? "";
+    var border = (Model!.Content.Value<bool>("addBorder")) ? "border" : "";
+    var borderColor = Model?.Content.Value<string>("borderColor") ?? "";
 }
 
-<div name="elementContainer" class="@centerContent @alignTextCenter @paddingAround @paddingToLeft @paddingToRight @paddingToBottom @paddingToTop elementContainer">
+<div name="elementContainer" style="@customSpace; @paddingAround; justify-content: @centerContent; border-color: @borderColor;" class="@border @alignTextCenter @paddingToLeft @paddingToRight @paddingToBottom @paddingToTop elementContainer">
     @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
 </div>

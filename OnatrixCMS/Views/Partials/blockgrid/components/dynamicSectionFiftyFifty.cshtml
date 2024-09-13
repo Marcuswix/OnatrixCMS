@@ -15,26 +15,19 @@
     var sectionBackgroundColor = Model?.Content.Value<PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? "transparent";
 }
 
-<div style="background-color: var(--color-@sectionBackgroundColor)" class="container-fluid @spacingTopClass @spacingBottomClass">
-  <div class="row">
-    <!-- Vänster del: Text container -->
-    <div class="col-md-5 d-flex align-items-center">
-      <div class="container">
-        @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
+<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor)" class="sectionFiftyFifty @spacingTopClass @spacingBottomClass">
+      
+      <div class="myHalfContainer">
+          @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
       </div>
-    </div>
 
-    <!-- Höger del: Bild -->
-    <div class="col-md-7">
-      <div class="image-container">
+      <div class="imageMyHalfContainer">
         @if(!string.IsNullOrEmpty(sectionImage))
         {
-            <img src="@sectionImage" alt="Bildbeskrivning" class="img-fluid full-width-image">
+            <img src="@sectionImage" alt="Bildbeskrivning" class="imageMyHalf">
         }
       </div>
-    </div>
-  </div>
-</div>
+</section>
 
 
 

@@ -1,0 +1,71 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+@using Umbraco.Cms.Core.Models.Blocks
+
+@{
+    var teamMembers = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "ourTeam") ?? null;
+    var blockListItems = teamMembers.Value<IEnumerable<Umbraco.Cms.Core.Models.Blocks.BlockListItem>>("teamMembers") ?? null;
+    
+    var firstThree = blockListItems.Take(3);
+    var theRest = blockListItems.Skip(3).Take(4);
+}
+
+<!-- About Us Expert -->
+<section class="aboutUsExpertSection">
+    <div class="container">
+         <div class="aboutUsExpertContentContainer">
+
+            <div class="aboutUsGridContainerBig">
+            @foreach (var member in firstThree)
+            {
+                    var memberInfo = member.Content;
+                    var name = memberInfo.Value<string>("memberName") ?? "";
+                    var role = memberInfo.Value<string>("memberRole") ?? "";
+                    var picture = memberInfo.Value<IPublishedContent>("memberPicture").Url() ?? null;
+
+                    <div class="aboutUsGridItemBig" id="img1">
+                        <img class="aboutUsGridImageBig" src="@picture" alt="@name">
+                        <div class="aboutUsGridItemTextContainer">
+                            <h4 class="aboutUsGridBigHeadline">@name</h4>
+                            <p class="aboutUsGridBigDescription">@role</p>
+                        </div>
+                    </div>
+            }
+            </div>
+
+            <slider class="expertSlider">
+                <div class="aboutUsGridItemBig" id="img1">
+                    <img class="aboutUsGridImageBig"  src="#" alt="">
+                        <div class="aboutUsGridItemTextContainer">
+                            <h4 class="aboutUsGridBigHeadline">Brandon Newton</h4>
+                            <p class="aboutUsGridBigDescription">Financial Advisor at Onatrix</p>
+                        </div>
+                </div>
+            </slider>
+
+                    
+            <div class="aboutUsGridContainerSmall">
+            @foreach(var member in theRest)
+               {
+                            var memberInfo = member.Content;
+                            var name = memberInfo.Value<string>("memberName") ?? "";
+                            var role = memberInfo.Value<string>("memberRole") ?? "";
+                            var picture = memberInfo.Value<IPublishedContent>("memberPicture").Url() ?? null;
+
+                        <div class="aboutUsGridItemSmall">
+                            <img class="aboutUsGridImageSmall" src="@picture" alt="@name">
+                            <div class="aboutUsGridItemTextContainer">
+                                <h4 class="aboutUsGridSmallHeadline">@name</h4>
+                                <p class="aboutUsGridSmallDescription">@role</p>
+                            </div>
+                        </div>
+               }
+            </div>
+         </div>
+    </div>
+</section>

@@ -3,4 +3,12 @@
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
 
-<div class="space1"></div>
+@{
+    var space = Model?.Content.Value<string>("amountOfSpace");
+
+    if(string.IsNullOrEmpty(space))
+    {
+        space = "0.5rem";
+    }
+}
+<div style="padding-block: @space" class="space1"></div>
