@@ -29,7 +29,7 @@
 			@RenderBody()
 		</main>
 		
-		@if(ViewBag.Title != "Home")
+		@if(ViewBag.Title != "Home" && ViewBag.Title != "Contact")
 		{
 			@await Html.PartialAsync("_EndSection")
 		}

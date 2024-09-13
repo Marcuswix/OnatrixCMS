@@ -1,4 +1,6 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
     Layout = "mainLayout.cshtml";
@@ -14,9 +16,11 @@
     currentPage = 1;
 
     var totalItems = selection?.Count() ?? 0;
-    var pageItems = selection?.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage); 
-}
+    var pageItems = selection?.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
 
+    var textColor = Model?.Value<PickedColor>("pageHeadlineTextColor") ?.Label.ToLower() ?? "textgray";
+    var backgroundColor = Model?.Value<PickedColor>("pageBackgroundColor")?.Label.ToLower() ?? "transparent";
+}
 
 @if(!string.IsNullOrEmpty(ViewBag.Title) && ViewBag.Title != "Home")
 {
@@ -24,12 +28,12 @@
 }
 
 <!-- Services List Page -->
-<section class="ourServices">
+<section style="color: var(--color-@backgroundColor)" class="ourServices">
     <div class="container">
 
         <div class="ourServicesHeadlinesContainer">
             <div class="ourServicesHeadlines">
-                <h2 class="h2Headline">@Model?.Value("pageHeadline")</h2>
+                <h2 style="color: var(--color-@textColor)" class="h2Headline">@Model?.Value("pageHeadline")</h2>
             </div>
         </div>
 

@@ -388,6 +388,21 @@ body {
   border-radius: 50%;
 }
 
+.map {
+  width: 100%;
+  height: 30vh;
+}
+@media (min-width: 576px) {
+  .map {
+    height: 40vh;
+  }
+}
+@media (min-width: 992px) {
+  .map {
+    height: 60vh;
+  }
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -1142,125 +1157,6 @@ img {
 }
 
 @media (min-width: 10px) {
-  .successItemContainer {
-    padding-block: 2rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  .successItemContainer .successItem .bigNumbersContainer {
-    text-align: center;
-  }
-  .successItemContainer .successItem .bigNumbersContainer .bigNumbers {
-    font-size: 4rem;
-    font-weight: 600;
-    color: var(--color-sand);
-  }
-  .successItemContainer .successItem .bigNumbersContainer .bigNumbers:hover {
-    transform: scale(1.2);
-  }
-  .successItemContainer .successItem .bigNumbersContainer .white {
-    padding-inline: 3rem;
-    color: var(--color-white);
-  }
-}
-@media (min-width: 768px) {
-  .successItemContainer {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  .successItemContainer .successItem .bigNumbersContainer .bigNumbers {
-    font-size: 4rem;
-  }
-  .successItemContainer .successItem .bigNumbersContainer .white {
-    padding-inline: 0rem;
-  }
-}
-@media (min-width: 1400px) {
-  .successItemContainer .successItem .bigNumbersContainer .bigNumbers {
-    font-size: 6rem;
-    transition: all ease-in-out 120ms;
-  }
-  .successItemContainer .successItem .bigNumbersContainer .bigNumbers:hover {
-    Transform: scale(1.05);
-  }
-  .successItemContainer .successItem .bigNumbersContainer .white {
-    max-width: 20rem;
-  }
-}
-.container {
-  width: 100%;
-}
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-@media (min-width: 1400px) {
-  .container {
-    max-width: 1320px;
-  }
-}
-
-@media (min-width: 10px) {
-  .trusted {
-    padding-top: 2rem;
-  }
-  .textContentContainer {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
-  .textContentContainer .backgroundImageTrusted {
-    position: absolute;
-    top: 15%;
-    z-index: -1;
-    width: 100%;
-  }
-  .textContentContainer .textContent {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    max-width: 48rem;
-    padding-bottom: 2rem;
-    text-align: center;
-  }
-  .textContentContainer .textContent .sand {
-    color: var(--color-sand);
-  }
-  .bottomImage {
-    width: 100%;
-  }
-}
-@media (min-width: 768px) {
-  .trusted {
-    padding-top: 6rem;
-  }
-  .textContentContainer .textContent {
-    padding-bottom: 4rem;
-  }
-}
-@media (min-width: 1400px) {
-  .textContentContainer .textContent {
-    padding-bottom: 6rem;
-  }
-}
-.container {
-  width: 100%;
-}
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-@media (min-width: 1400px) {
-  .container {
-    max-width: 1320px;
-  }
-}
-
-@media (min-width: 10px) {
   .containerExpert {
     padding-block: 4rem;
   }
@@ -1588,6 +1484,8 @@ img {
   }
   .sectionProjectContainer .projectBigContainer .projectItem .projectTextContainer .projectLink:hover {
     color: var(--color-lightgray);
+    transform: scale(1.05);
+    gap: 1.5rem;
   }
   .sectionProjectContainer .projectBigContainer .lineBetweenProjects {
     margin-block: 1rem;
@@ -1751,7 +1649,6 @@ img {
     padding-top: 4rem;
   }
   .sectionEndSection .endSectionContainer {
-    padding-inline: 2rem;
     grid-template-columns: 55% 45%;
     gap: 2rem;
   }

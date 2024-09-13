@@ -96,6 +96,8 @@
 
                         &:hover {
                             color: var(--color-lightgray);
+                            transform: scale(1.05);
+                            gap: 1.5rem;
                         }
                     }
                 }
