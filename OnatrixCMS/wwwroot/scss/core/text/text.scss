@@ -12,7 +12,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    color: var(--color-bodyText);
+    color: var(--color-textgray);
     @include text;
 }
 
@@ -60,6 +60,12 @@ body {
     text-transform: uppercase;
 }
 
+.h6Headline {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
 .iText {
 
     font-weight: 200;
@@ -69,6 +75,10 @@ body {
 .pText {
 
     font-size: 0.9rem;
+}
+
+p{
+    margin: 0;
 }
 
 .noMargin

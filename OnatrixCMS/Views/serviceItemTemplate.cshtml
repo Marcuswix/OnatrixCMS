@@ -9,7 +9,7 @@
 	var leftSide = Model.Value("modularLeftSide") as IEnumerable<object> ?? null;
 }
 
-@if(!string.IsNullOrEmpty(ViewBag.Title) && ViewBag.Title != "Home")
+@if(!string.IsNullOrEmpty(ViewBag.Title))
 {
 	@await Html.PartialAsync("partials/_PageTitle.cshtml")
 } 

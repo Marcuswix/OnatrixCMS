@@ -1,11 +1,12 @@
 ﻿@using System;
 @using System.Globalization;
+@using OnatrixCMS.Helpers
 @using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
 	Layout = "mainLayout.cshtml";
     ViewBag.Title = Model?.Value("pageTitle") ?? null;
-	var tags = Model?.Value("pageTags") as IEnumerable<object> ?? null;
+	var tags = Model?.Value("pageTags") as IEnumerable<string> ?? Enumerable.Empty<string>();
 
 	var selection = Umbraco?.Content(Guid.Parse("07c1562e-2477-45d2-81b0-61f427f19850"))?
     .ChildrenOfType("projectItemTemplate")?
@@ -37,46 +38,7 @@
 							var ingress = item?.Value<string>("projectIngress") ?? "";
 							var thumbnailImage = item?.Value<IPublishedContent>("projectThumbnailImage")?.Url() ?? null;
 							var date = item?.Value<string>("projectDate")?.ToString() ?? "";
-							var dateFormatted = date.Substring(0, 9).Trim();
-
-							CultureInfo provider = new CultureInfo("en-US");
-
-							DateTime dateDate = DateTime.ParseExact(dateFormatted, "M/d/yyyy", provider);
-
-							int day = dateDate.Day;
-							string month = dateDate.Month.ToString();
-							int year = dateDate.Year;
-							string monthName = "";
-
-							switch(month)
-							{
-								case "1": monthName = "Jan";
-								break;
-								case "2": monthName = "Feb";
-								break;
-								case "3": monthName = "March";
-								break;
-								case "4": monthName = "April";
-								break;
-								case "5": monthName = "May";
-								break;
-								case "6": monthName = "June";
-								break;
-								case "7": monthName = "July";
-								break;
-								case "8": monthName = "Aug";
-								break;
-								case "9": monthName = "Sep";
-								break;
-								case "10": monthName = "Oct";
-								break;
-								case "11": monthName = "Nov";
-								break;
-								case "12": monthName = "Dec";
-								break;
-								default: monthName = "N/A";
-								break;
-							}
+							string dateOnPage = DataHelpers.ConvertMonthNumberToMonthText(date);
 
                         <div>
                             <div class="projectItem">
@@ -90,13 +52,12 @@
                                                 <path d="M4.04688 8.625H2.95312C2.76172 8.625 2.625 8.48828 2.625 8.29688V7.20312C2.625 7.03906 2.76172 6.875 2.95312 6.875H4.04688C4.21094 6.875 4.375 7.03906 4.375 7.20312V8.29688C4.375 8.48828 4.21094 8.625 4.04688 8.625ZM7 8.29688C7 8.48828 6.83594 8.625 6.67188 8.625H5.57812C5.38672 8.625 5.25 8.48828 5.25 8.29688V7.20312C5.25 7.03906 5.38672 6.875 5.57812 6.875H6.67188C6.83594 6.875 7 7.03906 7 7.20312V8.29688ZM9.625 8.29688C9.625 8.48828 9.46094 8.625 9.29688 8.625H8.20312C8.01172 8.625 7.875 8.48828 7.875 8.29688V7.20312C7.875 7.03906 8.01172 6.875 8.20312 6.875H9.29688C9.46094 6.875 9.625 7.03906 9.625 7.20312V8.29688ZM7 10.9219C7 11.1133 6.83594 11.25 6.67188 11.25H5.57812C5.38672 11.25 5.25 11.1133 5.25 10.9219V9.82812C5.25 9.66406 5.38672 9.5 5.57812 9.5H6.67188C6.83594 9.5 7 9.66406 7 9.82812V10.9219ZM4.375 10.9219C4.375 11.1133 4.21094 11.25 4.04688 11.25H2.95312C2.76172 11.25 2.625 11.1133 2.625 10.9219V9.82812C2.625 9.66406 2.76172 9.5 2.95312 9.5H4.04688C4.21094 9.5 4.375 9.66406 4.375 9.82812V10.9219ZM9.625 10.9219C9.625 11.1133 9.46094 11.25 9.29688 11.25H8.20312C8.01172 11.25 7.875 11.1133 7.875 10.9219V9.82812C7.875 9.66406 8.01172 9.5 8.20312 9.5H9.29688C9.46094 9.5 9.625 9.66406 9.625 9.82812V10.9219ZM12.25 3.8125V13.4375C12.25 14.1758 11.6484 14.75 10.9375 14.75H1.3125C0.574219 14.75 0 14.1758 0 13.4375V3.8125C0 3.10156 0.574219 2.5 1.3125 2.5H2.625V1.07812C2.625 0.914062 2.76172 0.75 2.95312 0.75H4.04688C4.21094 0.75 4.375 0.914062 4.375 1.07812V2.5H7.875V1.07812C7.875 0.914062 8.01172 0.75 8.20312 0.75H9.29688C9.46094 0.75 9.625 0.914062 9.625 1.07812V2.5H10.9375C11.6484 2.5 12.25 3.10156 12.25 3.8125ZM10.9375 13.2734V5.125H1.3125V13.2734C1.3125 13.3828 1.36719 13.4375 1.47656 13.4375H10.7734C10.8555 13.4375 10.9375 13.3828 10.9375 13.2734Z" fill="#9C9EA6" />
                                             </svg>
                                         </div>
-
-                                        @monthName @day, @year
+											@dateOnPage	
                                     </div>
-
+									<br>
                                     <p style="color: var(--color-textgray)" class="pText">@ingress</p>
 
-                                    <a class="projectLink" href="#">
+                                    <a class="projectLink" href="@item?.Url()">
                                         Read more
                                         <div>
                                             <svg width="11" height="9" viewBox="0 0 11 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -159,20 +120,7 @@
 
 			<div class="projectSmallContainer">
 
-				<div class="projectTagsContainer">
-					<h3 class="h3Headline noMargin">Tags</h3>
-					<div class="projectTagsItemsContainer">
-						@if(tags?.Count() != 0 && tags != null)
-						{
-							@foreach (var tag in tags)
-							{
-								<div class="projectTag">
-									@tag
-								</div>
-							}
-						}
-					</div>
-				</div>
+				@await Html.PartialAsync("partials/tags.cshtml", tags)
 
 				@await Html.PartialAsync("partials/_HelpYouForm.cshtml")
 

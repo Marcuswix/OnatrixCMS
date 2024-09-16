@@ -1,0 +1,16 @@
+﻿ @model IEnumerable<string>
+
+ <div class="projectTagsContainer">
+        <h3 class="h3Headline noMargin">Tags</h3>
+        <div class="projectTagsItemsContainer">
+            @if (Model != null)
+            {
+                @foreach (var tag in Model)
+                {
+                    <div class="projectTag">
+                        @tag
+                    </div>
+                }
+            }
+        </div>
+    </div>
