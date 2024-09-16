@@ -1,0 +1,75 @@
+@import "../core/mixins/mixins.scss";
+
+//Mobil first
+@media(min-width: 10px) {
+
+    .successItemContainer 
+    {
+        padding-block: 2rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+
+        .successItem {
+            .bigNumbersContainer {
+                text-align: center;
+
+                .bigNumbers {
+                    font-size: 4rem;
+                    font-weight: 600;
+                    color: var(--color-sand);
+
+                    &:hover {
+                        transform: scale(1.2);
+                    }
+                }
+
+                .white {
+                    padding-inline: 3rem;
+                    color: var(--color-white);
+                }
+            }
+        }
+    }
+}
+
+//Tablet
+@media(min-width: 768px) {
+    .successItemContainer {
+            grid-template-columns: 1fr 1fr 1fr;
+            .successItem {
+                .bigNumbersContainer {
+                    .bigNumbers {
+                        font-size: 4rem;
+                    }
+                    .white {
+                        padding-inline: 0rem;
+                    }
+                }
+            }
+        }
+    }
+
+//Desktop
+@media(min-width: 1400px) 
+{
+        .successItemContainer {
+            .successItem {
+
+                .bigNumbersContainer {
+                    .bigNumbers {
+                        font-size: 6rem;
+                        transition: all ease-in-out 120ms;
+
+                        &:hover {
+                            transform: scale(1.05);
+                        }
+                    }
+
+                    .white {
+                        max-width: 20rem;
+                    }
+                }
+            }
+        }
+}

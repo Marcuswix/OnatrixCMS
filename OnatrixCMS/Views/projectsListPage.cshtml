@@ -34,7 +34,7 @@
 						@foreach(var item in numberOfItemsShowed)
 						{
 							var itemNumber = countFrom++;
-							var headline = item?.Value<string>("projectTitle") ?? "";
+							var headline = item?.Value<string>("pageTitle") ?? "";
 							var ingress = item?.Value<string>("projectIngress") ?? "";
 							var thumbnailImage = item?.Value<IPublishedContent>("projectThumbnailImage")?.Url() ?? null;
 							var date = item?.Value<string>("projectDate")?.ToString() ?? "";
@@ -42,7 +42,9 @@
 
                         <div>
                             <div class="projectItem">
-                                <img class="projectImage" src="@thumbnailImage" />
+								<div class="projectImageContainer">
+                                	<img class="projectImage" src="@thumbnailImage" />
+								</div>
                                 <div class="projectTextContainer">	
                                     <h4 style="color: var(--color-textgray); font-weight: 600; margin-top: 0.5rem;" class="h4Headline noMargin">@headline</h4>
 
@@ -82,7 +84,6 @@
 				</div>
 
 					<section class="pagination">
-						<div class="container">
 							<div class="paginationInnerContainer">
 								@if(currentPage > 1)
 								{
@@ -112,7 +113,6 @@
 
 
 							</div>
-						</div>
 					</section>
 			</div>
 

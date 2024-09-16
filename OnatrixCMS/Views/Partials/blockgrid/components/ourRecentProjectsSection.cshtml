@@ -1,0 +1,91 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core
+@using Umbraco.Cms.Core.Models.PublishedContent
+@{
+	var selection = Umbraco?.Content(Guid.Parse("07c1562e-2477-45d2-81b0-61f427f19850"))?
+    .ChildrenOfType("projectItemTemplate")?
+    .Where(x => x.IsVisible())
+    .OrderBy(x => x.CreateDate).Take(4);
+
+	var count = 1;
+}
+
+@if(selection != null)
+{
+<div class="sliderContainer">
+
+	@foreach (var item in selection)
+	{
+		var picture = item.Value<IPublishedContent>("projectThumbnailImage")?.Url();
+
+		<div class="sliderItem">
+			<a class="sliderLink" href="@item.Url()">
+				<img class="sliderImage" src="@picture" />
+				<div class="sliderTextContainer">
+					<div class="sliderInnerTextContainer">
+						<h6 class="sliderHeadlines">@item.Name</h6>
+						<p class="sliderIngress">Finacial Advise</p>
+					</div>
+					<div class="arrowContainer">
+					<div class="arrow">
+					</div>
+				</div>
+				</div>
+
+			</a>
+		</div>
+	}
+</div>
+
+<div class="sliderRecent">
+
+		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+		<div class="carousel-inner">
+			@foreach(var slide in selection)
+			{
+				var countSlides = count++;
+				var picture = slide.Value<IPublishedContent>("projectThumbnailImage")?.Url();
+				<div class="carousel-item @(countSlides <= 1 ? "active" : "")">
+					
+
+				<div class="d-block w-100 sliderItem">
+					<a class="sliderLink" href="@slide.Url()">
+					<img class="sliderImage" src="@picture" />
+					<div class="sliderTextContainer">
+					<div class="sliderInnerTextContainer">
+						<h6 class="sliderHeadlines">@slide.Name</h6>
+						<p class="sliderIngress">Finacial Advise</p>
+					</div>
+					<div class="arrowContainer">
+					<div class="arrow">
+					</div>
+				</div>
+				</div>
+
+				</a>
+				</div>
+
+				</div>
+			}
+		</div>
+
+		<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+		</div>
+
+</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+}
+
+
+

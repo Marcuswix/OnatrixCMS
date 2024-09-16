@@ -15,10 +15,30 @@
     var sectionBackgroundImageAltText = Model?.Content.Value<string>("sectionBackgroundImageAltText") ?? "Section Image"; 
 
     var sectionBackgroundColor = Model?.Content.Value<PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? "transparent";
+
+    var gradientBackgroundColors = Model?.Content.Value<IEnumerable<Umbraco.Cms.Core.Models.Blocks.BlockListItem>>("gradientBackgroundColor");
+ 
+    var gradientBackgroundColor = gradientBackgroundColors?.FirstOrDefault();
+
+    var gradientBackgroundColorOne = gradientBackgroundColor?.Content.Value<PickedColor>("backgroundColor1")?.Label.ToLower() ?? "";
+    var gradientBackgroundColorTwo = gradientBackgroundColor?.Content.Value<PickedColor>("backgroundColor2")?.Label.ToLower() ?? "";
+    var amount = gradientBackgroundColor?.Content.Value<string>("amountOfGradiens") ?? "";
+    int.TryParse(amount, out var subtract);
+    int secendAmount = 100 - subtract;
+    
+    
+    if(gradientBackgroundColor != null)
+    {
+        sectionBackgroundColor = "transparent";
+    }
+
+    var gradientStyle = gradientBackgroundColor != null
+      ? $"background: linear-gradient(to bottom, var(--color-{gradientBackgroundColorOne}) {subtract}%, var(--color-{gradientBackgroundColorTwo}) {secendAmount}%);"
+      : "";
 }
 
 
-<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor)" class="section @spacingTopClass @spacingBottomClass">
+<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor); @gradientStyle" class="section @spacingTopClass @spacingBottomClass">
     
     <div class="container @centerContent">
 

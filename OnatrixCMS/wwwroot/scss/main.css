@@ -1060,15 +1060,17 @@ img {
 }
 
 @media (min-width: 10px) {
-  .sectionHeadlines {
-    text-align: center;
-  }
-  .sliderContainer {
-    padding-block: 1rem;
-    width: 100%;
+  .sliderRecent {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+  .sliderContainer {
+    display: none;
+    width: 100%;
   }
   .sliderContainer .sliderItem {
     width: 100vw;
@@ -1076,7 +1078,11 @@ img {
     opacity: 1;
     transition: all ease-in-out 240ms;
   }
-  .sliderContainer .sliderItem .sliderLink {
+  .sliderContainer .sliderItem:hover {
+    opacity: 0.9;
+    background-color: rgba(79, 89, 85, 0.62);
+  }
+  .sliderLink {
     position: relative;
     display: flex;
     justify-content: center;
@@ -1084,7 +1090,11 @@ img {
     transition: all ease-in-out 240ms;
     background-color: rgba(79, 89, 85, 0.2);
   }
-  .sliderContainer .sliderItem .sliderLink .sliderTextContainer {
+  .sliderLink .sliderImage {
+    max-width: 480px;
+    max-height: 480px;
+  }
+  .sliderLink .sliderTextContainer {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -1096,26 +1106,26 @@ img {
     transition: all ease-in-out 240ms;
     background-color: rgba(79, 89, 85, 0.62); /* 50% transparens */
   }
-  .sliderContainer .sliderItem .sliderLink .sliderTextContainer .sliderInnerTextContainer {
+  .sliderLink .sliderTextContainer .sliderInnerTextContainer {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
-  .sliderContainer .sliderItem .sliderLink .sliderTextContainer .sliderHeadlines {
+  .sliderLink .sliderTextContainer .sliderHeadlines {
     margin: 0;
     font-size: 1rem;
     font-weight: 400;
     color: var(--color-white);
     transition: all ease-in-out 240ms;
   }
-  .sliderContainer .sliderItem .sliderLink .sliderTextContainer .sliderIngress {
+  .sliderLink .sliderTextContainer .sliderIngress {
     margin: 0;
     font-size: 1rem;
     font-weight: 200;
     color: var(--color-white);
     font-size: 0.8rem;
   }
-  .sliderContainer .sliderItem .sliderLink .arrowContainer {
+  .sliderLink .arrowContainer {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -1124,7 +1134,7 @@ img {
     transition: all ease-in-out 240ms;
     opacity: 0;
   }
-  .sliderContainer .sliderItem .sliderLink .arrowContainer .arrow {
+  .sliderLink .arrowContainer .arrow {
     height: 1.5rem;
     width: 1.5rem;
     border: solid 5px var(--color-white);
@@ -1133,34 +1143,97 @@ img {
     border-radius: 0.2rem;
     transform: rotate(45deg);
   }
-  .sliderContainer .sliderItem .sliderLink:hover .sliderTextContainer {
+  .sliderLink:hover .sliderTextContainer {
     padding-block: 2rem;
     background-color: rgb(79, 89, 85);
   }
-  .sliderContainer .sliderItem .sliderLink:hover .sliderTextContainer .arrowContainer {
+  .sliderLink:hover .sliderTextContainer .arrowContainer {
     opacity: 1;
   }
-  .sliderContainer .sliderItem .sliderLink:hover .sliderHeadlines {
+  .sliderLink:hover img {
+    opacity: 0.6;
+  }
+  .sliderLink:hover .sliderHeadlines {
     font-weight: 600;
     font-size: 1.1rem;
     color: var(--color-sand);
   }
-  .sliderContainer .sliderItem:hover {
-    opacity: 0.9;
-    background-color: rgba(79, 89, 85, 0.62); /* 50% transparens */
-  }
 }
 @media (min-width: 768px) {
-  .sliderItem {
-    width: 50vw;
+  .sliderContainer .sliderItem {
+    width: auto;
   }
 }
 @media (min-width: 1400px) {
-  .sectionHeadlines {
-    text-align: left;
+  .sliderRecent {
+    display: none;
+  }
+  .sliderContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   .sliderContainer .sliderItem {
     width: 25vw;
+  }
+}
+.container {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+@media (min-width: 10px) {
+  .successItemContainer {
+    padding-block: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .successItemContainer .successItem .bigNumbersContainer {
+    text-align: center;
+  }
+  .successItemContainer .successItem .bigNumbersContainer .bigNumbers {
+    font-size: 4rem;
+    font-weight: 600;
+    color: var(--color-sand);
+  }
+  .successItemContainer .successItem .bigNumbersContainer .bigNumbers:hover {
+    transform: scale(1.2);
+  }
+  .successItemContainer .successItem .bigNumbersContainer .white {
+    padding-inline: 3rem;
+    color: var(--color-white);
+  }
+}
+@media (min-width: 768px) {
+  .successItemContainer {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .successItemContainer .successItem .bigNumbersContainer .bigNumbers {
+    font-size: 4rem;
+  }
+  .successItemContainer .successItem .bigNumbersContainer .white {
+    padding-inline: 0rem;
+  }
+}
+@media (min-width: 1400px) {
+  .successItemContainer .successItem .bigNumbersContainer .bigNumbers {
+    font-size: 6rem;
+    transition: all ease-in-out 120ms;
+  }
+  .successItemContainer .successItem .bigNumbersContainer .bigNumbers:hover {
+    transform: scale(1.05);
+  }
+  .successItemContainer .successItem .bigNumbersContainer .white {
+    max-width: 20rem;
   }
 }
 .container {
@@ -1461,7 +1534,7 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: start;
+    align-items: center;
     gap: 1rem;
     width: 100%;
     order: 1;
@@ -1474,8 +1547,9 @@ img {
     gap: 1.5rem;
   }
   .sectionProjectContainer .projectBigContainer .projectItem .projectImage {
-    max-width: 370px;
-    height: auto;
+    width: 370px;
+    max-height: 240px;
+    overflow: hidden;
   }
   .sectionProjectContainer .projectBigContainer .projectItem .projectTextContainer {
     display: flex;
@@ -1555,10 +1629,36 @@ img {
     align-items: start;
     gap: 0.3rem;
   }
-  .recentProjectSmallImage {
+  .recentProjectSmallImageContainer {
     height: 82px;
     max-width: 152px;
+    overflow: hidden;
+  }
+  .recentProjectSmallImageContainer .recentProjectSmallImage {
+    width: 100%;
+    height: auto;
     object-fit: cover;
+    object-position: center;
+  }
+  .projectPageImageContainer {
+    width: 100%;
+    max-height: 480px;
+    overflow: hidden;
+  }
+  .projectPageImageContainer .projectPageImage {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .projectImageContainer {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+  }
+  .projectImageContainer .projectImage {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 }
 @media (min-width: 768px) {

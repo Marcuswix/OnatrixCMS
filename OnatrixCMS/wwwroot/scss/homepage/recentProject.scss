@@ -1,17 +1,17 @@
 @import "../core/mixins/_mixins.scss";
 
-//Mobil first
+//Mobil
 @media(min-width: 10px)
 {
-    .sectionHeadlines
-    {
-        text-align: center;
+    .sliderRecent {
+        @include centerFlexColumn;
+        width: 100%;
+        height: auto;
     }
 
     .sliderContainer {
-        padding-block: 1rem;
+        display: none;
         width: 100%;
-        @include centerFlex;
 
         .sliderItem {
             width: 100vw;
@@ -19,84 +19,93 @@
             opacity: 1;
             transition: all ease-in-out 240ms;
 
-            .sliderLink {
-                position: relative;
-                @include centerFlex;
+            &:hover {
+                opacity: 0.9;
+                background-color: rgba(79, 89, 85, 0.62);
+            }
+        }
+    }
+
+    .sliderLink {
+        position: relative;
+        @include centerFlex;
+        transition: all ease-in-out 240ms;
+        background-color: rgba(79, 89, 85, 0.2);
+
+        .sliderImage {
+            max-width: 480px;
+            max-height: 480px;
+        }
+
+        .sliderTextContainer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            @include space;
+            gap: 0.5rem;
+            padding: 1.5rem;
+            transition: all ease-in-out 240ms;
+            background-color: rgba(79, 89, 85, 0.62); /* 50% transparens */
+
+            .sliderInnerTextContainer {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .sliderHeadlines {
+                margin: 0;
+                font-size: 1rem;
+                font-weight: 400;
+                color: var(--color-white);
                 transition: all ease-in-out 240ms;
-                background-color: rgba(79, 89, 85, 0.2);
+            }
 
-                .sliderTextContainer {
-                    position: absolute;
-                    bottom: 0;
-                    width: 100%;
-                    @include space;
-                    gap: 0.5rem;
-                    padding: 1.5rem;
-                    transition: all ease-in-out 240ms;
-                    background-color: rgba(79, 89, 85, 0.62); /* 50% transparens */
+            .sliderIngress {
+                margin: 0;
+                font-size: 1rem;
+                font-weight: 200;
+                color: var(--color-white);
+                font-size: 0.8rem;
+            }
+        }
 
-                    .sliderInnerTextContainer {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 0.5rem;
-                    }
+        .arrowContainer {
+            height: 100%;
+            @include centerFlex;
+            padding-right: 2rem;
+            transition: all ease-in-out 240ms;
+            opacity: 0;
 
-                    .sliderHeadlines {
-                        margin: 0;
-                        font-size: 1rem;
-                        font-weight: 400;
-                        color: var(--color-white);
-                        transition: all ease-in-out 240ms;
-                    }
+            .arrow {
+                height: 1.5rem;
+                width: 1.5rem;
+                border: solid 5px var(--color-white);
+                border-bottom: none;
+                border-left: none;
+                border-radius: 0.2rem;
+                transform: rotate(45deg);
+            }
+        }
 
-                    .sliderIngress {
-                        margin: 0;
-                        font-size: 1rem;
-                        font-weight: 200;
-                        color: var(--color-white);
-                        font-size: 0.8rem;
-                    }
-                }
+        &:hover {
+            .sliderTextContainer {
+                padding-block: 2rem;
+                background-color: rgba(79, 89, 85);
 
                 .arrowContainer {
-                    height: 100%;
-                    @include centerFlex;
-                    padding-right: 2rem;
-                    transition: all ease-in-out 240ms;
-                    opacity: 0;
-
-                    .arrow {
-                        height: 1.5rem;
-                        width: 1.5rem;
-                        border: solid 5px var(--color-white);
-                        border-bottom: none;
-                        border-left: none;
-                        border-radius: 0.2rem;
-                        transform: rotate(45deg);
-                    }
-                }
-
-                &:hover {
-                    .sliderTextContainer {
-                        padding-block: 2rem;
-                        background-color: rgba(79, 89, 85);
-
-                        .arrowContainer {
-                            opacity: 1;
-                        }
-                    }
-
-                    .sliderHeadlines {
-                        font-weight: 600;
-                        font-size: 1.1rem;
-                        color: var(--color-sand);
-                    }
+                    opacity: 1;
                 }
             }
 
-            &:hover {
-                opacity: 0.9;
-                background-color: rgba(79, 89, 85, 0.62); /* 50% transparens */
+            img {
+                opacity: 0.6;
+            }
+
+            .sliderHeadlines {
+                font-weight: 600;
+                font-size: 1.1rem;
+                color: var(--color-sand);
             }
         }
     }
@@ -105,24 +114,26 @@
 //Tablet
 @media(min-width: 768px)
 {
-    .sliderItem
-    {
-        width: 50vw;
+    .sliderContainer {
+
+        .sliderItem {
+            width: auto;
+        }
     }
 }
 
 //Desktop
 @media(min-width: 1400px)
 {
-    .sectionHeadlines
-    {
-        text-align: left;
+    .sliderRecent {
+        display: none;
     }
 
-    .sliderContainer
-    {
-        .sliderItem
-        {
+    .sliderContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+
+        .sliderItem {
             width: 25vw;
         }
     }

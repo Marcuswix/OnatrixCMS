@@ -136,9 +136,9 @@
 }
 
 .centerContentHorizontal {
-        @include center;
-        align-items: center;
-    }
+    @include center;
+    align-items: center;
+}
 
 .centerContent {
     height: 100%;
@@ -147,8 +147,8 @@
 }
 
 .centerContentVertical {
-        display: grid;
-        align-items: center;
+    display: grid;
+    align-items: center;
 }
 
 .paddingAround {
@@ -363,6 +363,7 @@ img {
         }
     }
 }
+
 //Umbraco Css
 .umb-block-grid__layout-container {
     position: relative;

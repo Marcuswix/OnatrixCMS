@@ -1,3 +1,5 @@
+@import "../mixins/_mixins.scss";
+
 .pagination {
 
     @media(min-width: 10px) {
@@ -5,10 +7,11 @@
     }
 
     @media(min-width: 1400px) {
-        display: flex;
+        @include centerFlex;
 
         .paginationInnerContainer {
-            display: flex;
+            @include centerFlex;
+            width: 100%;
             gap: 0.5rem;
 
             .change {

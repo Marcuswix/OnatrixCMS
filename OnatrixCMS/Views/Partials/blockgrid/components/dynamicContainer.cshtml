@@ -7,12 +7,10 @@
     var spacingTopClass = (Model!.Content.Value<bool>("addSpaceToTop")) ? "addSpaceToTop" : "";
     var spacingBottomClass = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "addSpaceToBottom" : "";
     var centerContentHorizontal = (Model!.Content.Value<bool>("centerContentHorizontal")) ? "centerContentHorizontal" : "";
-    var centerContentVertical = (Model!.Content.Value<bool>("centerContentVertical")) ? "centerContentVertical" : "";
-    var fullHeightContainer = (Model!.Content.Value<bool>("fullHeightContainer")) ? "fullHeightContainer" : "";
 
     var containerBackgroundColor = Model?.Content.Value<PickedColor>("containerBackgroundColor")?.Label.ToLower() ?? "transparent";
 }
 
-<div class="container @centerContentHorizontal @centerContentVertical @spacingTopClass @spacingBottomClass @fullHeightContainer">
+<div class="container @centerContentHorizontal @spacingTopClass @spacingBottomClass">
     @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
 </div>
