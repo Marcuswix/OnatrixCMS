@@ -1,0 +1,12 @@
+﻿@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+
+@{
+    var formName = Model?.Content.Value<string>("formName") ?? "";
+    var formContent = Model?.Content.Value<BlockListModel>("formContent");
+}
+
+<div>
+    @Html.GetBlockListHtml(formContent)
+</div>

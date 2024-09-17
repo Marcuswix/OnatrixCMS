@@ -559,6 +559,45 @@ img {
   opacity: 0.9;
 }
 
+.formInput {
+  padding: 1rem;
+  border: 1px solid var(--color-lightgray);
+  border-radius: 0.2rem;
+  font-size: 0.9rem;
+  margin: 0.8rem;
+  font-style: italic;
+}
+@media (min-width: 768px) {
+  .formInput {
+    min-width: 21rem;
+  }
+}
+
+.formInputSelect {
+  padding: 1rem;
+  border: 1px solid var(--color-lightgray);
+  border-radius: 0.2rem;
+  font-size: 0.9rem;
+  margin: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+@media (min-width: 768px) {
+  .formInputSelect {
+    min-width: 21rem;
+  }
+}
+.formInputSelect .formSelect {
+  border: none;
+}
+
+.formInputGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .umb-block-grid__layout-container {
   position: relative;
   display: grid;

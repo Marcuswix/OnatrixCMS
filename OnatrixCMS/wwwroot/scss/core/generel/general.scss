@@ -92,8 +92,7 @@
     }
 }
 
-.addSpaceToRightElement
-{
+.addSpaceToRightElement {
     padding-right: 1rem;
 }
 .addSpaceToLeftElement {
@@ -364,6 +363,37 @@ img {
     }
 }
 
+@mixin formInput {
+    padding: 1rem;
+    border: 1px solid var(--color-lightgray);
+    border-radius: 0.2rem;
+    font-size: 0.9rem;
+    margin: 0.8rem;
+
+    @media(min-width: 768px) {
+        min-width: 21rem;
+    }
+}
+
+.formInput {
+    @include formInput;
+    font-style: italic;
+}
+
+.formInputSelect {
+    @include formInput;
+    display: flex;
+    justify-content: space-between;
+
+    .formSelect {
+        border: none;
+    }
+}
+
+.formInputGroup
+{
+    @include centerFlexColumn;
+}
 //Umbraco Css
 .umb-block-grid__layout-container {
     position: relative;

@@ -1,0 +1,17 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+    var buttonText = Model?.Content.Value<string>("buttonText") ?? null;
+    var buttonType = Model?.Content.Value<string>("buttonType") ?? "";
+    var buttonColor = Model?.Content.Value<PickedColor>("buttonColor")?.Label.ToLower() ?? "darkgray";
+    var buttonTextColor = Model?.Content.Value<PickedColor>("buttonTextColor")?.Label.ToLower() ?? "beige";
+}
+@if(!string.IsNullOrEmpty(buttonText))
+{
+    <div>
+        <button style="color: var(--color-@buttonTextColor); background-color: var(--color-@buttonColor)" type="@buttonType" class="btn">@buttonText</button>
+    </div>
+}

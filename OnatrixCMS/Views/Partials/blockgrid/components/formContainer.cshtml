@@ -1,0 +1,22 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+
+@{
+    var formName = Model?.Content.Value<string>("formName") ?? "";
+}
+
+@if (!string.IsNullOrEmpty(formName))
+{
+    if(TempData["Success"] == null)
+    {
+        @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post))
+        {
+            @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
+        }
+    }
+    else
+    {
+        <div style="color: var(--color-success)" class="success">@TempData["Success"]</div>
+    }
+}
