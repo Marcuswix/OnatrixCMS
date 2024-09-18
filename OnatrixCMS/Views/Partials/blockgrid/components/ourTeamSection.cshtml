@@ -13,6 +13,7 @@
     
     var firstThree = blockListItems.Take(3);
     var theRest = blockListItems.Skip(3).Take(4);
+    var count = 1;
 }
 
 <!-- About Us Expert -->
@@ -37,18 +38,7 @@
                     </div>
             }
             </div>
-
-            <slider class="expertSlider">
-                <div class="aboutUsGridItemBig" id="img1">
-                    <img class="aboutUsGridImageBig"  src="#" alt="">
-                        <div class="aboutUsGridItemTextContainer">
-                            <h4 class="aboutUsGridBigHeadline">Brandon Newton</h4>
-                            <p class="aboutUsGridBigDescription">Financial Advisor at Onatrix</p>
-                        </div>
-                </div>
-            </slider>
-
-                    
+                  
             <div class="aboutUsGridContainerSmall">
             @foreach(var member in theRest)
                {
@@ -69,3 +59,51 @@
          </div>
     </div>
 </section>
+
+<div style="display: flex; justify-content: center">
+<div class="sliderRecent">
+		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+		<div class="carousel-inner">
+			@foreach(var slide in blockListItems)
+			{
+                var countSlides = count++;
+                var memberInfo = slide.Content;
+                var name = memberInfo.Value<string>("memberName") ?? "";
+                var role = memberInfo.Value<string>("memberRole") ?? "";
+                var picture = memberInfo.Value<IPublishedContent>("memberPicture").Url() ?? null;
+
+				<div class="carousel-item @(countSlides <= 1 ? "active" : "")">
+					
+
+				<div class="d-block w-100 sliderItem">
+					<div class="sliderLink">
+					<img class="sliderImage" src="@picture" />
+					<div class="sliderTextContainer">
+					<div class="sliderInnerTextContainer">
+						<h6 class="sliderHeadlines">@name</h6>
+						<p class="sliderIngress">@role</p>
+					</div>
+				</div>
+
+				</div>
+				</div>
+
+				</div>
+			}
+		</div>
+
+		<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+		</div>
+
+</div>
+</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

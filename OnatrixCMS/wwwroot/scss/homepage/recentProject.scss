@@ -5,16 +5,16 @@
 {
     .sliderRecent {
         @include centerFlexColumn;
-        width: 100%;
+        max-width: 340px;  
         height: auto;
     }
 
     .sliderContainer {
         display: none;
-        width: 100%;
+        max-width: 100%;
 
         .sliderItem {
-            width: 100vw;
+            max-width: 100%;
             overflow: hidden;
             opacity: 1;
             transition: all ease-in-out 240ms;
@@ -33,8 +33,19 @@
         background-color: rgba(79, 89, 85, 0.2);
 
         .sliderImage {
+            width: 100%;
             max-width: 480px;
             max-height: 480px;
+
+            @media(min-width: 10px) {
+               max-width: 260px;
+               max-height: 260px;
+            }
+
+            @media(min-width: 380px) {
+                min-width: 340px;
+                min-height: 340px;
+            }
         }
 
         .sliderTextContainer {

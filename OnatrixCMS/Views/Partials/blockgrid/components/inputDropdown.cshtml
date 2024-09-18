@@ -1,0 +1,36 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+    var dropDown = Model?.Content.Value<string>("dropdownLabel") ?? null;
+    var uniqueName = Model?.Content.Value<string>("uniqueName") ?? "Message";
+    var dropDownChoices = Model?.Content.Value<IEnumerable<object>>("dropdownChoices") ?? Enumerable.Empty<object>() ?? null;
+    var count = 1;
+    bool.TryParse(TempData["error_message"]?.ToString()!, out bool error_message);
+}
+
+<div id="@uniqueName" class="formInputGroup">
+        @if(dropDownChoices != null)
+        {
+            <div class="formInput">
+                <select class="formInputSelect" id="@uniqueName" name="@uniqueName">
+                    @foreach (var blockItem in dropDownChoices)
+                    {
+                        var choice = blockItem as Umbraco.Cms.Core.Models.Blocks.BlockListItem<Umbraco.Cms.Core.Models.PublishedContent.IPublishedElement, Umbraco.Cms.Core.Models.PublishedContent.IPublishedElement>;
+                        var choiceText = choice?.Content.Value("dropdownChoice") ?? "";
+                        var choiceNumber = count++;
+                        @if (choiceNumber == 1)
+                        {
+                            <option class="formSelect" selected>@choiceText</option>
+                        }
+                        else
+                        {
+                            <option class="formSelect">@choiceText</option>
+                        }
+                    }
+                </select>
+            </div>
+        }
+</div>

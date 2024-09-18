@@ -9,11 +9,6 @@ function hideMenu() {
     sideMenu.style.right = "-55%";
 }
 
-function handleContactFormSubmit() {
-    e.preventDefault()
-
-    const result = await fetch('')
-        .then(() => {
-
-        }).then
-}
+document.addEventListener('DOMContentLoaded', function () {
+    var myCarousel = new bootstrap.Carousel('#carouselExampleControls');
+});

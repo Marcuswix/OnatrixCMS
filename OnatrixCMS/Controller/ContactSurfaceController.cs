@@ -32,12 +32,14 @@ namespace OnatrixCMS.Controller
                 TempData["error_email"] = string.IsNullOrEmpty(form.Email);
                 TempData["error_message"] = string.IsNullOrEmpty(form.Message);
                 TempData["error_phone"] = string.IsNullOrEmpty(form.Phone);
-
-                if (!Regex.IsMatch(form.Email, emailPattern))
+                
+                if(!string.IsNullOrEmpty(form.Email))
                 {
-                    TempData["error_email"] = "Invalid Email (xx@xx.xx)";
+                    if (!Regex.IsMatch(form.Email, emailPattern))
+                    {
+                        TempData["error_email"] = "Invalid Email (xx@xx.xx)";
+                    }
                 }
-
                 return CurrentUmbracoPage();
 
             }

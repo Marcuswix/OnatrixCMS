@@ -31,9 +31,12 @@
     @include formInput;
     display: flex;
     justify-content: space-between;
+    padding-right: 1rem;
+    margin-right: 1rem;
 
     .formSelect {
         border: none;
+        outline: none;
     }
 }
 

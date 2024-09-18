@@ -14,9 +14,8 @@
 
     @if (TempData["SuccessHelpYouForm"] == null)
     {
-        @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post))
+    @using (Html.BeginUmbracoForm("HandleSubmit", "HelpYouFormSurface", FormMethod.Post))
         {
-
             <div style="background-color: var(--color-@backgroundColor)" class="helpYouFormContainer">
                 <div style="z-index: 0" class="letterContainer">
                     <svg width="148" height="113" viewBox="0 0 148 113" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,27 +23,26 @@
                     </svg>
                 </div>
 
-                <form class="form" onsubmit="handleContactFormSubmit()" novalidate>
                     <h4 style="color: var(--color-@headlineColor)" class="h4Headline noMargin">@((headline) ?? "How can we help you?")</h4>
                     <p style="color: var(--color-@textColor)" class="pText noMargin">@((text) ?? "Online support 24/7, we are here to help!")</p>
-                    <div style="z-index: 1" class="inputContainer">
-                        <input placeholder="Email Address">
-                        <button style="padding: 0; border: none; background-color: transparent" type="submit">
+                    <div style="z-index: 10" class="inputContainer">
+                        <input class="formHelpYouInput" style="margin: 0; font-style: italic;" placeholder="E-mail Address"/>
+                        <button style="padding: 0; border: none; background-color: transparent; width: 2rem; height: 2rem;" type="submit">
                             <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M18.6294 4.125H4.19189C3.24266 4.125 2.47314 4.89451 2.47314 5.84375V16.1562C2.47314 17.1055 3.24266 17.875 4.19189 17.875H18.6294C19.5786 17.875 20.3481 17.1055 20.3481 16.1562V5.84375C20.3481 4.89451 19.5786 4.125 18.6294 4.125Z" stroke="#4F5955" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round" />
                                 <path d="M5.22314 6.875L11.4106 11.6875L17.5981 6.875" stroke="#4F5955" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </button>
                     </div>
-
-                    <span class="dangerText">An email is requried</span>
-                </form>
+                    @if(TempData["error_email"] != null)
+                    {
+                        <span style="text-align: center;" class="dangerText">An email is requried</span>
+                    }
             </div>
         }
     }
     else
     {
-    <div style="color: var(--color-success)" class="success">@TempData["SuccessHelpYouForm"]</div>
+        <div style="color: var(--color-success)" class="success">@TempData["SuccessHelpYouForm"]</div>
     }
-}
 

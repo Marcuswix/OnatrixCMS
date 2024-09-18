@@ -7,6 +7,7 @@
 	ViewBag.Title = Model.Name;
 
 	var leftSide = Model.Value("modularLeftSide") as IEnumerable<object> ?? null;
+	var thumbnailImage = Model.Value<IPublishedContent>("thumbnailImage")?.Url() ?? null;
 }
 
 @if(!string.IsNullOrEmpty(ViewBag.Title))
@@ -29,6 +30,10 @@
 			<div class="lineBetween"></div>
 
 			<div class="bigContainer">
+				<div class="projectPageImageContainer">
+					<img class="projectPageImage" src="@thumbnailImage" />
+				</div>
+				<br>
 				@Model.Value("pageContent")
 			</div>
 		</div>

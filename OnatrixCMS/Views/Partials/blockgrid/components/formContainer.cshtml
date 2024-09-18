@@ -17,6 +17,10 @@
     }
     else
     {
-        <div style="color: var(--color-success)" class="success">@TempData["Success"]</div>
+        <div style="color: var(--color-success); padding-block: 1rem; text-align: center;" class="success">@TempData["Success"]</div>
+        @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post))
+        {
+            @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
+        }
     }
 }

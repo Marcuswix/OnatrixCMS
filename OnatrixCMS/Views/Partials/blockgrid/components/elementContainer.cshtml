@@ -11,11 +11,13 @@
     var paddingToLeft = (Model!.Content.Value<bool>("addSpaceToLeft")) ? "addSpaceToLeftElement" : "";
     var paddingToTop = (Model!.Content.Value<bool>("addSpaceToTop")) ? "addSpaceToTop" : "";
     var paddingToBottom = (Model!.Content.Value<bool>("addSpaceToBottom")) ? "addSpaceToBottom" : "";
+    var borderShadow = (Model!.Content.Value<bool>("borderShadow")) ? "borderShadow" : "";
     var customSpace = Model?.Content.Value<string>("addCustomSpace") ?? "";
     var border = (Model!.Content.Value<bool>("addBorder")) ? "border" : "";
     var borderColor = Model?.Content.Value<string>("borderColor") ?? "";
+    var backgroundColor = Model?.Content.Value<PickedColor>("backgroundColor")?.Label.ToLower() ?? "transparent";
 }
 
-<div name="elementContainer" style="@customSpace; @paddingAround; justify-content: @centerContent; border-color: @borderColor;" class="@border @alignTextCenter @paddingToLeft @paddingToRight @paddingToBottom @paddingToTop elementContainer">
+<div name="elementContainer" style="@customSpace; @paddingAround; justify-content: @centerContent; border-color: @borderColor; background-color: var(--color-@backgroundColor)" class="@borderShadow  @border @alignTextCenter @paddingToLeft @paddingToRight @paddingToBottom @paddingToTop elementContainer">
     @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
 </div>
