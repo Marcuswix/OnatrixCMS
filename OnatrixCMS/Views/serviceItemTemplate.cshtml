@@ -12,7 +12,7 @@
 
 @if(!string.IsNullOrEmpty(ViewBag.Title))
 {
-	@await Html.PartialAsync("partials/_PageTitle.cshtml")
+	@await Html.PartialAsync("/Views/Partials/static/_PageTitle.cshtml")
 } 
 
 <section>
@@ -24,7 +24,7 @@
 				{
 					@await Html.GetBlockGridHtmlAsync(Model, "modularLeftSide")
 				}
-				@await Html.PartialAsync("partials/_HelpYouForm.cshtml")
+				@await Html.PartialAsync("/Views/Partials/static/_HelpYouForm.cshtml")
 			</div>
 
 			<div class="lineBetween"></div>
@@ -37,6 +37,12 @@
 				@Model.Value("pageContent")
 			</div>
 		</div>
+	</div>
+</section>
+
+<section>
+	<div class="container">
+		@await Html.PartialAsync("partials/static/_HaveAQuestionForm.cshtml")
 	</div>
 </section>
 

@@ -8,7 +8,3 @@ function showMenu() {
 function hideMenu() {
     sideMenu.style.right = "-55%";
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    var myCarousel = new bootstrap.Carousel('#carouselExampleControls');
-});

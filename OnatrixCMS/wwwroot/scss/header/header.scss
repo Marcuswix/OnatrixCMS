@@ -72,11 +72,10 @@
 
                     .xmarkContainer {
                         display: flex;
-                        justify-content: right;
+                        justify-content: space-between;
+                        align-items:center;
                         margin-right: 0.5rem;
                         padding: 1rem;
-                        padding-bottom: 0.2rem;
-                        height: 58px;
 
                         .fa-solid.fa-xmark {
                             font-size: 1.6rem;

@@ -19,10 +19,6 @@
 @if (selection?.Length > 0)
 {
         <ul class="navUl">
-                <li class="navLi">
-                    <a href="/home/" class="navLinkText">Home</a>
-                </li>
-                <div class="lineBetween"></div>
             @foreach (var item in selection)
             {
                 var test = item.IsAncestorOrSelf(Model);

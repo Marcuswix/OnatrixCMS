@@ -28,40 +28,105 @@
             order: 1;
         }
     }
-}
 
-
-
-
-@media(min-width: 768px) {
-}
-
-@media(min-width: 1400px) 
-{
-    .sectionServicesContainer {
+    .serviceFormContainer{
         display: grid;
-        grid-template-columns: 1fr auto 3fr;
-        gap: 3rem;
-        padding-block: 4rem;
+        gap: 1rem;
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+        place-items: center;
+    }
 
-        .smallContainer {
-            order: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            width: 100%;
+    .serviceFormInputContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        grid-template-areas: "Name Name" "Email Email" "Question Question";
+       
+
+        #Name {
+            grid-area: Name;
         }
 
-        .lineBetween {
-            height: 100%;
-            background-color: var(--color-lightgray);
-            width: 1px;
+        #Email {
+            grid-area: Email;
         }
 
-        .bigContainer {
-            order: 3;
-            display: block;
-            width: 100%;
+        #Question {
+            grid-area: Question;
+            min-height: 4rem;
         }
     }
 }
+
+@media(min-width: 430px) {
+
+    .serviceFormContainer {
+        padding-bottom: 4rem;
+    }
+
+    .serviceFormInputContainer {
+
+        #Question {
+            min-width: 360px;
+        }
+
+        #Name {
+            min-width: 360px;
+        }
+
+        #Email {
+            min-width: 360px;
+        }
+
+        #Question {
+            min-width: 320px;
+            min-height: 6rem;
+        }
+    }
+}
+
+@media(min-width: 992px) {
+
+    .serviceFormContainer {
+        padding-bottom: 4rem;
+    }
+
+    .serviceFormInputContainer {
+        grid-template-areas: "Name Email" "Question Question";
+
+
+        #Question {
+            min-height: 10rem;
+        }
+    }
+}
+
+    @media(min-width: 1400px) {
+        .sectionServicesContainer {
+            display: grid;
+            grid-template-columns: 1fr auto 3fr;
+            gap: 3rem;
+            padding-block: 4rem;
+
+            .smallContainer {
+                order: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                width: 100%;
+            }
+
+            .lineBetween {
+                height: 100%;
+                background-color: var(--color-lightgray);
+                width: 1px;
+            }
+
+            .bigContainer {
+                order: 3;
+                display: block;
+                width: 100%;
+            }
+        }
+    }

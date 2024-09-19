@@ -8,7 +8,7 @@
 
 @if(!string.IsNullOrEmpty(ViewBag.Title) && ViewBag.Title != "Home")
 {
-	@await Html.PartialAsync("partials/_PageTitle.cshtml")
+	@await Html.PartialAsync("/Views/Partials/static/_PageTitle.cshtml")
 } 
 
 @await Html.GetBlockGridHtmlAsync(Model?.Layout)

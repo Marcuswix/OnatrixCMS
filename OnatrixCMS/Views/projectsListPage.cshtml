@@ -19,7 +19,7 @@
 }
 
 
-@await Html.PartialAsync("partials/_PageTitle.cshtml")
+@await Html.PartialAsync("/Views/Partials/static/_PageTitle.cshtml")
 
 <section>
 	<div class="container">
@@ -120,7 +120,7 @@
 
 				@await Html.PartialAsync("partials/tags.cshtml", tags)
 
-				@await Html.PartialAsync("partials/_HelpYouForm.cshtml")
+				@await Html.PartialAsync("/Views/Partials/static/_HelpYouForm.cshtml")
 
 			</div>
 		</div>
