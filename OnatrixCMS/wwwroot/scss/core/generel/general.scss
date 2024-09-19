@@ -170,6 +170,10 @@
 }
 
 //Pagination
+.pagination {
+    width: 100%;
+    @include centerFlex;
+}
 .paginationInnerContainer {
     width: 100%;
     @include center;
@@ -311,6 +315,7 @@ img {
     }
 }
 
+//Borders
 .border
 {
    border: solid 1px var(--color-lightgray);
@@ -407,6 +412,29 @@ img {
             border: none;
         }
     }
+}
+
+@mixin message {
+    padding-top: 0.4rem;
+    text-align: center;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.errorMessage {
+    @include message;
+    color: var(--color-danger);
+}
+
+.successMessage {
+    color: var(--color-success);
+    @include message;
+}
+
+.inputAndSpan
+{
+    @include centerFlexColumn;
+
 }
 //Umbraco Css
 .umb-block-grid__layout-container {

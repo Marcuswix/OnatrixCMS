@@ -41,8 +41,8 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
-        grid-template-areas: "Name Name" "Email Email" "Question Question";
-       
+        grid-template-areas: "Name Name" "Email Email" "Question Question" "QuestionSpan QuestionSpan";
+
 
         #Name {
             grid-area: Name;
@@ -56,6 +56,10 @@
             grid-area: Question;
             min-height: 4rem;
         }
+
+        #QuestionSpan {
+            grid-area: QuestionSpan;
+        }
     }
 }
 
@@ -66,18 +70,6 @@
     }
 
     .serviceFormInputContainer {
-
-        #Question {
-            min-width: 360px;
-        }
-
-        #Name {
-            min-width: 360px;
-        }
-
-        #Email {
-            min-width: 360px;
-        }
 
         #Question {
             min-width: 320px;
@@ -93,12 +85,11 @@
     }
 
     .serviceFormInputContainer {
-        grid-template-areas: "Name Email" "Question Question";
+        grid-template-areas: "Name Email" "Question Question" "QuestionSpan QuestionSpan";
+    }
 
-
-        #Question {
-            min-height: 10rem;
-        }
+    #Question {
+        min-height: 10rem;
     }
 }
 

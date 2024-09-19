@@ -396,6 +396,13 @@ p {
   padding: 12px;
 }
 
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .paginationInnerContainer {
   width: 100%;
   display: flex;
@@ -633,6 +640,29 @@ img {
 .helpYouFormContainer .formHelpYouInput input {
   outline: none;
   border: none;
+}
+
+.errorMessage {
+  padding-top: 0.4rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--color-danger);
+}
+
+.successMessage {
+  color: var(--color-success);
+  padding-top: 0.4rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.inputAndSpan {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .umb-block-grid__layout-container {
@@ -1495,7 +1525,7 @@ img {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-    grid-template-areas: "Name Name" "Email Email" "Question Question";
+    grid-template-areas: "Name Name" "Email Email" "Question Question" "QuestionSpan QuestionSpan";
   }
   .serviceFormInputContainer #Name {
     grid-area: Name;
@@ -1507,19 +1537,13 @@ img {
     grid-area: Question;
     min-height: 4rem;
   }
+  .serviceFormInputContainer #QuestionSpan {
+    grid-area: QuestionSpan;
+  }
 }
 @media (min-width: 430px) {
   .serviceFormContainer {
     padding-bottom: 4rem;
-  }
-  .serviceFormInputContainer #Question {
-    min-width: 360px;
-  }
-  .serviceFormInputContainer #Name {
-    min-width: 360px;
-  }
-  .serviceFormInputContainer #Email {
-    min-width: 360px;
   }
   .serviceFormInputContainer #Question {
     min-width: 320px;
@@ -1531,9 +1555,9 @@ img {
     padding-bottom: 4rem;
   }
   .serviceFormInputContainer {
-    grid-template-areas: "Name Email" "Question Question";
+    grid-template-areas: "Name Email" "Question Question" "QuestionSpan QuestionSpan";
   }
-  .serviceFormInputContainer #Question {
+  #Question {
     min-height: 10rem;
   }
 }

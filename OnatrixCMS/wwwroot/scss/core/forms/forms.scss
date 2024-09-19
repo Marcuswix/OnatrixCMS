@@ -40,4 +40,20 @@
     }
 }
 
+@mixin message {
+    text-align: center;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.errorMessage {
+    @include message;
+    color: var(--color-danger);
+}
+
+.successMessage {
+    color: var(--color-success);
+    @include message;
+}
+
 

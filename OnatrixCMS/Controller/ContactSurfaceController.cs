@@ -37,7 +37,7 @@ namespace OnatrixCMS.Controller
                 {
                     if (!Regex.IsMatch(form.Email, emailPattern))
                     {
-                        TempData["error_email"] = "Invalid Email (xx@xx.xx)";
+                        TempData["error_email"] = "Invalid Email format";
                     }
                 }
                 return CurrentUmbracoPage();
@@ -45,6 +45,38 @@ namespace OnatrixCMS.Controller
             }
 
             TempData["Success"] = "Your contact request was successfully sent!";
+            return RedirectToCurrentUmbracoPage();
+        }
+
+        public IActionResult HandleQuestionSubmit(QuestionFormModel form)
+        {
+            if(!ModelState.IsValid)
+            {
+                TempData["NameQuestion"] = form.Name;
+                TempData["EmailQuestion"] = form.Email;
+                TempData["QuestionQuestion"] = form.Question;
+
+                var emailPattern = @"^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$";
+
+                if (string.IsNullOrEmpty(form.Name))
+                TempData["error_nameQuestion"] = "You must enter a name";
+
+                if (string.IsNullOrEmpty(form.Email))
+                TempData["error_emailQuestion"] = "You must enter an Email";
+
+                if (string.IsNullOrEmpty(form.Question))
+                TempData["error_questionQuestion"] = "You must enter a question";
+
+                if (!string.IsNullOrEmpty(form.Email))
+                {
+                    if (!Regex.IsMatch(form.Email, emailPattern))
+                    {
+                        TempData["error_emailQuestion"] = "Invalid Email format";
+                    }
+                }
+                return CurrentUmbracoPage();
+            }
+            TempData["SuccessQuestion"] = "Your question was successfully sent!";
             return RedirectToCurrentUmbracoPage();
         }
     }

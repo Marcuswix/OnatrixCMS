@@ -22,15 +22,18 @@ namespace OnatrixCMS.Controller
         {
             if(!ModelState.IsValid)
             {
-                TempData["email"] = form.Email;
+                TempData["emailHelp"] = form.Email;
 
                 var emailPattern = @"^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$";
 
-                TempData["error_email"] = string.IsNullOrEmpty(form.Email);
+                TempData["error_emailHelp"] = string.IsNullOrEmpty(form.Email);
 
-                if (!Regex.IsMatch(form.Email, emailPattern))
+                if(!string.IsNullOrEmpty(form.Email))
                 {
-                    TempData["error_email"] = "Invalid Email (xx@xx.xx)";
+                    if (!Regex.IsMatch(form.Email, emailPattern))
+                    {
+                        TempData["error_email"] = "Invalid Email (xx@xx.xx)";
+                    }
                 }
                 return CurrentUmbracoPage();
             }

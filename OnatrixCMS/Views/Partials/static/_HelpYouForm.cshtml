@@ -34,15 +34,15 @@
                             </svg>
                         </button>
                     </div>
-                    @if(TempData["error_email"] != null)
+                    @if (TempData["error_emailHelp"] != null)
                     {
-                        <span style="text-align: center;" class="dangerText">An email is requried</span>
+                        <span class="errorMessage">An email is requried</span>
                     }
             </div>
         }
     }
     else
     {
-        <div style="color: var(--color-success)" class="success">@TempData["SuccessHelpYouForm"]</div>
+        <div class="successMessage">@TempData["SuccessHelpYouForm"]</div>
     }
 

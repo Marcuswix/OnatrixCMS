@@ -1,9 +1,40 @@
-﻿<div class="serviceFormContainer">
-    <h3 class="h3Headline noMargin">Have a question?</h3>
+﻿@using (Html.BeginUmbracoForm("HandleQuestionSubmit", "ContactSurface", FormMethod.Post))
+{
+    <div class="serviceFormContainer">
+        @if(TempData["successQuestion"] != null)
+        {
+                <span class="successMessage">Your question has been sent!</span>
+        }
+        else
+        {
+            <h3 class="h3Headline noMargin">Have a question?</h3>
+        }
         <div class="serviceFormInputContainer">
-            <input id="Name" Name="Name" class="formInput" style="margin: 0px;" placeholder="Name"/>
-            <input id="Email" Name="Email" class="formInput" style="margin: 0px;" placeholder="Email"/>
-            <textarea id="Question" Name="Question" class="formInput" style="margin: 0px;" placeholder="Question"></textarea>
+            <div id="Name" class="inputAndSpan">
+                <input  Name="Name" class="formInput" style="margin: 0px;" placeholder="Name" value="@TempData["NameQuestion"]" />
+                @if (TempData["error_nameQuestion"] != null)
+                {
+                    <span class="errorMessage">You must enter a name</span>
+                }
+            </div>
+
+            <div id="Email" class="inputAndSpan">
+                <input  Name="Email" class="formInput" style="margin: 0px;" placeholder="Email" value="@TempData["EmailQuestion"]" />
+                @if (TempData["error_emailQuestion"] != null)
+                {
+                    <span class="errorMessage">You must enter an email</span>
+                }
+            </div>
+            
+            <textarea id="Question" Name="Question" class="formInput" style="margin: 0px;" placeholder="Question">@TempData["QuestionQuestion"]</textarea>
+            <div id="QuestionSpan" class="inputAndSpan">
+            @if (TempData["error_questionQuestion"] != null)
+            {
+                <span class="errorMessage">You must enter a question</span>
+            }
+            </div>
         </div>
         <button class="btnTheme">Submit</button>
-</div>
+    </div>
+}
+
