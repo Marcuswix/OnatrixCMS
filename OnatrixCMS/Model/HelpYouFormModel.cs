@@ -6,6 +6,7 @@ namespace OnatrixCMS.Model
     {
         [Required(ErrorMessage = "An email is required")]
         [EmailAddress]
-        public string Email { get; set; } = null!;
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$", ErrorMessage = "This email isn't valid")]
+        public string HelpEmail { get; set; } = null!;
     }
 }

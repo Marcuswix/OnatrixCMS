@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnatrixCMS.Model;
+using OnatrixCMS.Services;
 using System.Text.RegularExpressions;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.Logging;
@@ -13,11 +14,13 @@ namespace OnatrixCMS.Controller
 {
     public class ContactSurfaceController : SurfaceController
     {
-        public ContactSurfaceController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
-        {
-        }
+        private readonly EmailServices _emailServices;
+		public ContactSurfaceController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider, EmailServices emailServices) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
+		{
+			_emailServices = emailServices;
+		}
 
-        public IActionResult HandleSubmit(ContactFormModel form)
+		public async Task<IActionResult> HandleSubmit(ContactFormModel form)
         {
             if(!ModelState.IsValid)
             {
@@ -41,14 +44,51 @@ namespace OnatrixCMS.Controller
                     }
                 }
                 return CurrentUmbracoPage();
-
             }
 
-            TempData["Success"] = "Your contact request was successfully sent!";
-            return RedirectToCurrentUmbracoPage();
+            //Denna del gör så att du kan hämta hem rätt node... och så att du kan skapa ett callbackItem...
+            var contentService = Services.ContentService;
+            var nodeGuid = new Guid("405211fe-3f89-4e2a-af88-01fe3d974a3a");
+            var nodeId = contentService?.GetById(nodeGuid);
+            var callbackItem = contentService?.Create(Guid.NewGuid().ToString(), nodeId, "requestACallBackItem");
+
+            callbackItem?.SetValue("callbackName", form.Name);
+            callbackItem?.SetValue("callbackEmail", form.Email);
+            callbackItem?.SetValue("callbackMessage", form.Message);
+            callbackItem?.SetValue("callbackPhone", form.Phone);
+
+            var saveResult = contentService?.Save(callbackItem);
+            if(saveResult.Success)
+            {
+                var publishResult = contentService.Publish(callbackItem, []);
+                if(publishResult.Success)
+                {
+                    var formToSend = new QuestionFormModel
+                    {
+                        Email = form.Email,
+                        Name = form.Name,
+                        Question = form.Message
+                    };
+
+                    var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
+
+                    if (response is OkResult)
+                    {
+                        TempData["Success"] = "Your contact request was successfully sent!";
+                        return RedirectToCurrentUmbracoPage();
+                    }
+
+                    TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent.";
+                }
+
+                TempData["ContactErrorMessage"] = "Your contact request was saved, but not published";
+            }
+            
+            TempData["ContactErrorMessage"] = "Your contact request recived. Something went wrong!";
+            return CurrentUmbracoPage();
         }
 
-        public IActionResult HandleQuestionSubmit(QuestionFormModel form)
+        public async Task<IActionResult> HandleQuestionSubmit(QuestionFormModel form)
         {
             if(!ModelState.IsValid)
             {
@@ -76,8 +116,17 @@ namespace OnatrixCMS.Controller
                 }
                 return CurrentUmbracoPage();
             }
-            TempData["SuccessQuestion"] = "Your question was successfully sent!";
-            return RedirectToCurrentUmbracoPage();
-        }
+
+            var response = await _emailServices.SendMessageToServiceBusAsync(form);
+            
+            if(response is OkResult)
+            {
+				TempData["SuccessQuestion"] = "Your question was successfully sent!";
+				return RedirectToCurrentUmbracoPage();
+			}
+
+            TempData["ErrorQuestion"] = "Something went wrong, please try again later!";
+            return CurrentUmbracoPage();
+		}
     }
 }

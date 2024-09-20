@@ -17,6 +17,11 @@
     }
     else
     {
+        if (TempData["ContactErrorMessage"] != null)
+        {
+            <span class="dangerText">@TempData["ContactErrorMessage"]</span>
+        }
+
         <div style="color: var(--color-success); padding-block: 1rem; text-align: center;" class="success">@TempData["Success"]</div>
         @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post))
         {

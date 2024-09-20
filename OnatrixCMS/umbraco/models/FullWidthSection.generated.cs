@@ -64,11 +64,35 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual bool AddSpaceToTop => this.Value<bool>(_publishedValueFallback, "addSpaceToTop");
 
 		///<summary>
+		/// Background Image Max Height: Write min in px.
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.2.0+1b21caa")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("backgroundImageMaxHeight")]
+		public virtual string BackgroundImageMaxHeight => this.Value<string>(_publishedValueFallback, "backgroundImageMaxHeight");
+
+		///<summary>
+		/// Background Image Min Height: Write max in px.
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.2.0+1b21caa")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("backgroundImageMinHeight")]
+		public virtual string BackgroundImageMinHeight => this.Value<string>(_publishedValueFallback, "backgroundImageMinHeight");
+
+		///<summary>
 		/// Center Content in Section
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.2.0+1b21caa")]
 		[ImplementPropertyType("centerContentInSection")]
 		public virtual bool CenterContentInSection => this.Value<bool>(_publishedValueFallback, "centerContentInSection");
+
+		///<summary>
+		/// Gradient Background Color
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.2.0+1b21caa")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("gradientBackgroundColor")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel GradientBackgroundColor => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "gradientBackgroundColor");
 
 		///<summary>
 		/// Section Background Color

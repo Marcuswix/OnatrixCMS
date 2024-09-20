@@ -3,7 +3,11 @@
     <div class="serviceFormContainer">
         @if(TempData["successQuestion"] != null)
         {
-                <span class="successMessage">Your question has been sent!</span>
+            <span class="successMessage">Your question has been sent!</span>
+        }
+        else if (TempData["ErrorQuestion"] != null)
+        {
+            <span class="errorMessage">@TempData["ErrorQuestion"]</span>
         }
         else
         {

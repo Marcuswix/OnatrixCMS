@@ -18,7 +18,7 @@
                 <select class="formInputSelect" id="@uniqueName" name="@uniqueName">
                     @foreach (var blockItem in dropDownChoices)
                     {
-                        var choice = blockItem as Umbraco.Cms.Core.Models.Blocks.BlockListItem<Umbraco.Cms.Core.Models.PublishedContent.IPublishedElement, Umbraco.Cms.Core.Models.PublishedContent.IPublishedElement>;
+                    var choice = blockItem as Umbraco.Cms.Core.Models.Blocks.BlockListItem<ContentModels.DropdownChoices, Umbraco.Cms.Core.Models.PublishedContent.IPublishedElement>;
                         var choiceText = choice?.Content.Value("dropdownChoice") ?? "";
                         var choiceNumber = count++;
                         @if (choiceNumber == 1)

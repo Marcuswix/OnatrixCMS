@@ -1,0 +1,14 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+    var space = Model?.Content.Value<string>("addSpace") ?? "1rem";
+}
+
+@if(!string.IsNullOrEmpty(space))
+{
+    <div style="padding: @space">
+    </div>
+}

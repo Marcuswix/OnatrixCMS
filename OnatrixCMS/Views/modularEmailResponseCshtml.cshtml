@@ -1,0 +1,14 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ModularEmailResponse>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "mainLayout.cshtml";
+	ViewBag.Title = "Modular Email Response";
+}
+
+@if(!string.IsNullOrEmpty(ViewBag.Title) && ViewBag.Title != "Home")
+{
+	@await Html.PartialAsync("/Views/Partials/static/_PageTitle.cshtml")
+} 
+
+@await Html.GetBlockGridHtmlAsync(Model?.Layout)

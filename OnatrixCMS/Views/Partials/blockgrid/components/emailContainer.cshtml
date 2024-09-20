@@ -1,0 +1,12 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+<html>
+    <body style='font-family: 'Poppins', sans-serif;'>
+        <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; align-text: center; padding: 1rem;">
+            @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
+        </div>
+    </body>
+</html>"

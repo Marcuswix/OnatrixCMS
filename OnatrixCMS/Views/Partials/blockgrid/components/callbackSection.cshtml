@@ -1,0 +1,31 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
+@{
+	var selection = Umbraco.Content(Guid.Parse("405211fe-3f89-4e2a-af88-01fe3d974a3a"))
+    .ChildrenOfType("requestACallBackItem")
+    .Where(x => x.IsVisible());
+}
+    <div class="lineBetween"></div>
+    
+	@foreach (var item in selection)
+	{
+        var name = item.Value<string>("callbackName") ?? "";
+        var email = item.Value<string>("callbackEmail") ?? "";
+        var message = item.Value<string>("callbackMessage") ?? "";
+        var phone = item.Value<string>("callbackPhone") ?? "";
+		
+        <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; padding-block: 1rem;">
+            <b>Name: @name</b>
+            <p>Email: @email</p>
+            <P>Message: @message</P>
+            @if(!string.IsNullOrEmpty(phone))
+            {
+                <p>Phone: @phone</p>
+            }    
+        </div>
+
+        <div class="lineBetween"></div>
+	}
+

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using OnatrixCMS.Model;
+using OnatrixCMS.Services;
 using System.Text.RegularExpressions;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.Logging;
@@ -14,32 +15,52 @@ namespace OnatrixCMS.Controller
 {
     public class HelpYouFormSurfaceController : SurfaceController
     {
-        public HelpYouFormSurfaceController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
+        private readonly EmailServices _emailServices;
+        public HelpYouFormSurfaceController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider, EmailServices emailServices) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
         {
+            _emailServices = emailServices;
         }
 
-        public IActionResult HandleSubmit(HelpYouFormModel form)
+        [HttpPost]
+        public async Task<IActionResult> HandleSubmit(HelpYouFormModel form)
         {
             if(!ModelState.IsValid)
             {
-                TempData["emailHelp"] = form.Email;
+                TempData["emailHelp"] = form.HelpEmail;
 
                 var emailPattern = @"^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$";
 
-                TempData["error_emailHelp"] = string.IsNullOrEmpty(form.Email);
+                TempData["error_emailHelp"] = string.IsNullOrEmpty(form.HelpEmail);
 
-                if(!string.IsNullOrEmpty(form.Email))
+                if(!string.IsNullOrEmpty(form.HelpEmail))
                 {
-                    if (!Regex.IsMatch(form.Email, emailPattern))
+                    if (!Regex.IsMatch(form.HelpEmail, emailPattern))
                     {
-                        TempData["error_email"] = "Invalid Email (xx@xx.xx)";
+                        TempData["error_email"] = "Invalid Email format";
                     }
                 }
                 return CurrentUmbracoPage();
             }
 
-            TempData["SuccessHelpYouForm"] = "Your email was successfully sent!";
-            return RedirectToCurrentUmbracoPage();
+            var formToSend = new QuestionFormModel
+            {
+                Email = form.HelpEmail,
+                Name = "Onatrix 24/7 online Support",
+                Question = "How can ew Help you?"
+            };
+
+            var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
+
+            if(response is OkResult)
+            {
+                TempData["SuccessHelpYouForm"] = "Your email was successfully sent!";
+                return RedirectToCurrentUmbracoPage();
+            }
+            else
+            {
+                TempData["ErrorHelpYouForm"] = "Something went wrong, please try again later.";
+                return CurrentUmbracoPage();
+            }
         }
     }
 }

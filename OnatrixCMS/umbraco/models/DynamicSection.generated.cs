@@ -71,6 +71,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual bool CenterContentInSection => this.Value<bool>(_publishedValueFallback, "centerContentInSection");
 
 		///<summary>
+		/// Gradient Background Color
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.2.0+1b21caa")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("gradientBackgroundColor")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel GradientBackgroundColor => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "gradientBackgroundColor");
+
+		///<summary>
 		/// Section Background Color
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.2.0+1b21caa")]
