@@ -22,6 +22,7 @@ namespace OnatrixCMS.Controller
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> HandleSubmit(HelpYouFormModel form)
         {
             if(!ModelState.IsValid)
@@ -42,25 +43,37 @@ namespace OnatrixCMS.Controller
                 return CurrentUmbracoPage();
             }
 
-            var formToSend = new QuestionFormModel
+            var formToSend = new HelpYouFormToSendModel
             {
-                Email = form.HelpEmail,
-                Name = "Onatrix 24/7 online Support",
-                Question = "How can ew Help you?"
+                HelpEmail = form.HelpEmail,
+                Date = form.Date,
             };
 
-            var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
+            var contentServices = Services.ContentService;
+            var parentGuid = new Guid("e0860029-1818-4bb3-b01a-64e637c4ebdd");
+            var helpItem = contentServices?.Create(Guid.NewGuid().ToString(), parentGuid, "helpYouFormItem");
 
-            if(response is OkResult)
+            helpItem?.SetValue("helpEmail", form.HelpEmail ?? "");
+            helpItem?.SetValue("helpDate", form.Date ?? "");
+
+            if(helpItem != null)
             {
-                TempData["SuccessHelpYouForm"] = "Your email was successfully sent!";
-                return RedirectToCurrentUmbracoPage();
+                var result = contentServices?.Save(helpItem);
+
+                if(result != null && result.Success)
+                {
+                    var success = contentServices?.Publish(helpItem, []);
+                    var response = await _emailServices.SendEmailMessageAsync(formToSend);
+
+                    if (success!.Success)
+                    {
+                        TempData["SuccessHelpYouForm"] = "Your help request was successfully sent!";
+                        return RedirectToCurrentUmbracoPage();
+                    }
+                }
             }
-            else
-            {
-                TempData["ErrorHelpYouForm"] = "Something went wrong, please try again later.";
-                return CurrentUmbracoPage();
-            }
+            TempData["ErrorHelpYouForm"] = "Something went wrong, please try again later.";
+            return CurrentUmbracoPage();
         }
     }
 }

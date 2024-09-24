@@ -1,4 +1,6 @@
-const sideMenu = document.getElementById("sideMenu")
+ï»¿"use strict";
+
+var sideMenu = document.getElementById("sideMenu");
 
 function showMenu() {
 
@@ -16,16 +18,17 @@ function deleteQuestion(contentId) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ contentId: contentId })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Question deleted successfully!');
-            } else {
-                alert('Error: ' + data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        if (data.success) {
+            alert('Question deleted successfully!');
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })["catch"](function (error) {
+        return console.error('Error:', error);
+    });
 }
 
 window.scrollTo({
@@ -37,5 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.classList.add('fade-in');
     setTimeout(function () {
         document.body.classList.add('show');
-    }, 50); // Fördröjning för att säkerställa att klassen läggs till efter att sidan har laddats
+    }, 50); // Fï¿½rdrï¿½jning fï¿½r att sï¿½kerstï¿½lla att klassen lï¿½ggs till efter att sidan har laddats
 });
+

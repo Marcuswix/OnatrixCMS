@@ -1,22 +1,23 @@
-﻿@using (Html.BeginUmbracoForm("HandleQuestionSubmit", "ContactSurface", FormMethod.Post))
+﻿@using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post, new { novalidate = "novalidate" }))
 {
     <div class="serviceFormContainer">
-        @if(TempData["successQuestion"] != null)
+        @if (TempData["Success"] != null)
         {
             <span class="successMessage">Your question has been sent!</span>
         }
-        else if (TempData["ErrorQuestion"] != null)
+        else if (TempData["ContactErrorMessage"] != null)
         {
-            <span class="errorMessage">@TempData["ErrorQuestion"]</span>
+            <span class="errorMessage">@TempData["ContactErrorMessage"] </span>
         }
         else
         {
             <h3 class="h3Headline noMargin">Have a question?</h3>
         }
         <div class="serviceFormInputContainer">
+            <input hidden value="Questions" Name="FormName" />
             <div id="Name" class="inputAndSpan">
                 <input  Name="Name" class="formInput" style="margin: 0px;" placeholder="Name" value="@TempData["NameQuestion"]" />
-                @if (TempData["error_nameQuestion"] != null)
+                @if (TempData["error_name"] != null)
                 {
                     <span class="errorMessage">You must enter a name</span>
                 }
@@ -24,15 +25,15 @@
 
             <div id="Email" class="inputAndSpan">
                 <input  Name="Email" class="formInput" style="margin: 0px;" placeholder="Email" value="@TempData["EmailQuestion"]" />
-                @if (TempData["error_emailQuestion"] != null)
+                @if (TempData["error_email"] != null)
                 {
                     <span class="errorMessage">You must enter an email</span>
                 }
             </div>
             
-            <textarea id="Question" Name="Question" class="formInput" style="margin: 0px;" placeholder="Question">@TempData["QuestionQuestion"]</textarea>
+            <textarea id="Question" Name="Message" class="formInput" style="margin: 0px;" placeholder="Question">@TempData["QuestionQuestion"]</textarea>
             <div id="QuestionSpan" class="inputAndSpan">
-            @if (TempData["error_questionQuestion"] != null)
+            @if (TempData["error_message"] != null)
             {
                 <span class="errorMessage">You must enter a question</span>
             }

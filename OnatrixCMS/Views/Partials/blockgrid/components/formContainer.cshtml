@@ -10,9 +10,13 @@
 {
     if(TempData["Success"] == null)
     {
-        @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post))
+
+        @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post, new { novalidate = "novalidate" }))
         {
-            @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
+            <div id="myForm" name="myForm">
+                <input hidden value="@formName" id="@formName" name="FormName" type="@formName" />
+                @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
+            </div>
         }
     }
     else
@@ -23,9 +27,11 @@
         }
 
         <div style="color: var(--color-success); padding-block: 1rem; text-align: center;" class="success">@TempData["Success"]</div>
+        <div id="myForm">
         @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post))
         {
             @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
         }
+        </div>
     }
 }

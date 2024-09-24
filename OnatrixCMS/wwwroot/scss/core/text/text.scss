@@ -81,8 +81,7 @@ p{
     margin: 0;
 }
 
-.noMargin
-{
+.noMargin {
     margin: 0;
 }
 
@@ -111,4 +110,22 @@ p{
     color: var(--color-success);
     font-size: 0.8rem;
     font-style: italic;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media(min-width: 10px) {
+        max-width: 92%;
+    }
+
+    @media(min-width: 768px) {
+        max-width: 420px;
+    }
+
+    @media(min-width: 1400px) {
+        max-width: 380px;
+    }
 }

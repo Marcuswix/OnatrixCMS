@@ -20,8 +20,13 @@ namespace OnatrixCMS.Controller
 			_emailServices = emailServices;
 		}
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
 		public async Task<IActionResult> HandleSubmit(ContactFormModel form)
         {
+            var contentServiceFormName = Services.ContentService;
+
+
             if(!ModelState.IsValid)
             {
                 TempData["Name"] = form.Name;
@@ -46,87 +51,102 @@ namespace OnatrixCMS.Controller
                 return CurrentUmbracoPage();
             }
 
-            //Denna del gör så att du kan hämta hem rätt node... och så att du kan skapa ett callbackItem...
-            var contentService = Services.ContentService;
-            var nodeGuid = new Guid("405211fe-3f89-4e2a-af88-01fe3d974a3a");
-            var nodeId = contentService?.GetById(nodeGuid);
-            var callbackItem = contentService?.Create(Guid.NewGuid().ToString(), nodeId, "requestACallBackItem");
-
-            callbackItem?.SetValue("callbackName", form.Name);
-            callbackItem?.SetValue("callbackEmail", form.Email);
-            callbackItem?.SetValue("callbackMessage", form.Message);
-            callbackItem?.SetValue("callbackPhone", form.Phone);
-
-            var saveResult = contentService?.Save(callbackItem);
-            if(saveResult.Success)
+            if(form.FormName == "Callback")
             {
-                var publishResult = contentService.Publish(callbackItem, []);
-                if(publishResult.Success)
+                //Denna del gör så att du kan hämta hem rätt node... och så att du kan skapa ett callbackItem...
+                var contentService = Services.ContentService;
+                var nodeGuid = new Guid("405211fe-3f89-4e2a-af88-01fe3d974a3a");
+                var nodeId = contentService?.GetById(nodeGuid);
+                var callbackItem = contentService?.Create(Guid.NewGuid().ToString(), nodeId, "requestACallBackItem");
+
+                callbackItem?.SetValue("callbackName", form.Name);
+                callbackItem?.SetValue("callbackEmail", form.Email);
+                callbackItem?.SetValue("callbackMessage", form.Message);
+                callbackItem?.SetValue("callbackPhone", form.Phone);
+                callbackItem?.SetValue("callbackDate", form.DateTime);
+
+                var saveResult = contentService?.Save(callbackItem);
+
+                if (saveResult!.Success)
                 {
-                    var formToSend = new QuestionFormModel
-                    {
-                        Email = form.Email,
-                        Name = form.Name,
-                        Question = form.Message
-                    };
+                    var publishResult = contentService?.Publish(callbackItem!, []);
 
-                    var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
-
-                    if (response is OkResult)
+                    if (publishResult!.Success)
                     {
-                        TempData["Success"] = "Your contact request was successfully sent!";
-                        return RedirectToCurrentUmbracoPage();
+                        var formToSend = new ContactFormToSendModel
+                        {
+                            Email = form.Email,
+                            Name = form.Name,
+                            Message = form.Message
+                        };
+
+                        var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
+
+                        if (response is OkResult)
+                        {
+                            TempData["Success"] = "Your contact request was successfully sent!";
+                            return RedirectToCurrentUmbracoPage();
+                        }
+
+                        TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent.";
                     }
 
-                    TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent.";
+                    TempData["ContactErrorMessage"] = "Your contact request was saved, but not published";
                 }
 
-                TempData["ContactErrorMessage"] = "Your contact request was saved, but not published";
-            }
-            
-            TempData["ContactErrorMessage"] = "Your contact request recived. Something went wrong!";
-            return CurrentUmbracoPage();
-        }
-
-        public async Task<IActionResult> HandleQuestionSubmit(QuestionFormModel form)
-        {
-            if(!ModelState.IsValid)
-            {
-                TempData["NameQuestion"] = form.Name;
-                TempData["EmailQuestion"] = form.Email;
-                TempData["QuestionQuestion"] = form.Question;
-
-                var emailPattern = @"^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$";
-
-                if (string.IsNullOrEmpty(form.Name))
-                TempData["error_nameQuestion"] = "You must enter a name";
-
-                if (string.IsNullOrEmpty(form.Email))
-                TempData["error_emailQuestion"] = "You must enter an Email";
-
-                if (string.IsNullOrEmpty(form.Question))
-                TempData["error_questionQuestion"] = "You must enter a question";
-
-                if (!string.IsNullOrEmpty(form.Email))
-                {
-                    if (!Regex.IsMatch(form.Email, emailPattern))
-                    {
-                        TempData["error_emailQuestion"] = "Invalid Email format";
-                    }
-                }
+                TempData["ContactErrorMessage"] = "Your contact request was NOT recived. Something went wrong!";
                 return CurrentUmbracoPage();
             }
 
-            var response = await _emailServices.SendMessageToServiceBusAsync(form);
-            
-            if(response is OkResult)
+            if(form.FormName == "Questions")
             {
-				TempData["SuccessQuestion"] = "Your question was successfully sent!";
-				return RedirectToCurrentUmbracoPage();
-			}
+                var contentService = Services.ContentService;
+                var nodeGuid = new Guid("0fad70a6-dc69-47b1-bb76-02d9f803e3c1");
+                var nodeId = contentService!.GetById(nodeGuid);
+                var questionItem = contentService.Create(Guid.NewGuid().ToString(), nodeId, "haveAQuestionItem");
 
-            TempData["ErrorQuestion"] = "Something went wrong, please try again later!";
+                questionItem.SetValue("questionName", form.Name);
+                questionItem.SetValue("questionEmail", form.Email);
+                questionItem.SetValue("questionMessage", form.Message);
+                questionItem.SetValue("questionDate", form.DateTime);
+                
+
+                var saveQuestion = contentService.Save(questionItem);
+
+                if(saveQuestion.Success)
+                {
+                    var published = contentService.Publish(questionItem, []);
+
+                    if(published.Success)
+                    {
+                        var formToSend = new ContactFormToSendModel
+                        {
+                            Email = form.Email,
+                            Name = form.Name,
+                            Message = form.Message,
+                        };
+
+                        var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
+
+                        if (response is OkResult)
+                        {
+                            TempData["Success"] = "Your question was successfully sent!";
+                            return RedirectToCurrentUmbracoPage();
+                        }
+
+                        TempData["ContactErrorMessage"] = "Your question was saved and published, but no confirmation email was sent.";
+                    }
+
+                    TempData["ContactErrorMessage"] = "Your question was saved, but no published and confirmation email was sent.";
+                }
+
+                TempData["ContactErrorMessage"] = "Your question was NOT recived. Something went wrong!";
+                return CurrentUmbracoPage();
+
+            }
+
+            TempData["ContactErrorMessage"] = "Something went wrong. Please try again later!";
             return CurrentUmbracoPage();
-		}
+        }
     }
 }

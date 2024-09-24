@@ -59,6 +59,12 @@
                 flex-direction: column;
                 gap: 1.5rem;
 
+                .projectImageContainer {
+                    display: flex;
+                    justify-content: center;
+                    align-items: start;
+                }
+
                 .projectImage {
                     width: 370px;
                     max-height: 240px;

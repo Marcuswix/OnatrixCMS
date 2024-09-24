@@ -1,30 +1,91 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+﻿@using Umbraco.Cms.Core.Models.PublishedContent;
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+
 
 @{
-	var selection = Umbraco.Content(Guid.Parse("405211fe-3f89-4e2a-af88-01fe3d974a3a"))
-    .ChildrenOfType("requestACallBackItem")
+	var selection = Umbraco.Content(Guid.Parse("0fad70a6-dc69-47b1-bb76-02d9f803e3c1"))?
+    .ChildrenOfType("haveAQuestionItem")?
     .Where(x => x.IsVisible());
+
+    if(!int.TryParse(Context.Request.Query["page"], out int currentPage))
+    currentPage = 1;
+    int countQuestions = selection?.Count() ?? 0;
+    var questionsToShow = selection?.Skip((currentPage -1) * 8).Take(8);
 }
     <div class="lineBetween"></div>
     
-	@foreach (var item in selection)
+	@foreach (var item in questionsToShow)
 	{
-        var name = item.Value<string>("callbackName") ?? "";
-        var email = item.Value<string>("callbackEmail") ?? "";
-        var message = item.Value<string>("callbackMessage") ?? "";
-        var phone = item.Value<string>("callbackPhone") ?? "";
-		
-        <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; padding-block: 1rem;">
-            <b>Name: @name</b>
-            <p>Email: @email</p>
-            <P>Message: @message</P>
-            @if(!string.IsNullOrEmpty(phone))
-            {
-                <p>Phone: @phone</p>
-            }    
+        var name = item.Value<string>("questionName") ?? "";
+        var email = item.Value<string>("questionEmail") ?? "";
+        var message = item.Value<string>("questionMessage") ?? "";
+        var date = item.Value<string>("questionDate") ?? "";
+        var contentId = item.Id;
+
+        <div style="display: flex; justify-content: space-between; align-items: center;" >
+            <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; padding-block: 1rem;">
+                <b>Name: @name</b>
+                <p>Email: @email</p>
+                <P>Message: @message</P> 
+                <p>Date: @date</p>
+            </div>
+
+            <input type="hidden" name="ContentId" value="@contentId" />
+            <button class="btnBeige" onclick="deleteQuestion(@contentId)">Delete</button>
+
         </div>
 
         <div class="lineBetween"></div>
 	}
+        <section class="pagination">
+			<div class="paginationInnerContainer">
+								@if(currentPage > 1)
+								{
+									<a href="?page=@(currentPage - 1)" class="change">Prev</a>
+								}
+								else
+								{
+									<span class="change inactive">Prev</span>
+								}
+								<ul class="pages">
+									@for (int i = 1; i <= Math.Ceiling((decimal)countQuestions / 8); i++)
+									{
+										<li class="@((currentPage == i) ? "active pagLi" : "pagLi")">
+											<a class="number" href="?page=@i">@i</a>
+										</li>
+									}
+								</ul>
+								@if(questionsToShow?.Count() > 7)
+								{
+									<a class="change" href="?page=@(currentPage + 1)">Next</a>
+								}	
+								else
+								{
+									<span class="change inactive" href="">Next</span>
+								}
+			</div>
+		</section>
+
+        <script>
+		    function deleteQuestion(contentId) 
+            {
+            fetch('/umbraco/api/ItemController/deletequestion', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ contentId: contentId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Question deleted successfully!');
+                    location.reload();
+
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        </script>

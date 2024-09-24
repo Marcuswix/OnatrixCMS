@@ -6,6 +6,15 @@
     align-items: center;
 }
 
+.fade-in {
+    opacity: 0;
+    transition: opacity 120ms ease-in-out;
+}
+
+.fade-in.show {
+    opacity: 1;
+}
+
 //Wrapper
 .wrapper {
     display: grid;
@@ -435,6 +444,12 @@ img {
 {
     @include centerFlexColumn;
 
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 //Umbraco Css
 .umb-block-grid__layout-container {

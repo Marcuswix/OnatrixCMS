@@ -16,7 +16,7 @@ namespace OnatrixCMS.Services
 			_configuration = configuration;
 		}
 
-		public async Task<IActionResult> SendMessageToServiceBusAsync(QuestionFormModel model)
+		public async Task<IActionResult> SendMessageToServiceBusAsync(ContactFormToSendModel model)
 		{
 			if(model != null)
 			{
@@ -51,6 +51,33 @@ namespace OnatrixCMS.Services
 				}	
 			}
 
+			return new BadRequestResult();
+		}
+
+		public async Task<IActionResult> SendEmailMessageAsync(HelpYouFormToSendModel model)
+		{
+			if(model != null)
+			{
+                var objectToSend = JsonConvert.SerializeObject(model);
+                var stringifyContent = new StringContent(objectToSend, Encoding.UTF8, "application/json");
+
+				using HttpClient _http = new HttpClient();
+
+				try
+				{
+                    var response = await _http.PostAsync("https://localhost:7130/api/Message", stringifyContent);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return new OkResult();
+                    }
+                }
+				catch(Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+
+            }
 			return new BadRequestResult();
 		}
 	}

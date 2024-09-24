@@ -204,6 +204,27 @@ p {
   font-style: italic;
 }
 
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (min-width: 10px) {
+  .truncate {
+    max-width: 92%;
+  }
+}
+@media (min-width: 768px) {
+  .truncate {
+    max-width: 420px;
+  }
+}
+@media (min-width: 1400px) {
+  .truncate {
+    max-width: 380px;
+  }
+}
+
 .container {
   width: 100%;
 }
@@ -216,6 +237,15 @@ p {
   .container {
     max-width: 1320px;
   }
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 120ms ease-in-out;
+}
+
+.fade-in.show {
+  opacity: 1;
 }
 
 .wrapper {
@@ -663,6 +693,12 @@ img {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .umb-block-grid__layout-container {
@@ -1655,6 +1691,11 @@ img {
     align-items: start;
     flex-direction: column;
     gap: 1.5rem;
+  }
+  .sectionProjectContainer .projectBigContainer .projectItem .projectImageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: start;
   }
   .sectionProjectContainer .projectBigContainer .projectItem .projectImage {
     width: 370px;
