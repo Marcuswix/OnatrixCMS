@@ -61,22 +61,33 @@ namespace OnatrixCMS.Services
                 var objectToSend = JsonConvert.SerializeObject(model);
                 var stringifyContent = new StringContent(objectToSend, Encoding.UTF8, "application/json");
 
-				using HttpClient _http = new HttpClient();
-
-				try
-				{
-                    var response = await _http.PostAsync("https://localhost:7130/api/Message", stringifyContent);
+                try
+                {
+                    using HttpClient _http = new HttpClient();
+					var apiKey = _configuration["Values:ApiKey"];
+                    _http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(apiKey ?? "");
+                    var response = await _http.PostAsync("https://onatrix-webapi-gmdqeucxdycqfvcr.westeurope-01.azurewebsites.net/api/Message", stringifyContent); 
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Response: {responseContent}");
 
                     if (response.IsSuccessStatusCode)
                     {
                         return new OkResult();
                     }
+					else if(response.StatusCode.Equals(500))
+					{
+						return new StatusCodeResult(500);
+                    }
+					else
+					{
+						return new StatusCodeResult(400);
+                    }
                 }
 				catch(Exception ex)
 				{
 					Console.WriteLine(ex.Message);
+					Console.WriteLine($"Error: {ex.Message}, StackTrace: {ex.StackTrace}");
 				}
-
             }
 			return new BadRequestResult();
 		}

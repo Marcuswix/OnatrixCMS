@@ -14,72 +14,85 @@
     int countQuestions = selection?.Count() ?? 0;
     var questionsToShow = selection?.Skip((currentPage -1) * 8).Take(8);
 }
-    <div class="lineBetween"></div>
-    
-	@foreach (var item in questionsToShow)
-	{
-        var name = item.Value<string>("questionName") ?? "";
-        var email = item.Value<string>("questionEmail") ?? "";
-        var message = item.Value<string>("questionMessage") ?? "";
-        var date = item.Value<string>("questionDate") ?? "";
-        var contentId = item.Id;
 
-        <div style="display: flex; justify-content: space-between; align-items: center;" >
-            <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; padding-block: 1rem;">
-                <b>Name: @name</b>
-                <p>Email: @email</p>
-                <P>Message: @message</P> 
-                <p>Date: @date</p>
-            </div>
+@if(countQuestions != 0)
+{
+<div class="lineBetween"></div>
 
-            <input type="hidden" name="ContentId" value="@contentId" />
-            <button class="btnBeige" onclick="deleteQuestion(@contentId)">Delete</button>
+@foreach (var item in questionsToShow!)
+{
+    var name = item.Value<string>("questionName") ?? "";
+    var email = item.Value<string>("questionEmail") ?? "";
+    var message = item.Value<string>("questionMessage") ?? "";
+    var date = item.Value<string>("questionDate") ?? "";
+    var contentId = item.Id;
 
+        <div class="backofficeContainer">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; padding-block: 1rem;">
+            <b>Name: @name</b>
+            <p>Email: @email</p>
+            <P>Message: @message</P>
+            <p>Date: @date</p>
         </div>
 
-        <div class="lineBetween"></div>
-	}
-        <section class="pagination">
-			<div class="paginationInnerContainer">
-								@if(currentPage > 1)
-								{
-									<a href="?page=@(currentPage - 1)" class="change">Prev</a>
-								}
-								else
-								{
-									<span class="change inactive">Prev</span>
-								}
-								<ul class="pages">
-									@for (int i = 1; i <= Math.Ceiling((decimal)countQuestions / 8); i++)
-									{
-										<li class="@((currentPage == i) ? "active pagLi" : "pagLi")">
-											<a class="number" href="?page=@i">@i</a>
-										</li>
-									}
-								</ul>
-								@if(questionsToShow?.Count() > 7)
-								{
-									<a class="change" href="?page=@(currentPage + 1)">Next</a>
-								}	
-								else
-								{
-									<span class="change inactive" href="">Next</span>
-								}
-			</div>
-		</section>
+        <input type="hidden" name="ContentId" value="@contentId" />
+        <button class="btnBeige" onclick="deleteQuestion(@contentId)">Delete</button>
 
-        <script>
-		    function deleteQuestion(contentId) 
-            {
-            fetch('/umbraco/api/ItemController/deletequestion', {
+    </div>
+
+    <div class="lineBetween"></div>
+}
+
+    @if (countQuestions > 8)
+    {
+        <section class="pagination">
+            <div class="paginationInnerContainer">
+                @if (currentPage > 1)
+                {
+                    <a href="?page=@(currentPage - 1)" class="change">Prev</a>
+                }
+                else
+                {
+                    <span class="change inactive">Prev</span>
+                }
+                <ul class="pages">
+                    @for (int i = 1; i <= Math.Ceiling((decimal)countQuestions / 8); i++)
+                    {
+                        <li class="@((currentPage == i) ? "active pagLi" : "pagLi")">
+                            <a class="number" href="?page=@i">@i</a>
+                        </li>
+                    }
+                </ul>
+                @if (questionsToShow?.Count() > 7)
+                {
+                    <a class="change" href="?page=@(currentPage + 1)">Next</a>
+                }
+                else
+                {
+                    <span class="change inactive" href="">Next</span>
+                }
+            </div>
+        </section>
+    }
+}
+else
+{
+    <div class="backofficeContainer">
+    <p>There is no questions at the moment...</p>
+</div>
+}
+
+<script>
+    function deleteQuestion(contentId) {
+        fetch('/umbraco/api/ItemController/deletequestion', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ contentId: contentId })
-            })
+        })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Question deleted successfully!');
+                    alert("Question was successfully deleted");
                     location.reload();
 
                 } else {
@@ -87,5 +100,5 @@
                 }
             })
             .catch(error => console.error('Error:', error));
-        }
-        </script>
+    }
+</script>

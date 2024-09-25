@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Json.Patch;
+using Microsoft.AspNetCore.Mvc;
 using OnatrixCMS.Model;
 using OnatrixCMS.Services;
 using System.Text.RegularExpressions;
@@ -65,35 +66,37 @@ namespace OnatrixCMS.Controller
                 callbackItem?.SetValue("callbackPhone", form.Phone);
                 callbackItem?.SetValue("callbackDate", form.DateTime);
 
-                var saveResult = contentService?.Save(callbackItem);
-
-                if (saveResult!.Success)
+                if(callbackItem != null)
                 {
-                    var publishResult = contentService?.Publish(callbackItem!, []);
+                    var saveResult = contentService?.Save(callbackItem);
 
-                    if (publishResult!.Success)
+                    if (saveResult!.Success)
                     {
-                        var formToSend = new ContactFormToSendModel
-                        {
-                            Email = form.Email,
-                            Name = form.Name,
-                            Message = form.Message
-                        };
+                        var publishResult = contentService?.Publish(callbackItem!, []);
 
-                        var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
-
-                        if (response is OkResult)
+                        if (publishResult!.Success)
                         {
-                            TempData["Success"] = "Your contact request was successfully sent!";
-                            return RedirectToCurrentUmbracoPage();
+                            var formToSend = new ContactFormToSendModel
+                            {
+                                Email = form.Email,
+                                Name = form.Name,
+                                Message = form.Message
+                            };
+
+                            var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
+
+                            if (response is OkResult)
+                            {
+                                TempData["Success"] = "Your contact request was successfully sent!";
+                                return RedirectToCurrentUmbracoPage();
+                            }
+
+                            TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent.";
                         }
 
-                        TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent.";
+                        TempData["ContactErrorMessage"] = "Your contact request was saved, but not published";
                     }
-
-                    TempData["ContactErrorMessage"] = "Your contact request was saved, but not published";
                 }
-
                 TempData["ContactErrorMessage"] = "Your contact request was NOT recived. Something went wrong!";
                 return CurrentUmbracoPage();
             }
@@ -102,14 +105,13 @@ namespace OnatrixCMS.Controller
             {
                 var contentService = Services.ContentService;
                 var nodeGuid = new Guid("0fad70a6-dc69-47b1-bb76-02d9f803e3c1");
-                var nodeId = contentService!.GetById(nodeGuid);
-                var questionItem = contentService.Create(Guid.NewGuid().ToString(), nodeId, "haveAQuestionItem");
+                var parentNode = contentService!.GetById(nodeGuid)!;
+                var questionItem = contentService.Create(form.Email, parentNode, "haveAQuestionItem");
 
                 questionItem.SetValue("questionName", form.Name);
                 questionItem.SetValue("questionEmail", form.Email);
                 questionItem.SetValue("questionMessage", form.Message);
                 questionItem.SetValue("questionDate", form.DateTime);
-                
 
                 var saveQuestion = contentService.Save(questionItem);
 

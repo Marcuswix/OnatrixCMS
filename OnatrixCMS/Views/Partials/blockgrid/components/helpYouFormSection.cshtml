@@ -4,8 +4,8 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
 
 @{
-	var selection = Umbraco.Content(Guid.Parse("e0860029-1818-4bb3-b01a-64e637c4ebdd"))
-    .ChildrenOfType("helpYouFormItem")
+	var selection = Umbraco.Content(Guid.Parse("e0860029-1818-4bb3-b01a-64e637c4ebdd"))?
+    .ChildrenOfType("helpYouFormItem")?
     .Where(x => x.IsVisible());
 
     if(!int.TryParse(Context.Request.Query["page"], out int currentPage))
@@ -14,15 +14,18 @@
     int numberOfItems = selection?.Count() ?? 0;
     var numberOfItemsToShow = selection?.Skip((currentPage - 1) * 8).Take(8); 
 }
-    <div class="lineBetween"></div>
-    
-	@foreach (var item in numberOfItemsToShow!)
-	{
+
+@if(numberOfItems != 0)
+{
+        <div class="lineBetween"></div>
+
+    @foreach (var item in numberOfItemsToShow!)
+    {
         var email = item.Value<string>("helpEmail") ?? "";
         var date = item.Value<string>("helpDate") ?? "";
         var contentId = item.Id;
-		
-        <div style="display: flex; justify-content: space-between; align-items: center;" >
+
+        <div class="backofficeContainer">
             <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; padding-block: 1rem;">
                 <p>Email: @email</p>
                 <p>Date: @date</p>
@@ -31,36 +34,49 @@
         </div>
 
         <div class="lineBetween"></div>
-	}
+    }
 
-    <section class="pagination">
-		<div class="paginationInnerContainer">
-			@if(currentPage > 1)
-			{
-				<a href="?page=@(currentPage -1)" class="change">Prev</a>
-			}
-			else
-			{
-				<span class="change inactive">Prev</span>
-			}
-			<ul class="pages">
-            @for (int i = 1; i <= Math.Ceiling((decimal)numberOfItems / 8); i++)
-			{
-				<li class="@((currentPage == i) ? "active pagLi" : "pagLi")">
-					<a class="number" href="?page=@i">@i</a>
-				</li>
-			}
-			</ul>
-            @if (numberOfItemsToShow?.Count() > 7)
-			{
-				<a class="change" href="?page=@(currentPage + 1)">Next</a>
-			}	
-			else
-			{
-				<span class="change inactive" href="">Next</span>
-			}
-		</div>
-	</section>
+    @if (numberOfItems > 8)
+    {
+        <section class="pagination">
+            <div class="paginationInnerContainer">
+                @if (currentPage > 1)
+                {
+                    <a href="?page=@(currentPage -1)" class="change">Prev</a>
+                }
+                else
+                {
+                    <span class="change inactive">Prev</span>
+                }
+                <ul class="pages">
+                    @for (int i = 1; i <= Math.Ceiling((decimal)numberOfItems / 8); i++)
+                    {
+                        <li class="@((currentPage == i) ? "active pagLi" : "pagLi")">
+                            <a class="number" href="?page=@i">@i</a>
+                        </li>
+                    }
+                </ul>
+                @if (numberOfItemsToShow?.Count() > 7)
+                {
+                    <a class="change" href="?page=@(currentPage + 1)">Next</a>
+                }
+                else
+                {
+                    <span class="change inactive" href="">Next</span>
+                }
+            </div>
+        </section>
+    }
+
+}
+else
+{
+    <div class="backofficeContainer">
+        <p>There is no help requests at the moment...</p>
+    </div>
+}
+
+
 
     <script>
         function DeleteCallBackRequest(contentId)
@@ -72,7 +88,7 @@
                 }).then(response => response.json()).then(data => {
                 if(data.success)
                 {
-                    alert("Callback was successfully deleted");
+                    alert("Help request was successfully deleted");
                     location.reload();
                 }
                 else

@@ -65,9 +65,14 @@ namespace OnatrixCMS.Controller
                     var success = contentServices?.Publish(helpItem, []);
                     var response = await _emailServices.SendEmailMessageAsync(formToSend);
 
-                    if (success!.Success)
+                    if (success!.Success && response is OkResult)
                     {
                         TempData["SuccessHelpYouForm"] = "Your help request was successfully sent!";
+                        return RedirectToCurrentUmbracoPage();
+                    }
+                    if (success!.Success)
+                    {
+                        TempData["SuccessHelpYouForm"] = "Your help request was successfully sent, but no confirmation Email was sent...";
                         return RedirectToCurrentUmbracoPage();
                     }
                 }
