@@ -38,9 +38,14 @@
                 {
                     var itemCount = count++;
                     var dateToConvert = item.Value<string>("projectDate") ?? "";
-                    var headline = item.Value<string>("projectTitle") ?? "";
+                    var headline = item.Value<string>("pageTitle") ?? "";
                     var image = item.Value<IPublishedContent>("projectThumbnailImage")?.Url() ?? null;
                     var projectDate = DataHelpers.ConvertMonthNumberToMonthText(dateToConvert);
+
+                    @if(headline.Length > 26)
+                    {
+                        headline = headline.Substring(0, 26) + "...";
+                    }
                         <a class="aLink objectZoom" href="@item.Url()">
 
                         <div class="recentProjectSmallContainerContent">
@@ -48,7 +53,7 @@
                                 <img class="recentProjectSmallImage" src="@image" alt="@headline image" />
                             </div>
                             <div class="recentProjectSmallContainerTextContainer">
-                                <h6 class="h6Headline noMargin">@item.Name</h6>
+                                <h6 class="h6Headline noMargin">@headline</h6>
                                 <div class="projectDate">
                                     <div class="projectDateSvg">
                                         <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg">

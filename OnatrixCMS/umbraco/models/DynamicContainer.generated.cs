@@ -64,11 +64,11 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual bool AddSpaceToTop => this.Value<bool>(_publishedValueFallback, "addSpaceToTop");
 
 		///<summary>
-		/// Center Content
+		/// Center Content horizontal
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.2.0+1b21caa")]
-		[ImplementPropertyType("centerContent")]
-		public virtual bool CenterContent => this.Value<bool>(_publishedValueFallback, "centerContent");
+		[ImplementPropertyType("centerContentHorizontal")]
+		public virtual bool CenterContentHorizontal => this.Value<bool>(_publishedValueFallback, "centerContentHorizontal");
 
 		///<summary>
 		/// Container Background Color
@@ -77,5 +77,13 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("containerBackgroundColor")]
 		public virtual global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter.PickedColor ContainerBackgroundColor => this.Value<global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter.PickedColor>(_publishedValueFallback, "containerBackgroundColor");
+
+		///<summary>
+		/// Container Name
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.2.0+1b21caa")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("containerName")]
+		public virtual string ContainerName => this.Value<string>(_publishedValueFallback, "containerName");
 	}
 }

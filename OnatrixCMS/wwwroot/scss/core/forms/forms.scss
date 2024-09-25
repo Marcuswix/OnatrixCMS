@@ -1,79 +1,59 @@
 @import "../mixins/_mixins.scss";
 
-//Mobil >576px
-@media(min-width: 10px) {
 
-    .contactForm {
-        @include centerFlex;
-        width: 100%;
-        height: auto;
-        box-shadow: 0px 1px 12px var(--color-lightgray);
-        z-index: 10;
+.formChildContainer {
+    display: grid;
+    grid-template-columns: 1fr;
 
-
-        .formHeader {
-            padding: 2rem;
-            display: flex;
-            align-items: center;
-
-            .formh3Headline {
-                margin: 0;
-            }
-        }
-
-        .formContent {
-            padding: 2rem;
-            display: grid;
-            row-gap: 1rem;
-            z-index: 10;
-
-            .formTermsText {
-                padding-block: 1rem;
-
-                .termsText {
-                    font-size: 0.9rem;
-                    margin-bottom: 0;
-                }
-            }
-
-            .formInput {
-                padding: 1rem;
-                border: 1px solid var(--color-lightgray);
-                border-radius: 0.2rem;
-                font-size: 0.9rem;
-                font-style: italic;
-            }
-
-            .formInputSelect {
-                padding: 1rem;
-                border: 1px solid var(--color-lightgray);
-                border-radius: 0.2rem;
-                display: flex;
-                justify-content: space-between;
-                font-size: 0.9rem;
-
-                .formSelect {
-                    border: none;
-                }
-            }
-        }
+    @media(min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
-//Desktop >1400px
-@media(min-width: 1400px) {
-    .formContainer {
-        position: relative;
-        width: 100%;
-        height: 320px;
-        box-shadow: 0px 1px 12px var(--color-grayLight);
-        z-index: 10;
+@mixin formInput {
+    padding: 1rem;
+    border: 1px solid var(--color-lightgray);
+    border-radius: 0.2rem;
+    font-size: 0.9rem;
+    margin: 1rem;
 
-        .contactForm {
-            width: 32rem;
-            height: auto;
-            box-shadow: 0px 1px 12px var(--color-lightgray);
-            background-color: var(--color-white);
-        }
+    @media(min-width: 768px) {
+        min-width: 21rem;
     }
 }
+
+.formInput {
+    @include formInput;
+    font-style: italic;
+}
+
+.formInputSelect {
+    @include formInput;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 1rem;
+    margin-right: 1rem;
+
+    .formSelect {
+        border: none;
+        outline: none;
+    }
+}
+
+@mixin message {
+    text-align: center;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.errorMessage {
+    @include message;
+    color: var(--color-danger);
+}
+
+.successMessage {
+    color: var(--color-success);
+    @include message;
+}
+
+

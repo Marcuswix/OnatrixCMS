@@ -6,6 +6,15 @@
     align-items: center;
 }
 
+.fade-in {
+    opacity: 0;
+    transition: opacity 120ms ease-in-out;
+}
+
+.fade-in.show {
+    opacity: 1;
+}
+
 //Wrapper
 .wrapper {
     display: grid;
@@ -24,6 +33,10 @@
     position: relative;
     z-index: 0;
     width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top;
+
 }
 
 .sectionFiftyFifty {
@@ -50,6 +63,10 @@
 
 .container {
     z-index: 2;
+
+    @media(min-width: 1400px) {
+        max-width: 1170px !important;
+    }
 }
 
 .fullHeightContainer {
@@ -57,10 +74,26 @@
     z-index: 2;
 }
 
-.elementContainer
-{
+.elementContainer {
     @include center;
     width: 100%;
+
+    @media(min-width: 10px) {
+        text-align: center;
+    }
+
+    @media(min-width: 768px) {
+        text-align: left;
+    }
+}
+
+.backofficeContainer {
+    @include centerFlexColumn;
+
+    @media(min-width: 468px) {
+        @include space;
+        flex-direction: row;
+    }
 }
 //Spaces
 .addSpaceToTop {
@@ -92,8 +125,7 @@
     }
 }
 
-.addSpaceToRightElement
-{
+.addSpaceToRightElement {
     padding-right: 1rem;
 }
 .addSpaceToLeftElement {
@@ -155,6 +187,11 @@
         padding: 12px;
 }
 
+//Pagination
+.pagination {
+    width: 100%;
+    @include centerFlex;
+}
 .paginationInnerContainer {
     width: 100%;
     @include center;
@@ -228,26 +265,9 @@ img {
     height: 100%;
 }
 
-.backgroundImageContent {
-    background-size: cover;
-    background-size: cover;
-    background-position: center;
-}
-
 .backgroundImage {
     position: absolute;
     width: 100%;
-
-    @media(min-width: 10px) {
-        display: none;
-    }
-
-    @media(min-width: 768px) {
-        display: flex;
-    }
-
-    @media(min-width: 1400px) {
-    }
 }
 
 .imageContainer 
@@ -313,42 +333,11 @@ img {
     }
 }
 
+//Borders
 .border
 {
    border: solid 1px var(--color-lightgray);
    border-radius: 0.2rem;
-}
-
-.helpYouFormContainer {
-    width: 100%;
-    border-radius: 0.2rem;
-    padding: 1.4rem;
-    display: grid;
-    position: relative;
-
-    .letterContainer {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-    }
-
-    .form {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
-
-        .inputContainer {
-            padding: 0.6rem;
-            border-radius: 0.2rem;
-            background-color: var(--color-white);
-            @include space;
-
-            input {
-                outline: none;
-                border: none;
-            }
-        }
-    }
 }
 
 .objectZoom {
@@ -364,6 +353,113 @@ img {
     }
 }
 
+.borderShadow
+{
+    box-shadow: 0px 0px 24px var(--color-lightgray);
+}
+
+@mixin formInput {
+    padding: 1rem;
+    border: 1px solid var(--color-lightgray);
+    border-radius: 0.2rem;
+    font-size: 0.9rem;
+    margin: 0.8rem;
+    min-width: 100%;
+
+    @media(min-width: 768px) {
+        min-width: 24rem;
+    }
+}
+
+//Forms
+.formInput {
+    @include formInput;
+    font-style: italic;
+}
+
+.formInputSelect {
+    border: none;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    outline: none;
+
+
+    .formSelect {
+        border: none;
+        outline: none;
+    }
+}
+
+.formInputGroup
+{
+    @include centerFlexColumn;
+}
+
+.helpYouFormContainer {
+    width: 100%;
+    border-radius: 0.2rem;
+    padding: 1.4rem;
+    display: grid;
+    gap: 1rem;
+    position: relative;
+
+    .letterContainer {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    .inputContainer {
+        @include formInput;
+        margin: 0;
+        padding: 0.8rem;
+        background-color: white;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .formHelpYouInput {
+        justify-content: space-between;
+        border-radius: 0.2rem;
+        outline: none;
+        border: none;
+
+        input {
+            outline: none;
+            border: none;
+        }
+    }
+}
+
+@mixin message {
+    padding-top: 0.4rem;
+    text-align: center;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.errorMessage {
+    @include message;
+    color: var(--color-danger);
+}
+
+.successMessage {
+    color: var(--color-success);
+    @include message;
+}
+
+.inputAndSpan
+{
+    @include centerFlexColumn;
+
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 //Umbraco Css
 .umb-block-grid__layout-container {
     position: relative;
@@ -373,6 +469,7 @@ img {
     grid-auto-rows: minmax(0px, min-content);
     column-gap: var(--umb-block-grid--column-gap, 0);
     row-gap: var(--umb-block-grid--row-gap, 0);
+    align-items: end;
 }
 
     .umb-block-grid__layout-item {

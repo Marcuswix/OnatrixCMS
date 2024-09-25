@@ -19,7 +19,7 @@
 }
 
 
-@await Html.PartialAsync("partials/_PageTitle.cshtml")
+@await Html.PartialAsync("/Views/Partials/static/_PageTitle.cshtml")
 
 <section>
 	<div class="container">
@@ -46,7 +46,7 @@
                                 	<img class="projectImage" src="@thumbnailImage" />
 								</div>
                                 <div class="projectTextContainer">	
-                                    <h4 style="color: var(--color-textgray); font-weight: 600; margin-top: 0.5rem;" class="h4Headline noMargin">@headline</h4>
+                                    <h4 style="color: var(--color-textgray); font-weight: 600; margin-top: 0.5rem;" class="h4Headline noMargin truncate">@headline</h4>
 
                                     <div class="projectDate">
                                         <div class="projectDateSvg">
@@ -110,8 +110,6 @@
 								{
 									<span class="change inactive" href="">Next</span>
 								}
-
-
 							</div>
 					</section>
 			</div>
@@ -122,7 +120,7 @@
 
 				@await Html.PartialAsync("partials/tags.cshtml", tags)
 
-				@await Html.PartialAsync("partials/_HelpYouForm.cshtml")
+				@await Html.PartialAsync("/Views/Partials/static/_HelpYouForm.cshtml")
 
 			</div>
 		</div>

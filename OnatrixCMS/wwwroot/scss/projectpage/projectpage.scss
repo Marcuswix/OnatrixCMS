@@ -47,10 +47,7 @@
         }
 
         .projectBigContainer {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            @include centerFlexColumn;
             gap: 1rem;
             width: 100%;
             order: 1;
@@ -61,6 +58,12 @@
                 align-items: start;
                 flex-direction: column;
                 gap: 1.5rem;
+
+                .projectImageContainer {
+                    display: flex;
+                    justify-content: center;
+                    align-items: start;
+                }
 
                 .projectImage {
                     width: 370px;
@@ -204,6 +207,7 @@
         padding-block: 2rem;
 
         .projectBigContainer {
+            align-items: start;
 
             .projectItem {
                 justify-content: start;
@@ -273,14 +277,13 @@
         }
 
         .projectBigContainer {
-            padding-right: 2rem;
 
             .marginBlock {
                 margin-block: 36px;
             }
 
             .projectTagsDetailsContainer {
-                padding-block: 4rem;
+                padding-block: 2rem;
             }
         }
     }

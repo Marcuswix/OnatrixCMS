@@ -22,8 +22,18 @@
 {
     @include btn;
     min-width: 180px;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
+}
+
+.btnTheme {
+    @include btn;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: var(--color-darkgray);
+    color: var(--color-beige);
+    min-width: 180px;
+    max-width: 180px;
 }
 
 .btnBeige

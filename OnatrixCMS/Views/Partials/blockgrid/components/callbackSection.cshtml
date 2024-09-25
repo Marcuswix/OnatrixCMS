@@ -1,0 +1,108 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+
+@{
+    var selection = Umbraco.Content(Guid.Parse("405211fe-3f89-4e2a-af88-01fe3d974a3a"))?
+    .ChildrenOfType("requestACallBackItem")?
+    .Where(x => x.IsVisible());
+
+    if(!int.TryParse(Context.Request.Query["page"], out int currentPage))
+    currentPage = 1;
+
+    int numberOfItems = selection?.Count() ?? 0;
+    var numberOfItemsToShow = selection?.Skip((currentPage - 1) * 8).Take(8); 
+}
+
+@if(numberOfItems != 0)
+{
+<div class="lineBetween"></div>
+
+@foreach (var item in numberOfItemsToShow!)
+{
+    var name = item.Value<string>("callbackName") ?? "";
+    var email = item.Value<string>("callbackEmail") ?? "";
+    var message = item.Value<string>("callbackMessage") ?? "";
+    var phone = item.Value<string>("callbackPhone") ?? "";
+    var date = item.Value<string>("callbackDate") ?? "";
+    var contentId = item.Id;
+
+        <div class="backofficeContainer">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; padding-block: 1rem;">
+            <b>Name: @name</b>
+            <p>Email: @email</p>
+            <P>Message: @message</P>
+            @if (!string.IsNullOrEmpty(phone))
+            {
+                <p>Phone: @phone</p>
+            }
+            <p>Date: @date</p>
+        </div>
+        <button class="btnBeige" onclick="DeleteCallBackRequest(@contentId)">Delete</button>
+    </div>
+
+    <div class="lineBetween"></div>
+}
+
+@if (numberOfItems > 8)
+{
+    <section class="pagination">
+        <div class="paginationInnerContainer">
+            @if (currentPage > 1)
+            {
+                <a href="?page=@(currentPage -1)" class="change">Prev</a>
+            }
+            else
+            {
+                <span class="change inactive">Prev</span>
+            }
+            <ul class="pages">
+                @for (int i = 1; i <= Math.Ceiling((decimal)numberOfItems / 8); i++)
+                {
+                    <li class="@((currentPage == i) ? "active pagLi" : "pagLi")">
+                        <a class="number" href="?page=@i">@i</a>
+                    </li>
+                }
+            </ul>
+            @if (numberOfItemsToShow?.Count() > 7)
+            {
+                <a class="change" href="?page=@(currentPage + 1)">Next</a>
+            }
+            else
+            {
+                <span class="change inactive" href="">Next</span>
+            }
+        </div>
+        </section>
+    }
+    else
+    {
+        <div class="backofficeContainer">
+            <p>There is no callback requests at the moment...</p>
+        </div>
+    }
+}
+
+
+    <script>
+        function DeleteCallBackRequest(contentId)
+        {
+            fetch("/umbraco/api/ItemController/deletequestion", {
+                method: "POST",
+                headers: { "Content-type" : "application/json"},
+                body: JSON.stringify({ contentId : contentId })
+                }).then(response => response.json()).then(data => {
+                if(data.success)
+                {
+                    alert("Callback was successfully deleted");
+                    location.reload();
+                }
+                else
+                {
+                    alert("Something went wrong...")
+                }
+            })
+        }
+    </script>
+

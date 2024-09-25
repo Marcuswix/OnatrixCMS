@@ -14,7 +14,7 @@
 
 @if(!string.IsNullOrEmpty(ViewBag.Title))
 {
-	@await Html.PartialAsync("partials/_PageTitle.cshtml")
+	@await Html.PartialAsync("/Views/Partials/static/_PageTitle.cshtml")
 } 
 
 <section>
@@ -23,7 +23,7 @@
 			
 			<div class="projectSmallContainer">
 				@await Html.PartialAsync("partials/ourRecentProjects.cshtml")
-				@await Html.PartialAsync("partials/_HelpYouForm.cshtml")
+				@await Html.PartialAsync("/Views/Partials/static/_HelpYouForm.cshtml")
 			</div>
 
 			<div class="lineBetween"></div>

@@ -30,14 +30,14 @@
                 }
                 else
                 {
-                    <img src="/defaultPictures/logotype/logotypeGray.svg" alt="Company logotype">
+                        <img src="/defaultPictures/logotype/logotypeGray.svg" alt="Onatrix logotype">
                 }
                 </a>
         </div>
 
         <div>
             <nav class="navDesktop">
-                @await Html.PartialAsync("_Navigation.cshtml")
+                @await Html.PartialAsync("/Views/Partials/_Navigation.cshtml")
             </nav>
         </div>
 
@@ -51,17 +51,18 @@
         </div>
 
         <div id="sideMenu" class="sideMenu">
+
             <div class="xmarkContainer" onclick="hideMenu()">
+                                <a href="@Model.Root().Url()">
+                    <img src="~/defaultPictures/logotype/onatrixInverted.png" alt="Onatrix logotype"/>
+                </a>
                 <i id="xmark" class="fa-solid fa-xmark"></i>
             </div>
             <nav class="navSideMenu">
-                @await Html.PartialAsync("_Navigation.cshtml")
+
+                @await Html.PartialAsync("/Views/Partials/_Navigation.cshtml")
             </nav>
         </div>
     </div>
     </div>
 </div>
-
-<script src="https://kit.fontawesome.com/4d5d7d75c3.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"></script>
-<script src="/Scripts/main.js"></script>
