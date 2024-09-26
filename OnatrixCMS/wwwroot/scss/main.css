@@ -189,7 +189,7 @@ p {
 }
 
 .centerText {
-  text-align: center;
+  text-align: center !important;
 }
 
 .dangerText {
@@ -310,7 +310,6 @@ p {
 
 .elementContainer {
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 100%;
 }
@@ -422,7 +421,6 @@ p {
 .centerContentHorizontal {
   display: flex;
   justify-content: center;
-  align-items: center;
   align-items: center;
 }
 

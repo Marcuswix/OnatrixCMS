@@ -75,7 +75,8 @@
 }
 
 .elementContainer {
-    @include center;
+    display: flex;
+    align-items: center;
     width: 100%;
 
     @media(min-width: 10px) {
@@ -169,7 +170,6 @@
 
 .centerContentHorizontal {
     @include center;
-    align-items: center;
 }
 
 .centerContent {

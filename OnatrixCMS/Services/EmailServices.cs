@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OnatrixCMS.Model;
+using System.Diagnostics;
 using System.Text;
 
 namespace OnatrixCMS.Services
@@ -53,6 +54,44 @@ namespace OnatrixCMS.Services
 
 			return new BadRequestResult();
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> SendEmailConfirmationByApiAsync(ContactFormToSendModel model)
+		{
+			try
+			{
+				if (model != null)
+				{
+					using HttpClient _http = new HttpClient();
+					var json = JsonConvert.SerializeObject(model);
+					var stringToSend = new StringContent(json, Encoding.UTF8, "application/json");
+					var apiKey = _configuration["Values:ApiKey"];
+					_http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(apiKey ?? "");
+
+					var send = await _http.PostAsync("https://localhost:7130/api/Message/callback-question", stringToSend);
+					var response = send.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Response: {response}");
+
+                    if (send.IsSuccessStatusCode)
+					{
+						return new OkResult();
+					}
+					else if (send.StatusCode.Equals(500))
+					{
+						return new StatusCodeResult(500);
+					}
+				}
+                    
+			return new BadRequestResult();
+
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.Message);
+			}
+
+            return new BadRequestResult();
+        }
 
 		public async Task<IActionResult> SendEmailMessageAsync(HelpYouFormToSendModel model)
 		{

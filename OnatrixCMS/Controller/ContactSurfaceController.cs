@@ -78,20 +78,28 @@ namespace OnatrixCMS.Controller
                         {
                             var formToSend = new ContactFormToSendModel
                             {
+                                FormName = "callback",
                                 Email = form.Email,
                                 Name = form.Name,
                                 Message = form.Message
                             };
 
-                            var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
+                            //var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
+
+                            var response = await _emailServices.SendEmailConfirmationByApiAsync(formToSend);
 
                             if (response is OkResult)
                             {
                                 TempData["Success"] = "Your contact request was successfully sent!";
                                 return RedirectToCurrentUmbracoPage();
                             }
-
+                            else if(response is BadRequestResult)
+                            {
+                                TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent.";
+                                return RedirectToCurrentUmbracoPage();
+                            }
                             TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent.";
+                            return RedirectToCurrentUmbracoPage();
                         }
 
                         TempData["ContactErrorMessage"] = "Your contact request was saved, but not published";
@@ -123,12 +131,15 @@ namespace OnatrixCMS.Controller
                     {
                         var formToSend = new ContactFormToSendModel
                         {
+                            FormName = "question",
                             Email = form.Email,
                             Name = form.Name,
                             Message = form.Message,
                         };
 
-                        var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
+                        //var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
+
+                        var response = await _emailServices.SendEmailConfirmationByApiAsync(formToSend);
 
                         if (response is OkResult)
                         {
@@ -136,7 +147,7 @@ namespace OnatrixCMS.Controller
                             return RedirectToCurrentUmbracoPage();
                         }
 
-                        TempData["ContactErrorMessage"] = "Your question was saved and published, but no confirmation email was sent.";
+                        TempData["ContactErrorMessage"] = "Your question was sent, but no confirmation email was sent.";
                     }
 
                     TempData["ContactErrorMessage"] = "Your question was saved, but no published and confirmation email was sent.";
