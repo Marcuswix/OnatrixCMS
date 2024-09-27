@@ -68,20 +68,27 @@ namespace OnatrixCMS.Services
 					var apiKey = _configuration["Values:ApiKey"];
 					_http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(apiKey ?? "");
 
-					var send = await _http.PostAsync("https://onatrix-webapi-gmdqeucxdycqfvcr.westeurope-01.azurewebsites.net/api/Message/callback-question", stringToSend);
+					var send = await _http.PostAsync("https://onatrix-webapi-gmdqeucxdycqfvcr.westeurope-01.azurewebsites.netapi/Message/callback-question", stringToSend);
 					var response = send.Content.ReadAsStringAsync();
                     Console.WriteLine($"Response: {response}");
 
                     if (send.IsSuccessStatusCode)
 					{
-						return new OkResult();
+						return new OkObjectResult(new
+						{
+							Status = response.Result,
+							Message = response.Result
+						});
 					}
-					else if (send.StatusCode.Equals(500))
+					else if (send.StatusCode == System.Net.HttpStatusCode.InternalServerError)
 					{
-						return new StatusCodeResult(500);
+						return new BadRequestObjectResult(new
+						{
+							Status = response.Result,
+							Message = response.Result
+						});
 					}
-				}
-                    
+				}    
 			return new BadRequestResult();
 
 			}
@@ -89,7 +96,6 @@ namespace OnatrixCMS.Services
 			{
 				Debug.WriteLine(ex.Message);
 			}
-
             return new BadRequestResult();
         }
 
@@ -113,7 +119,7 @@ namespace OnatrixCMS.Services
                     {
                         return new OkResult();
                     }
-					else if(response.StatusCode.Equals(500))
+					else if(response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
 					{
 						return new StatusCodeResult(500);
                     }

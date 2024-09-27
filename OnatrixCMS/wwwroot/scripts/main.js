@@ -26,25 +26,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Spara scrollposition innan omladdning
-window.addEventListener("beforeunload", function () {
-    localStorage.setItem("scrollPosition", window.scrollY);
+document.querySelector("form").addEventListener("submit", function () {
+    window.addEventListener("beforeunload", function () {
+        localStorage.setItem("scrollPosition", window.scrollY);
+    });
 });
 
-// Återställ scrollposition efter omladdning
 window.addEventListener("load", function () {
     const scrollPosition = localStorage.getItem("scrollPosition");
-
-
     if (scrollPosition) {
-
-        window.scrollTo(
-            {
-                top: scrollPosition,
-                behavior: "instant"
-            });
-        localStorage.removeItem("scrollPosition");
+        window.scrollTo({
+            top: scrollPosition,
+            behavior: "auto"
+        });
     }
+    localStorage.removeItem("scrollPosition");
 });
 
 

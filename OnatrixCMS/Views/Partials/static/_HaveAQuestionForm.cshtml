@@ -1,11 +1,11 @@
 ﻿@using OnatrixCMS.Model;
-@model OnatrixCMS.Model.ContactFormModel;
+@model OnatrixCMS.Model.QuestionFormModel;
 
 @{
     var regExEx = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 }
 
-@using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post, new { novalidate = "novalidate" }))
+@using (Html.BeginUmbracoForm("HandleQuestionSubmit", "ContactSurface", FormMethod.Post, new { novalidate = "novalidate" }))
 {
     <div class="serviceFormContainer">
         @if (TempData["Success"] != null)
@@ -37,7 +37,7 @@
                 <span id="QuestionQuestionSpan" asp-validation-for="Message" class="errorMessage"></span>
             </div>
         </div>
-        <button class="btnTheme">Submit</button>
+        <button id="questionButton" class="btnTheme" type="submit">Submit</button>
     </div>
 }
 
@@ -52,24 +52,43 @@
     const emailRegexEx = new RegExp(@Html.Raw($"\"{regExEx}\""));
     console.log("inne")
 
+
+    // Spara scrollposition innan formuläret skickas
+    document.getElementById("questionButton").addEventListener("click", function () {
+        localStorage.setItem("scrollPosition", window.scrollY);
+        console.log("inneButtonnnn")
+    });
+
+    // Återställ scrollposition när sidan har laddats
+    window.addEventListener("load", function () {
+        const scrollPosition = localStorage.getItem("scrollPosition");
+        if (scrollPosition) {
+            window.scrollTo({
+                top: scrollPosition,
+                behavior: "auto" // Du kan ändra till "smooth" om du vill ha en mjuk scroll
+            });
+            localStorage.removeItem("scrollPosition"); // Ta bort positionen efter att den har använts
+        }
+    });
+
     questionEmailInput.addEventListener('keyup', (e) => {
-        emailValidator(e.target);
+        emailQuestionValidator(e.target);
     });
 
     questionNameInput.addEventListener('keyup', (e) => {
-        nameValidator(e.target);
+        nameQuestionValidator(e.target);
     });
 
     questionQuestionInput.addEventListener('keyup', (e) => {
-        questionValidator(e.target);
+        questionQuestionValidator(e.target);
     });
 
-    function emailValidator(targetElement) {
-        emailErrorHandler(targetElement, emailRegexEx.test(targetElement.value));
+    function emailQuestionValidator(targetElement) {
+        emailQuestionErrorHandler(targetElement, emailRegexEx.test(targetElement.value));
         console.log("Värde: " + targetElement.value)
     }
 
-    function nameValidator(targetElement)
+    function nameQuestionValidator(targetElement)
     {
         let nameIsValid = false;
         if (targetElement.value.length > 1)
@@ -79,7 +98,7 @@
         nameErrorHandler(targetElement, nameIsValid)
     }
 
-    function questionValidator(targetElement) {
+    function questionQuestionValidator(targetElement) {
         let questionIsValid = false;
 
         if(targetElement.value.length > 2)
@@ -89,7 +108,7 @@
         questionErrorHandler(targetElement, questionIsValid)
     }
 
-    function emailErrorHandler(targetElement, validationResult) {
+    function emailQuestionErrorHandler(targetElement, validationResult) {
 
         if (validationResult) {
             questionEmailSpan.style.display = "none";

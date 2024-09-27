@@ -27,7 +27,6 @@ namespace OnatrixCMS.Controller
         {
             var contentServiceFormName = Services.ContentService;
 
-
             if(!ModelState.IsValid)
             {
                 TempData["Name"] = form.Name;
@@ -88,78 +87,99 @@ namespace OnatrixCMS.Controller
 
                             var response = await _emailServices.SendEmailConfirmationByApiAsync(formToSend);
 
-                            if (response is OkResult)
+                            if (response is OkObjectResult)
                             {
                                 TempData["Success"] = "Your contact request was successfully sent!";
                                 return RedirectToCurrentUmbracoPage();
                             }
-                            else if(response is BadRequestResult)
+                            if(response is BadRequestObjectResult)
                             {
-                                TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent.";
+                                TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent. Shure you wrote the right email: " + form.Email + "?";
                                 return RedirectToCurrentUmbracoPage();
                             }
-                            TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent.";
+                            if(response is  BadRequestResult)
+                            TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent. Shure you got the right address: " + form.Email + "?";
                             return RedirectToCurrentUmbracoPage();
                         }
 
                         TempData["ContactErrorMessage"] = "Your contact request was saved, but not published";
-                    }
+						return RedirectToCurrentUmbracoPage();
+					}
                 }
-                TempData["ContactErrorMessage"] = "Your contact request was NOT recived. Something went wrong!";
-                return CurrentUmbracoPage();
             }
+			TempData["ContactErrorMessage"] = "Your contact request was NOT recived. Something went wrong!";
+			return CurrentUmbracoPage();
+		}
 
-            if(form.FormName == "Questions")
-            {
-                var contentService = Services.ContentService;
-                var nodeGuid = new Guid("0fad70a6-dc69-47b1-bb76-02d9f803e3c1");
-                var parentNode = contentService!.GetById(nodeGuid)!;
-                var questionItem = contentService.Create(form.Email, parentNode, "haveAQuestionItem");
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> HandleQuestionSubmit(QuestionFormModel form)
+		{
+			var contentServiceFormName = Services.ContentService;
 
-                questionItem.SetValue("questionName", form.Name);
-                questionItem.SetValue("questionEmail", form.Email);
-                questionItem.SetValue("questionMessage", form.Message);
-                questionItem.SetValue("questionDate", form.DateTime);
+			if (!ModelState.IsValid)
+			{
+				TempData["Name"] = form.Name;
+				TempData["Email"] = form.Email;
+				TempData["Message"] = form.Message;
+				return CurrentUmbracoPage();
+			}
 
-                var saveQuestion = contentService.Save(questionItem);
+			if (form != null)
+			{
+				var contentService = Services.ContentService;
+				var nodeGuid = new Guid("0fad70a6-dc69-47b1-bb76-02d9f803e3c1");
+				var parentNode = contentService!.GetById(nodeGuid)!;
+				var questionItem = contentService.Create(form.Email, parentNode, "haveAQuestionItem");
 
-                if(saveQuestion.Success)
-                {
-                    var published = contentService.Publish(questionItem, []);
+				questionItem.SetValue("questionName", form.Name);
+				questionItem.SetValue("questionEmail", form.Email);
+				questionItem.SetValue("questionMessage", form.Message);
+				questionItem.SetValue("questionDate", form.DateTime);
 
-                    if(published.Success)
-                    {
-                        var formToSend = new ContactFormToSendModel
-                        {
-                            FormName = "question",
-                            Email = form.Email,
-                            Name = form.Name,
-                            Message = form.Message,
-                        };
+				var saveQuestion = contentService.Save(questionItem);
 
-                        //var response = await _emailServices.SendMessageToServiceBusAsync(formToSend);
+				if (saveQuestion.Success)
+				{
+					var published = contentService.Publish(questionItem, []);
 
-                        var response = await _emailServices.SendEmailConfirmationByApiAsync(formToSend);
+					if (published.Success)
+					{
+						var formToSend = new ContactFormToSendModel
+						{
+							FormName = "question",
+							Email = form.Email,
+							Name = form.Name,
+							Message = form.Message,
+						};
 
-                        if (response is OkResult)
-                        {
-                            TempData["Success"] = "Your question was successfully sent!";
-                            return RedirectToCurrentUmbracoPage();
-                        }
+						var response = await _emailServices.SendEmailConfirmationByApiAsync(formToSend);
 
-                        TempData["ContactErrorMessage"] = "Your question was sent, but no confirmation email was sent.";
-                    }
+						if (response is OkObjectResult okObject)
+						{
+							TempData["Success"] = "Your question was sent successfully";
+							return RedirectToCurrentUmbracoPage();
+						}
+						if (response is BadRequestObjectResult badObject)
+						{
+							TempData["ContactErrorMessage"] = "Your question was sent, but no confirmation email was sent. Sure  you wrote the right email: " + form.Email + "?";
+							return RedirectToCurrentUmbracoPage();
+						}
 
-                    TempData["ContactErrorMessage"] = "Your question was saved, but no published and confirmation email was sent.";
-                }
+						TempData["ContactErrorMessage"] = "Your question was sent, but no confirmation email was sent. Sure  you wrote the right email: " + form.Email + "?";
 
-                TempData["ContactErrorMessage"] = "Your question was NOT recived. Something went wrong!";
-                return CurrentUmbracoPage();
+                        return RedirectToCurrentUmbracoPage();
+					}
 
-            }
+					TempData["ContactErrorMessage"] = "Your question was saved, but no published and confirmation email was sent.";
+					return RedirectToCurrentUmbracoPage();
+				}
 
-            TempData["ContactErrorMessage"] = "Something went wrong. Please try again later!";
-            return CurrentUmbracoPage();
-        }
-    }
+				TempData["ContactErrorMessage"] = "Your question was NOT recived. Something went wrong!";
+				return CurrentUmbracoPage();
+			}
+			TempData["ContactErrorMessage"] = "Something went wrong. Please try again later!";
+			return CurrentUmbracoPage();
+		}
+	}
 }

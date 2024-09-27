@@ -10,6 +10,10 @@
 {
     if(TempData["Success"] == null)
     {
+        if (TempData["ContactErrorMessage"] != null)
+        {
+            <span class="dangerText">@TempData["ContactErrorMessage"]</span>
+        }
 
         @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post, new { novalidate = "novalidate" }))
         {

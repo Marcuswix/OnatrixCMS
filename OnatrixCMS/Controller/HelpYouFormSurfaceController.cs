@@ -72,7 +72,7 @@ namespace OnatrixCMS.Controller
                     }
                     if (success!.Success)
                     {
-                        TempData["SuccessHelpYouForm"] = "Your help request was successfully sent, but no confirmation Email was sent...";
+                        TempData["ErrorHelpYouForm"] = "Your help request was successfully sent, but no confirmation Email was sent. Shure you got the right address: " + form.HelpEmail + "?";
                         return RedirectToCurrentUmbracoPage();
                     }
                 }

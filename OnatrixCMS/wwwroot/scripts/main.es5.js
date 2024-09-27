@@ -28,22 +28,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Spara scrollposition innan omladdning
-window.addEventListener("beforeunload", function () {
-    localStorage.setItem("scrollPosition", window.scrollY);
+document.querySelector("form").addEventListener("submit", function () {
+    window.addEventListener("beforeunload", function () {
+        localStorage.setItem("scrollPosition", window.scrollY);
+    });
 });
 
-// �terst�ll scrollposition efter omladdning
 window.addEventListener("load", function () {
     var scrollPosition = localStorage.getItem("scrollPosition");
-
     if (scrollPosition) {
-
         window.scrollTo({
             top: scrollPosition,
-            behavior: "instant"
+            behavior: "auto"
         });
-        localStorage.removeItem("scrollPosition");
     }
+    localStorage.removeItem("scrollPosition");
 });
 

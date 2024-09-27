@@ -1,4 +1,7 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+﻿@using System;
+@using System.Globalization;
+@using OnatrixCMS.Helpers
+@using Umbraco.Cms.Web.Common.PublishedModels;
 @using Umbraco.Cms.Core.Models.Blocks;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
@@ -42,7 +45,7 @@
 
 <section>
 	<div class="container">
-		@await Html.PartialAsync("partials/static/_HaveAQuestionForm.cshtml", new ContactFormModel())
+		@await Html.PartialAsync("partials/static/_HaveAQuestionForm.cshtml", new QuestionFormModel())
 	</div>
 </section>
 

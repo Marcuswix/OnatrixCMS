@@ -1,7 +1,6 @@
 ﻿@using OnatrixCMS.Model;
 @model OnatrixCMS.Model.HelpYouFormModel
 
-
 @{
     var headlineColor = "sand";
     var textColor = "darkwhite";
@@ -30,10 +29,17 @@
                             </svg>
                         </button>
                     </div>
-                    <span id="EmailInputErrorMessage" asp-validation-for="HelpEmail" class="errorMessage"></span>
-                    @if(TempData["SuccessHelpYouForm"] != null)
+                    @if (TempData["SuccessHelpYouForm"] != null)
                     {
                         <span class="successMessage">@TempData["SuccessHelpYouForm"]</span>
+                    }
+                    else if (TempData["ErrorHelpYouForm"] != null)
+                    {
+                        <span class="errorMessage">@TempData["ErrorHelpYouForm"]</span>
+                    }
+                    else
+                    {
+                        <span id="EmailInputErrorMessage" asp-validation-for="HelpEmail" class="errorMessage"></span>
                     }
             </div>
         }
@@ -44,13 +50,13 @@
     const spanElement = document.getElementById("EmailInputErrorMessage");
     const emailRegex = new RegExp(@Html.Raw($"\"{regEx}\""));
     console.log("inne")
+    
     input.addEventListener('keyup', (e) => {
         emailValidator(e.target);
     });
 
     function emailValidator(targetElement) {
         formErrorHandler(targetElement, emailRegex.test(targetElement.value));
-        console.log("Värde: " + targetElement.value)
     }
 
     function formErrorHandler(targetElement, validationResult) {
