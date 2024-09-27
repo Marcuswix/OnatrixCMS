@@ -270,6 +270,11 @@ p {
   background-size: contain;
   background-position: top;
 }
+@media (max-width: 1400px) {
+  .section {
+    background-image: none !important;
+  }
+}
 
 .fadeInSection {
   opacity: 0;

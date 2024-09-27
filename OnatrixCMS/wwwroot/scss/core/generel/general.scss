@@ -36,6 +36,11 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: top;
+
+    @media(max-width: 1400px)
+    {
+        background-image: none !important;
+    }
 }
 
 .fadeInSection {
