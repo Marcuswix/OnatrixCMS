@@ -39,6 +39,17 @@
 
 }
 
+.fadeInSection {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+    &.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .sectionFiftyFifty {
     position: relative;
     display: grid;
@@ -77,7 +88,6 @@
 .elementContainer {
     display: flex;
     align-items: center;
-    width: 100%;
 
     @media(min-width: 10px) {
         text-align: center;
@@ -257,6 +267,7 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
+    transition: all ease-in-out 120ms;
 }
 
 .backgroundImageContainer {
@@ -372,6 +383,17 @@ img {
 }
 
 //Forms
+.formContainer {
+    width: 100%;
+
+    @media(min-width: 768px) {
+        width: 696px;
+    }
+
+    @media(min-width: 1400px) {
+        width: 100%;
+    }
+}
 .formInput {
     @include formInput;
     font-style: italic;

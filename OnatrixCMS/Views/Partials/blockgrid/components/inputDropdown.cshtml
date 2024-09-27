@@ -32,5 +32,9 @@
                     }
                 </select>
             </div>
+        @if (TempData["error_email"] != null)
+        {
+            <div style="height: 1.2rem"></div>
+        }
         }
 </div>

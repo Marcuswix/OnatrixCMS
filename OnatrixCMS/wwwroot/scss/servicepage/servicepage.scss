@@ -37,28 +37,32 @@
         place-items: center;
     }
 
+    .questionInput
+    {
+        width: 100%;
+    }
+
     .serviceFormInputContainer {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
-        grid-template-areas: "Name Name" "Email Email" "Question Question" "QuestionSpan QuestionSpan";
+        grid-template-areas: "Name Name" "Email Email" "Question Question";
+        width: 100%;
 
 
         #Name {
             grid-area: Name;
+            width: 100%;
         }
 
         #Email {
             grid-area: Email;
+            width: 100%;
         }
 
         #Question {
             grid-area: Question;
             min-height: 4rem;
-        }
-
-        #QuestionSpan {
-            grid-area: QuestionSpan;
         }
     }
 }
@@ -71,30 +75,16 @@
 
     .serviceFormInputContainer {
 
-        #Question {
-            min-width: 320px;
+        #QuestionQuestionInput {
             min-height: 6rem;
+            width: 100%;
         }
     }
 }
 
-@media(min-width: 992px) {
-
-    .serviceFormContainer {
-        padding-bottom: 4rem;
-    }
-
-    .serviceFormInputContainer {
-        grid-template-areas: "Name Email" "Question Question" "QuestionSpan QuestionSpan";
-    }
-
-    #Question {
-        min-height: 10rem;
-    }
-}
-
-    @media(min-width: 1400px) {
-        .sectionServicesContainer {
+@media(min-width: 1400px) 
+{
+    .sectionServicesContainer {
             display: grid;
             grid-template-columns: 1fr auto 3fr;
             gap: 3rem;
@@ -120,4 +110,17 @@
                 width: 100%;
             }
         }
+
+    .serviceFormContainer {
+        padding-bottom: 4rem;
+        place-items: start;
     }
+
+    .serviceFormInputContainer {
+        grid-template-areas: "Name Email" "Question Question";
+
+        #QuestionQuestionInput {
+            min-height: 10rem;
+        }
+    }
+}

@@ -15,7 +15,7 @@
     var sectionBackgroundColor = Model?.Content.Value<PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? "transparent";
 }
 
-<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor)" class="sectionFiftyFifty @spacingTopClass @spacingBottomClass">
+<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor)" class="sectionFiftyFifty fadeInSection @spacingTopClass @spacingBottomClass">
       
       <div class="myHalfContainer">
           @await Html.GetBlockGridItemAreasHtmlAsync(Model!)

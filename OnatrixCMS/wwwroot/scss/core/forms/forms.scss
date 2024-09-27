@@ -1,5 +1,9 @@
 @import "../mixins/_mixins.scss";
 
+.formContainer
+{
+    width: 100%;
+}
 
 .formChildContainer {
     display: grid;

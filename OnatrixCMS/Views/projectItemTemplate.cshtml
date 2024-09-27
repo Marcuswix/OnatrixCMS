@@ -17,13 +17,13 @@
 	@await Html.PartialAsync("/Views/Partials/static/_PageTitle.cshtml")
 } 
 
-<section>
+<section class="fadeInSection">
 	<div class="container">
 		<div class="sectionProjectContainer ">			
 			
 			<div class="projectSmallContainer">
 				@await Html.PartialAsync("partials/ourRecentProjects.cshtml")
-				@await Html.PartialAsync("/Views/Partials/static/_HelpYouForm.cshtml")
+				@await Html.PartialAsync("/Views/Partials/static/_HelpYouForm.cshtml", new HelpYouFormModel())
 			</div>
 
 			<div class="lineBetween"></div>

@@ -1,4 +1,11 @@
-﻿@using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post, new { novalidate = "novalidate" }))
+﻿@using OnatrixCMS.Model;
+@model OnatrixCMS.Model.ContactFormModel;
+
+@{
+    var regExEx = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+}
+
+@using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post, new { novalidate = "novalidate" }))
 {
     <div class="serviceFormContainer">
         @if (TempData["Success"] != null)
@@ -16,30 +23,100 @@
         <div class="serviceFormInputContainer">
             <input hidden value="Questions" Name="FormName" />
             <div id="Name" class="inputAndSpan">
-                <input  Name="Name" class="formInput" style="margin: 0px;" placeholder="Name" value="@TempData["NameQuestion"]" />
-                @if (TempData["error_name"] != null)
-                {
-                    <span class="errorMessage">You must enter a name</span>
-                }
+                <input id="QuestionNameInput" asp-for="Name" Name="Name" class="formInput questionInput" style="margin: 0px;" value="@TempData["Name"]" />
+                <span id="QuestionNameSpan" asp-validation-for="Name" class="errorMessage"></span>
             </div>
 
             <div id="Email" class="inputAndSpan">
-                <input  Name="Email" class="formInput" style="margin: 0px;" placeholder="Email" value="@TempData["EmailQuestion"]" />
-                @if (TempData["error_email"] != null)
-                {
-                    <span class="errorMessage">You must enter an email</span>
-                }
+                <input id="QuestionEmailInput" asp-for="Email" Name="Email" class="formInput questionInput" style="margin: 0px;" value="@TempData["Email"]" />
+                <span id="QuestionEmailSpan" asp-validation-for="Email" class="errorMessage"></span>
             </div>
-            
-            <textarea id="Question" Name="Message" class="formInput" style="margin: 0px;" placeholder="Question">@TempData["QuestionQuestion"]</textarea>
-            <div id="QuestionSpan" class="inputAndSpan">
-            @if (TempData["error_message"] != null)
-            {
-                <span class="errorMessage">You must enter a question</span>
-            }
+
+            <div id="Question" class="inputAndSpan">
+                <textarea id="QuestionQuestionInput" asp-for="Message" Name="Message" class="formInput" style="margin: 0px;">@TempData["QuestionQuestion"]</textarea>
+                <span id="QuestionQuestionSpan" asp-validation-for="Message" class="errorMessage"></span>
             </div>
         </div>
         <button class="btnTheme">Submit</button>
     </div>
 }
+
+<script>
+    let questionNameInput = document.getElementById('QuestionNameInput');
+    let questionEmailInput = document.getElementById('QuestionEmailInput');
+    let questionQuestionInput = document.getElementById('QuestionQuestionInput');
+    const questionNameSpan = document.getElementById("QuestionNameSpan");
+    const questionEmailSpan = document.getElementById("QuestionEmailSpan");
+    const questionQuestionSpan = document.getElementById("QuestionQuestionSpan");
+
+    const emailRegexEx = new RegExp(@Html.Raw($"\"{regExEx}\""));
+    console.log("inne")
+
+    questionEmailInput.addEventListener('keyup', (e) => {
+        emailValidator(e.target);
+    });
+
+    questionNameInput.addEventListener('keyup', (e) => {
+        nameValidator(e.target);
+    });
+
+    questionQuestionInput.addEventListener('keyup', (e) => {
+        questionValidator(e.target);
+    });
+
+    function emailValidator(targetElement) {
+        emailErrorHandler(targetElement, emailRegexEx.test(targetElement.value));
+        console.log("Värde: " + targetElement.value)
+    }
+
+    function nameValidator(targetElement)
+    {
+        let nameIsValid = false;
+        if (targetElement.value.length > 1)
+        {
+            nameIsValid = true;
+        }
+        nameErrorHandler(targetElement, nameIsValid)
+    }
+
+    function questionValidator(targetElement) {
+        let questionIsValid = false;
+
+        if(targetElement.value.length > 2)
+        {
+            questionIsValid = true;
+        }
+        questionErrorHandler(targetElement, questionIsValid)
+    }
+
+    function emailErrorHandler(targetElement, validationResult) {
+
+        if (validationResult) {
+            questionEmailSpan.style.display = "none";
+        } else {
+            questionEmailSpan.style.display = "flex";
+            questionEmailSpan.style.justifyContent = "center";
+        }
+    }
+
+    function nameErrorHandler(targetElement, validationResult) {
+
+        if (validationResult) {
+            questionNameSpan.style.display = "none";
+        } else {
+            questionNameSpan.style.display = "flex";
+            questionNameSpan.style.justifyContent = "center";
+        }
+    }
+
+    function questionErrorHandler(targetElement, validationResult) {
+
+        if (validationResult) {
+            questionQuestionSpan.style.display = "none";
+        } else {
+            questionQuestionSpan.style.display = "flex";
+            questionQuestionSpan.style.justifyContent = "center";
+        }
+    }
+</script>
 

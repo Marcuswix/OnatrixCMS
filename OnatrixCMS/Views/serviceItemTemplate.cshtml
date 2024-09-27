@@ -15,7 +15,7 @@
 	@await Html.PartialAsync("/Views/Partials/static/_PageTitle.cshtml")
 } 
 
-<section>
+<section class="fadeInSection">
 	<div class="container">
 		<div class="sectionServicesContainer">
 			
@@ -24,7 +24,7 @@
 				{
 					@await Html.GetBlockGridHtmlAsync(Model, "modularLeftSide")
 				}
-				@await Html.PartialAsync("/Views/Partials/static/_HelpYouForm.cshtml")
+				@await Html.PartialAsync("/Views/Partials/static/_HelpYouForm.cshtml", new HelpYouFormModel())
 			</div>
 
 			<div class="lineBetween"></div>
@@ -42,7 +42,7 @@
 
 <section>
 	<div class="container">
-		@await Html.PartialAsync("partials/static/_HaveAQuestionForm.cshtml")
+		@await Html.PartialAsync("partials/static/_HaveAQuestionForm.cshtml", new ContactFormModel())
 	</div>
 </section>
 

@@ -13,7 +13,7 @@
 
         @using (Html.BeginUmbracoForm("HandleSubmit", "ContactSurface", FormMethod.Post, new { novalidate = "novalidate" }))
         {
-            <div id="myForm" name="myForm">
+            <div id="myForm" name="myForm" class="formContainer">
                 <input hidden value="@formName" id="@formName" name="FormName" type="@formName" />
                 @await Html.GetBlockGridItemAreasHtmlAsync(Model!)
             </div>
