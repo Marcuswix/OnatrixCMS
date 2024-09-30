@@ -41,9 +41,12 @@
                     {
                         <span id="EmailInputErrorMessage" asp-validation-for="HelpEmail" class="errorMessage"></span>
                     }
+
+                    <div class="g-recaptcha" data-sitekey="6LeDkVMqAAAAADstaNKx37xDreWoiF4biyfYPQgC"></div>
             </div>
         }
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <script>
     let input = document.getElementById('EmailInput');

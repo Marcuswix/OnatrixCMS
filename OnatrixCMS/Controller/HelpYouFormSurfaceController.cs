@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using OnatrixCMS.Model;
 using OnatrixCMS.Services;
 using System.Text.RegularExpressions;
@@ -13,12 +14,21 @@ using Umbraco.Cms.Web.Website.Controllers;
 
 namespace OnatrixCMS.Controller
 {
+    public class RecaptchaResponse
+    {
+        public bool Success { get; set; }
+        public string? ChallengeTs { get; set; }
+        public string? Hostname { get; set; }
+    }
+
     public class HelpYouFormSurfaceController : SurfaceController
     {
         private readonly EmailServices _emailServices;
-        public HelpYouFormSurfaceController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider, EmailServices emailServices) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
+        private readonly IConfiguration _configuration;
+        public HelpYouFormSurfaceController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider, EmailServices emailServices, IConfiguration configuration) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
         {
             _emailServices = emailServices;
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -48,6 +58,19 @@ namespace OnatrixCMS.Controller
                 HelpEmail = form.HelpEmail,
                 Date = form.Date,
             };
+
+            string RecaptchaSecret = _configuration["Values:SecretKey"] ?? "";
+
+            var recaptchaResponse = Request.Form["g-recaptcha-response"];
+
+            var isValidRecaptcha = await ValidateRecaptcha(recaptchaResponse);
+
+            if (!isValidRecaptcha)
+            {
+                TempData["ErrorHelpYouForm"] = "The reCAPTCHA-validation faild. Please try again!";
+                return CurrentUmbracoPage();
+
+            }
 
             var contentServices = Services.ContentService;
             var parentGuid = new Guid("e0860029-1818-4bb3-b01a-64e637c4ebdd");
@@ -79,6 +102,17 @@ namespace OnatrixCMS.Controller
             }
             TempData["ErrorHelpYouForm"] = "Something went wrong, please try again later.";
             return CurrentUmbracoPage();
+        }
+
+        private async Task<bool> ValidateRecaptcha(string recaptchaResponse)
+        {
+            var httpClient = new HttpClient();
+            var googleApiUrl = $"https://www.google.com/recaptcha/api/siteverify?secret=6LeDkVMqAAAAADstaNKx37xDreWoiF4biyfYPQgC&response={recaptchaResponse}";
+
+            var response = await httpClient.GetStringAsync(googleApiUrl);
+            var recaptchaResult = JsonConvert.DeserializeObject<RecaptchaResponse>(response);
+
+            return recaptchaResult != null && recaptchaResult.Success;
         }
     }
 }
