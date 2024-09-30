@@ -65,11 +65,15 @@ namespace OnatrixCMS.Controller
 
             var isValidRecaptcha = await ValidateRecaptcha(recaptchaResponse);
 
-            if (!isValidRecaptcha)
+            if (string.IsNullOrEmpty(recaptchaResponse))
             {
-                TempData["ErrorHelpYouForm"] = "The reCAPTCHA-validation faild. Please try again!";
+                TempData["ErrorHelpYouForm"] = "reCAPTCHA response is empty...";
                 return CurrentUmbracoPage();
-
+            }
+            if(isValidRecaptcha == false)
+            {
+                TempData["ErrorHelpYouForm"] = "reCAPTCHA validation failed. Please try again!";
+                return CurrentUmbracoPage();
             }
 
             var contentServices = Services.ContentService;
@@ -106,8 +110,9 @@ namespace OnatrixCMS.Controller
 
         private async Task<bool> ValidateRecaptcha(string recaptchaResponse)
         {
+            string recaptchaSecret = _configuration["Values:SecretKey"] ?? "";
             var httpClient = new HttpClient();
-            var googleApiUrl = $"https://www.google.com/recaptcha/api/siteverify?secret=6LeDkVMqAAAAADstaNKx37xDreWoiF4biyfYPQgC&response={recaptchaResponse}";
+            var googleApiUrl = $"https://www.google.com/recaptcha/api/siteverify?secret={recaptchaSecret}&response={recaptchaResponse}";
 
             var response = await httpClient.GetStringAsync(googleApiUrl);
             var recaptchaResult = JsonConvert.DeserializeObject<RecaptchaResponse>(response);
