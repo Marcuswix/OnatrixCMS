@@ -64,22 +64,6 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual bool AddSpaceToTop => this.Value<bool>(_publishedValueFallback, "addSpaceToTop");
 
 		///<summary>
-		/// Background Image Max Height: Write min in px.
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.2.0+1b21caa")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("backgroundImageMaxHeight")]
-		public virtual string BackgroundImageMaxHeight => this.Value<string>(_publishedValueFallback, "backgroundImageMaxHeight");
-
-		///<summary>
-		/// Background Image Min Height: Write max in px.
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.2.0+1b21caa")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("backgroundImageMinHeight")]
-		public virtual string BackgroundImageMinHeight => this.Value<string>(_publishedValueFallback, "backgroundImageMinHeight");
-
-		///<summary>
 		/// Center Content in Section
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.2.0+1b21caa")]
@@ -117,6 +101,13 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("sectionBackgroundImageAltText")]
 		public virtual string SectionBackgroundImageAltText => this.Value<string>(_publishedValueFallback, "sectionBackgroundImageAltText");
+
+		///<summary>
+		/// Section Background Image Blurry on Mobil
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "14.2.0+1b21caa")]
+		[ImplementPropertyType("sectionBackgroundImageBlurryOnMobil")]
+		public virtual bool SectionBackgroundImageBlurryOnMobil => this.Value<bool>(_publishedValueFallback, "sectionBackgroundImageBlurryOnMobil");
 
 		///<summary>
 		/// Section Title

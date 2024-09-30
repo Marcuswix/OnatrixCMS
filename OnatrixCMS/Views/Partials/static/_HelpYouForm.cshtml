@@ -49,31 +49,25 @@
     let input = document.getElementById('EmailInput');
     const spanElement = document.getElementById("EmailInputErrorMessage");
     const emailRegex = new RegExp(@Html.Raw($"\"{regEx}\""));
-    console.log("inne")
     
     input.addEventListener('keyup', (e) => {
         emailValidator(e.target);
     });
 
     function emailValidator(targetElement) {
-        formErrorHandler(targetElement, emailRegex.test(targetElement.value));
+        formErrorHandler(emailRegex.test(targetElement.value));
     }
 
-    function formErrorHandler(targetElement, validationResult) {
-
-        console.log(validationResult + spanElement.classList)
+    function formErrorHandler(validationResult) {
 
         if (validationResult) {
             spanElement.classList.remove('field-validation-error');
-            spanElement.classList.add('yes');
             spanElement.style.display = "none";
-            console.log("inneValid")
         } else {
             spanElement.classList.add('field-validation-error');
             spanElement.classList.remove('field-validation-valid');
             spanElement.style.display = "flex";
             spanElement.style.justifyContent = "center";
-            console.log("inneINvalid")
         }
     }
 </script>

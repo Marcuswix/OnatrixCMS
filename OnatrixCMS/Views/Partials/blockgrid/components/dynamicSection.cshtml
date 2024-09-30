@@ -26,10 +26,11 @@
     int.TryParse(amount, out var subtract);
     int secendAmount = 100 - subtract;
     
-    
+    var backgroundColorCode = $"background-color: var(--color-{sectionBackgroundColor});";
+
     if(gradientBackgroundColor != null)
     {
-        sectionBackgroundColor = "transparent";
+        backgroundColorCode = null;
     }
 
     var gradientStyle = gradientBackgroundColor != null
@@ -38,7 +39,7 @@
 }
 
 
-<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor); @gradientStyle" class="section fadeInSection @spacingTopClass @spacingBottomClass">
+<section id="@sectionId" style="@backgroundColorCode @gradientStyle" class="section fadeInSection @spacingTopClass @spacingBottomClass">
     
     <div class="container @centerContent">
 

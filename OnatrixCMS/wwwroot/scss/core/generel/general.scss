@@ -28,17 +28,58 @@
     }
 }
 
-//Sections
-.section {
+@mixin sectionBlurry {
     position: relative;
-    z-index: 0;
+    z-index: 1;
     width: 100%;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: top;
+    overflow: hidden;
 
-    @media(max-width: 1400px)
-    {
+    @media(max-width: 1400px) {
+        &::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-position: top;
+            background-image: inherit;
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: -1;
+            filter: blur(14px);
+        }
+    }
+}
+
+@mixin section {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top;
+    overflow: hidden;
+}
+
+//Sections
+.section {
+    @include section;
+}
+
+.sectionFullWidth {
+    @include section;
+
+    @media(max-width: 768px) {
+        background-image: none !important;
+    }
+}
+
+.sectionFullWidthBlurry {
+    @include sectionBlurry;
+
+    @media(max-width: 768px) {
         background-image: none !important;
     }
 }
@@ -391,7 +432,7 @@ img {
     width: 100%;
 
     @media(min-width: 768px) {
-        width: 696px;
+        width: 648px;
     }
 
     @media(min-width: 1400px) {
@@ -486,6 +527,7 @@ img {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 //Umbraco Css
 .umb-block-grid__layout-container {
     position: relative;
