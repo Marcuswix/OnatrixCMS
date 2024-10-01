@@ -1,0 +1,147 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using OnatrixCMS.Model;
+
+@{
+
+    var search = ViewBag.SearchWord;
+
+    if(search == null)
+    {
+        search = TempData["SearchWord"];
+    }
+
+    var serachResult = new List<SearchModel>();
+
+    var selectionServices = Umbraco.Content(Guid.Parse("69c40923-74c6-4282-9b7c-57ac00e1094c"))
+    .Children()
+    .Where(x => x.IsVisible());
+
+    foreach(var service in selectionServices)
+    {
+        var serviceTitle = service.Value<string>("pageTitle").ToLower() ?? "";
+        var servicesIngress = service.Value<string>("pageIngress") ?? "";
+        if(serviceTitle.Contains(search.ToLower()))
+        {
+            var result = new SearchModel
+                    {
+                        SearchTitle = serviceTitle,
+                        SearchIngress = servicesIngress,
+                        SearchUrl = service.Url().ToString()
+                    };
+
+            serachResult.Add(result);
+        }
+    }
+
+
+	var selectionProject = Umbraco.Content(Guid.Parse("07c1562e-2477-45d2-81b0-61f427f19850"))
+    .Children()
+    .Where(x => x.IsVisible());
+
+
+    foreach (var project in selectionProject)
+    {
+        var projectTitle = project.Value<string>("pageTitle").ToLower() ?? "";
+        var projectIngress = project.Value<string>("projectIngress").ToLower() ?? "";
+        if (projectTitle.Contains(search.ToLower()))
+        {
+            var result = new SearchModel
+                    {
+                        SearchTitle = projectTitle,
+                        SearchIngress = projectIngress,
+                        SearchUrl = project.Url().ToString()
+                    };
+
+            serachResult.Add(result);
+        }
+    }
+
+
+	var selection = Umbraco.ContentAtRoot().FirstOrDefault()
+    .Children()
+    .Where(x => x.IsVisible());
+
+    foreach (var title in selection)
+    {
+        var pageTitle = title.Value<string>("pageTitle").ToLower() ?? "";
+        if (pageTitle.Contains(search.ToLower()))
+        {
+            var result = new SearchModel
+                    {
+                        SearchTitle = pageTitle,
+                        SearchIngress = "",
+                        SearchUrl = title.Url().ToString()
+                    };
+
+            serachResult.Add(result);
+        }
+    }
+
+    if (!int.TryParse(Context.Request.Query["page"], out int currentPage))
+        currentPage = 1;
+    int countQuestions = selection?.Count() ?? 0;
+    var questionsToShow = selection?.Skip((currentPage - 1) * 8).Take(8);
+}
+@if(countQuestions != 0)
+{
+<div class="lineBetween"></div>
+
+    @foreach (var result in serachResult)
+{
+        var name = result.SearchTitle;
+        var ingress = result.SearchIngress;
+        var url = result.SearchUrl;
+
+    <div class="backofficeContainer">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; padding-block: 1rem;">
+             <a class="aLink" href="@url">
+                <b>Title: @name </b>
+                <p>Ingress: @ingress </p>
+            </a>
+        </div>
+    </div>
+
+    <div class="lineBetween"></div>
+}
+
+    @if (countQuestions > 8)
+    {
+        <section class="pagination">
+            <div class="paginationInnerContainer">
+                @if (currentPage > 1)
+                {
+                    <a href="?page=@(currentPage - 1)" class="change">Prev</a>
+                }
+                else
+                {
+                    <span class="change inactive">Prev</span>
+                }
+                <ul class="pages">
+                    @for (int i = 1; i <= Math.Ceiling((decimal)countQuestions / 8); i++)
+                    {
+                        <li class="@((currentPage == i) ? "active pagLi" : "pagLi")">
+                            <a class="number" href="?page=@i">@i</a>
+                        </li>
+                    }
+                </ul>
+                @if (questionsToShow?.Count() > 7)
+                {
+                    <a class="change" href="?page=@(currentPage + 1)">Next</a>
+                }
+                else
+                {
+                    <span class="change inactive" href="">Next</span>
+                }
+            </div>
+        </section>
+    }
+}
+else
+{
+    <div class="backofficeContainer">
+    <p>Couldn't find any articles...</p>
+</div>
+}

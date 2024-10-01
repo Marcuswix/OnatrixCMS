@@ -18,7 +18,7 @@
     var totalItems = selection?.Count() ?? 0;
     var pageItems = selection?.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
 
-    var textColor = Model?.Value<PickedColor>("pageHeadlineTextColor") ?.Label.ToLower() ?? "textgray";
+    var textColor = Model?.Value<PickedColor>("pageHeadlineTextColor")?.Label.ToLower() ?? "textgray";
     var backgroundColor = Model?.Value<PickedColor>("pageBackgroundColor")?.Label.ToLower() ?? "transparent";
 }
 

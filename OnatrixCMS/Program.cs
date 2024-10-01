@@ -1,6 +1,15 @@
 using OnatrixCMS.Services;
+using Azure.Identity;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+var keyVaultEndpoint = new Uri(builder.Configuration.GetValue<string>("VaultUri")!);
+
+builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential(), new AzureKeyVaultConfigurationOptions
+{
+    ReloadInterval = TimeSpan.FromMinutes(5)
+});
 
 builder.CreateUmbracoBuilder()
     .AddBackOffice()

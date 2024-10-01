@@ -1,5 +1,4 @@
-﻿using Json.Patch;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OnatrixCMS.Model;
 using OnatrixCMS.Services;
 using System.Text.RegularExpressions;
@@ -39,7 +38,6 @@ namespace OnatrixCMS.Controller
                 TempData["error_name"] = string.IsNullOrEmpty(form.Name);
                 TempData["error_email"] = string.IsNullOrEmpty(form.Email);
                 TempData["error_message"] = string.IsNullOrEmpty(form.Message);
-                TempData["error_phone"] = string.IsNullOrEmpty(form.Phone);
                 
                 if(!string.IsNullOrEmpty(form.Email))
                 {
@@ -92,16 +90,12 @@ namespace OnatrixCMS.Controller
                                 TempData["Success"] = "Your contact request was successfully sent!";
                                 return RedirectToCurrentUmbracoPage();
                             }
-                            if(response is BadRequestObjectResult)
+                            if(response is BadRequestObjectResult || response is BadRequestResult)
                             {
                                 TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent. Shure you wrote the right email: " + form.Email + "?";
                                 return RedirectToCurrentUmbracoPage();
                             }
-                            if(response is  BadRequestResult)
-                            TempData["ContactErrorMessage"] = "Your contact request was saved and published, but no confirmation email was sent. Shure you got the right address: " + form.Email + "?";
-                            return RedirectToCurrentUmbracoPage();
                         }
-
                         TempData["ContactErrorMessage"] = "Your contact request was saved, but not published";
 						return RedirectToCurrentUmbracoPage();
 					}

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using OnatrixCMS.Model;
 using OnatrixCMS.Services;
@@ -63,7 +62,7 @@ namespace OnatrixCMS.Controller
 
             var recaptchaResponse = Request.Form["g-recaptcha-response"];
 
-            var isValidRecaptcha = await ValidateRecaptcha(recaptchaResponse);
+            var isValidRecaptcha = await ValidateRecaptcha(recaptchaResponse!);
 
             if (string.IsNullOrEmpty(recaptchaResponse))
             {

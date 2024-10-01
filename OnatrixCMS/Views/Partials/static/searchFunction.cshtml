@@ -1,0 +1,7 @@
+﻿@using (Html.BeginUmbracoForm("Search", "SearchPageSurface", FormMethod.Post, new { novalidate = "novalidate" }))
+{
+    <div class="searchContainer">
+        <input name="Search" placeholder="Search" class="inputSearch" />
+        <button type ="submit" style="padding: 0; border: none; background-color: transparent; width: 2rem; height: 2rem;"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+}

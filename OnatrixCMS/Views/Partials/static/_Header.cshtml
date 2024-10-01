@@ -41,10 +41,7 @@
             </nav>
         </div>
 
-        <div class="searchContainer">
-            <input class="inputSearch">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
+        @await Html.PartialAsync("/Views/Partials/static/searchFunction.cshtml", new SearchModel())
 
         <div class="barContainer" onclick="showMenu()">
             <i id="bars" class="fa-solid fa-bars"></i>

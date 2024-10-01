@@ -1,5 +1,4 @@
-﻿using System;
-using Google.Api.Gax.ResourceNames;
+﻿using Google.Api.Gax.ResourceNames;
 using Google.Cloud.RecaptchaEnterprise.V1;
 
 namespace OnatrixCMS

@@ -1,5 +1,3 @@
-@import "../core/mixins/_mixins.scss";
-
 //Mobil first
 @media(min-width: 10px)
 {
@@ -29,14 +27,12 @@
 
 
 //Tablet
-@media(min-width: 768px)
+@media(min-width: 568px)
 {
-
     .itemsContainerCoups
     {
         grid-template-columns: 1fr 1fr 1fr;
     }
-
 }
 
 //Desktop
