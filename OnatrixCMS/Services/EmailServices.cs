@@ -68,7 +68,7 @@ namespace OnatrixCMS.Services
 					var apiKey = _configuration["Values:ApiKey"];
 					_http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(apiKey ?? "");
 
-					var send = await _http.PostAsync("https://onatrix-webapi-gmdqeucxdycqfvcr.westeurope-01.azurewebsites.netapi/Message/callback-question", stringToSend);
+					var send = await _http.PostAsync("https://onatrix-webapi-gmdqeucxdycqfvcr.westeurope-01.azurewebsites.net/api/Message/callback-question", stringToSend);
 					var response = send.Content.ReadAsStringAsync();
                     Console.WriteLine($"Response: {response}");
 
