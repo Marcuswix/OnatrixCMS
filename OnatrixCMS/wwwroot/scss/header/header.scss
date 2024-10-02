@@ -38,12 +38,8 @@
                     gap: 4rem;
                 }
 
-                .searchContainer {
+                .serachFunctionHeaderContainer {
                     display: none;
-
-                    .inputSearch {
-                        border: none;
-                    }
                 }
 
                 .barContainer {
@@ -73,7 +69,7 @@
                     .xmarkContainer {
                         display: flex;
                         justify-content: space-between;
-                        align-items:center;
+                        align-items: center;
                         margin-right: 0.5rem;
                         padding: 1rem;
 
@@ -116,6 +112,33 @@
             }
         }
     }
+
+    .serachFunctionHeaderContainer {
+        display: none;
+    }
+
+    .searchFunctionContainer
+    {
+        @include center;
+    }
+
+    .searchContainer {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.1rem;
+        border: solid 1px var(--color-lightgray);
+
+        @media(min-width: 1400px) {
+            border: none;
+        }
+
+        .inputSearch {
+            border: none;
+            padding: 0.1rem;
+        }
+    }
 }
 
 //Tablet >768px
@@ -143,9 +166,8 @@
                     display: none;
                 }
 
-                .searchContainer {
-                    @include centerFlex;
-                    gap: 0.5rem;
+                .serachFunctionHeaderContainer {
+                    display: block;
                 }
 
                 .navDesktop {

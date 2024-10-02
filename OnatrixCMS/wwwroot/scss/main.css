@@ -934,11 +934,8 @@ img {
     display: none;
     gap: 4rem;
   }
-  .headerOuterContainer .container .headerInnerContainer .searchContainer {
+  .headerOuterContainer .container .headerInnerContainer .serachFunctionHeaderContainer {
     display: none;
-  }
-  .headerOuterContainer .container .headerInnerContainer .searchContainer .inputSearch {
-    border: none;
   }
   .headerOuterContainer .container .headerInnerContainer .barContainer {
     display: flex;
@@ -995,6 +992,33 @@ img {
   .headerOuterContainer .container .headerInnerContainer .sideMenu .navSideMenu .navLinkTextBar:active {
     background-color: var(--color-mediumgray);
   }
+  .serachFunctionHeaderContainer {
+    display: none;
+  }
+  .searchFunctionContainer {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+  }
+  .searchContainer {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.1rem;
+    border: solid 1px var(--color-lightgray);
+  }
+}
+@media (min-width: 10px) and (min-width: 1400px) {
+  .searchContainer {
+    border: none;
+  }
+}
+@media (min-width: 10px) {
+  .searchContainer .inputSearch {
+    border: none;
+    padding: 0.1rem;
+  }
 }
 @media (min-width: 768px) {
   .headerOuterContainer {
@@ -1014,11 +1038,8 @@ img {
   .headerOuterContainer .container .headerInnerContainer .barContainer {
     display: none;
   }
-  .headerOuterContainer .container .headerInnerContainer .searchContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
+  .headerOuterContainer .container .headerInnerContainer .serachFunctionHeaderContainer {
+    display: block;
   }
   .headerOuterContainer .container .headerInnerContainer .navDesktop {
     display: flex;
@@ -2165,6 +2186,9 @@ img {
     background-color: var(--color-mediumgray);
     box-shadow: 1px 0px 24px var(--color-lightgray);
   }
+  .searchHeader {
+    display: block;
+  }
 }
 @media (min-width: 1400px) {
   .navUl {
@@ -2179,6 +2203,12 @@ img {
     color: var(--color-darkgray);
   }
   .navUl .lineBetween {
+    display: none;
+  }
+  .searchHeader {
+    display: none;
+  }
+  .searchFunctionContainer {
     display: none;
   }
 }
