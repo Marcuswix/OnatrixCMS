@@ -14,8 +14,10 @@
     }
     else
     {
-        search = Context.Session.GetString("SearchWord")!.ToString() ?? "";
+        search = "";
     }
+
+    TempData["SearchWord"] = search;
 
     var searchResult = new List<SearchModel>();
 
@@ -96,7 +98,7 @@
     }
 
     if (!int.TryParse(Context.Request.Query["page"], out int currentPage))
-    currentPage = 1;
+        currentPage = 1;
     int countSearchResult = searchResult.Count();
     var searchItemsToShow = searchResult.Skip((currentPage -1) * 8).Take(8);
 
@@ -146,7 +148,7 @@
                 <div class="paginationInnerContainer">
                     @if (currentPage > 1)
                     {
-                        <a href="?page=@(currentPage - 1)" class="change">Prev</a>
+                        <a href="?searchWord=@search&page=@(currentPage - 1)" class="change">Prev</a>
                     }
                     else
                     {
@@ -156,13 +158,13 @@
                         @for (int i = 1; i <= Math.Ceiling((decimal)countSearchResult / 8); i++)
                         {
                             <li class="@((currentPage == i) ? "active pagLi" : "pagLi")">
-                                <a class="number" href="?page=@i">@i</a>
+                                <a class="number" href="?searchWord=@search&page=@i">@i</a>
                             </li>
                         }
                     </ul>
                     @if (searchItemsToShow?.Count() > 7)
                     {
-                        <a class="change" href="?page=@(currentPage + 1)">Next</a>
+                        <a class="change" href="?searchWord=@search&page=@(currentPage + 1)">Next</a>
                     }
                     else
                     {

@@ -26,26 +26,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-var form = document.querySelector("form")
-
-if (form != null) {
-    form.addEventListener("submit", function () {
-        localStorage.setItem("scrollPosition", window.scrollY);
-    });
-}
-
-window.addEventListener("load", function () {
-    const scrollPosition = localStorage.getItem("scrollPosition");
-
-    if (scrollPosition) {
-        const position = parseInt(scrollPosition, 10);
-        if (!isNaN(position)) {
-            window.scrollTo({
-                top: position,
-                behavior: "auto"
-            });
-        }
-        localStorage.removeItem("scrollPosition");
-    }
-});
-

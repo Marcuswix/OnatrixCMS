@@ -28,8 +28,6 @@ namespace OnatrixCMS.Controller
             {
                 string stringSearch = searchQuery.ToString();
 
-                HttpContext.Session.SetString("SearchWord", stringSearch);
-
                 return Redirect($"/search/?searchWord={stringSearch}");
             }
             return CurrentUmbracoPage();

@@ -45,13 +45,13 @@
     color: var(--color-gray);
 }
 
-.aLink
-{
+.aLink {
     color: var(--color-textgray);
     text-decoration: none;
     transition: all ease-in-out 120ms;
-    
-    &:hover{
+
+    &:hover {
         color: var(--color-mediumgray);
+        transform: scale(1.01);
     }
 }
