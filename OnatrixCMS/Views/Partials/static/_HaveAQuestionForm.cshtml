@@ -52,22 +52,19 @@
     const emailRegexEx = new RegExp(@Html.Raw($"\"{regExEx}\""));
     console.log("inne")
 
-
-    // Spara scrollposition innan formuläret skickas
     document.getElementById("questionButton").addEventListener("click", function () {
         localStorage.setItem("scrollPosition", window.scrollY);
         console.log("inneButtonnnn")
     });
 
-    // Återställ scrollposition när sidan har laddats
     window.addEventListener("load", function () {
         const scrollPosition = localStorage.getItem("scrollPosition");
         if (scrollPosition) {
             window.scrollTo({
                 top: scrollPosition,
-                behavior: "auto" // Du kan ändra till "smooth" om du vill ha en mjuk scroll
+                behavior: "auto"
             });
-            localStorage.removeItem("scrollPosition"); // Ta bort positionen efter att den har använts
+            localStorage.removeItem("scrollPosition");
         }
     });
 
@@ -76,36 +73,24 @@
     });
 
     questionNameInput.addEventListener('keyup', (e) => {
-        nameQuestionValidator(e.target);
+        let questionNameIsValid = false;
+        if (e.target.value.length > 1) 
+        {
+            questionNameIsValid = true;
+        }
+        nameErrorHandler(questionNameIsValid);
     });
 
     questionQuestionInput.addEventListener('keyup', (e) => {
-        questionQuestionValidator(e.target);
+       let questionQuestionIsValid = false;
+        if (e.target.value.length > 3) { 
+            questionQuestionIsValid = true;
+        }
+        questionErrorHandler(questionQuestionIsValid);
     });
 
     function emailQuestionValidator(targetElement) {
         emailQuestionErrorHandler(targetElement, emailRegexEx.test(targetElement.value));
-        console.log("Värde: " + targetElement.value)
-    }
-
-    function nameQuestionValidator(targetElement)
-    {
-        let nameIsValid = false;
-        if (targetElement.value.length > 1)
-        {
-            nameIsValid = true;
-        }
-        nameErrorHandler(targetElement, nameIsValid)
-    }
-
-    function questionQuestionValidator(targetElement) {
-        let questionIsValid = false;
-
-        if(targetElement.value.length > 2)
-        {
-            questionIsValid = true;
-        }
-        questionErrorHandler(targetElement, questionIsValid)
     }
 
     function emailQuestionErrorHandler(targetElement, validationResult) {
@@ -118,7 +103,7 @@
         }
     }
 
-    function nameErrorHandler(targetElement, validationResult) {
+    function nameErrorHandler(validationResult) {
 
         if (validationResult) {
             questionNameSpan.style.display = "none";
@@ -128,7 +113,7 @@
         }
     }
 
-    function questionErrorHandler(targetElement, validationResult) {
+    function questionErrorHandler(validationResult) {
 
         if (validationResult) {
             questionQuestionSpan.style.display = "none";

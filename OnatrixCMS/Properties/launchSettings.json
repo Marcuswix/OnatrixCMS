@@ -13,7 +13,9 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "VaultUri": "https://onatrixcmsvault.vault.azure.net/",
+        "AZURE_USERNAME": "marcus.wickstrom@learnet.se"
       }
     },
     "Umbraco.Web.UI": {
@@ -22,8 +24,10 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:44356;http://localhost:56207",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }      
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "VaultUri": "https://onatrixcmsvault.vault.azure.net/",
+        "AZURE_USERNAME": "marcus.wickstrom@learnet.se"
+      }
     }
   }
 }

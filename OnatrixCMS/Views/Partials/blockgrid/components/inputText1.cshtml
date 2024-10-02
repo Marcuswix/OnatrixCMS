@@ -14,6 +14,8 @@
     bool.TryParse(TempData["error_name"]?.ToString()!, out bool error_name);
     bool.TryParse(TempData["error_email"]?.ToString()!, out bool error_email);
     bool.TryParse(TempData["error_message"]?.ToString()!, out bool error_message);
+
+    var regExEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 }
 @if(!string.IsNullOrEmpty(uniqueName))
 {
@@ -23,21 +25,75 @@
             <label for="@uniqueName">@labelText</label>
         }
         <input class="formInput" placeholder="@inputPlaceholderText" id="@uniqueName" name="@uniqueName" type="@inputType" required="@isRequired" />
-        @if (TempData["error_email"] != null && @uniqueName == "Email")
+        @if (TempData["error_email"] != null && uniqueName == "Email")
         {
-            <span style="height: 1.2rem" class="dangerText">You must enter a valid Email</span>
+            <span id="errorFormEmail" style="height: 1.2rem" class="dangerText">You must enter a valid Email</span>
         }
-        @if (TempData["error_name"] != null && @uniqueName == "Name")
+        @if (TempData["error_name"] != null && uniqueName == "Name")
         {
-            <span style="height: 1.2rem" class="dangerText">You must enter a name</span>
+            <span id="errorFormName" style="height: 1.2rem" class="dangerText">You must enter a name</span>
         }
         @if (TempData["error_name"] != null && uniqueName == "Phone")
         {
             <div style="height: 1.2rem"></div>
         }
-        @if (TempData["error_message"] != null && @uniqueName == "Message")
+        @if (TempData["error_message"] != null && uniqueName == "Message")
         {
             <span style="height: 1.2rem" class="dangerText">You must enter a message</span>
         }
     </div>
 }
+
+<script>
+{
+        const formInputName = document.getElementById("Name");
+        const formSpanErrorName = document.getElementById("errorFormName");
+        const formInputEmail = document.getElementById("Email");
+        const formSpanErrorEmail = document.getElementById("errorFormEmail");
+
+        const emailRegEx = new RegExp(@Html.Raw($"\"{regExEmail}\""));
+
+    if (formInputName != null) {
+        
+        formInputName.addEventListener("keyup", (e) => {
+            let nameIsValid = false;
+            if (e.target.value.length > 1) {
+                nameIsValid = true;
+            }
+            formSpanErrorNameHandler(nameIsValid);
+        })
+
+        function formSpanErrorNameHandler(nameIsValid) {
+            if (nameIsValid) {
+                formSpanErrorName.style.display = "none";
+            }
+            else {
+                formSpanErrorName.style.display = "flex";
+            }
+        }
+    }
+
+    if (formInputEmail != null) { 
+        
+        formInputEmail.addEventListener("keyup", (e) => {
+            let emailIsValid = false;
+            if (emailRegEx.test(e.target.value)) 
+            {
+                emailIsValid = true;
+            }
+            EmailFormErrorHandler(emailIsValid)
+        });
+
+        function EmailFormErrorHandler(emailValidationResult)
+        {
+            if (emailValidationResult) {
+                formSpanErrorEmail.style.display = "none";
+            }
+            else
+            {
+                formSpanErrorEmail.style.display = "flex";
+            }
+        }
+    }
+}
+</script>

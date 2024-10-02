@@ -15,6 +15,8 @@
     var sectionBackgroundImageAltText = Model?.Content.Value<string>("sectionBackgroundImageAltText") ?? "Section Image"; 
     var sectionBackgroundColor = Model?.Content.Value<PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? "transparent";
 
+    var sectionBackgroundImageBlurryOnMobil = (Model!.Content.Value<bool>("sectionBackgroundImageBlurryOnMobil")) ? "sectionFullWidthBlurry" : "sectionFullWidth";
+
     var gradientBackgroundColors = Model?.Content.Value<IEnumerable<Umbraco.Cms.Core.Models.Blocks.BlockListItem>>("gradientBackgroundColor");
  
     var gradientBackgroundColor = gradientBackgroundColors?.FirstOrDefault();
@@ -25,10 +27,11 @@
     int.TryParse(amount, out var subtract);
     int secendAmount = 100 - subtract;
 
+    var backgroundColorCode = $"background-color: var(--color-{sectionBackgroundColor});";
 
     if(gradientBackgroundColor != null)
     {
-        sectionBackgroundColor = "transparent";
+        backgroundColorCode = null;
     }
 
     var gradientStyle = gradientBackgroundColor != null
@@ -36,7 +39,7 @@
     : "";
 }
 
-<section id="@sectionId" style="background-color: var(--color-@sectionBackgroundColor); background-image: url(@sectionBackgroundImage); @gradientStyle" class="section fadeInSection @spacingTopClass @spacingBottomClass @centerContent">
+<section id="@sectionId" style="@backgroundColorCode background-image: url(@sectionBackgroundImage); @gradientStyle" class="@sectionBackgroundImageBlurryOnMobil fadeInSection @spacingTopClass @spacingBottomClass @centerContent">
     <div class="backgroundImageContainer"> 
                 <div class="backgroundImageContent">
                         @await Html.GetBlockGridItemAreasHtmlAsync(Model!)

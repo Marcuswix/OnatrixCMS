@@ -1,4 +1,3 @@
-// Mobil >576px
 @media(min-width: 10px) {
 
     .navUl {
@@ -35,6 +34,11 @@
         background-color: var(--color-mediumgray);
         box-shadow: 1px 0px 24px var(--color-lightgray);
     }
+
+    .searchHeader
+    {
+        display: block;
+    }
 }
 
 
@@ -54,8 +58,15 @@
             }
         }
 
-        .lineBetween{
+        .lineBetween {
             display: none;
         }
+    }
+
+    .searchHeader {
+        display: none;
+    }
+    .searchFunctionContainer {
+        display: none;
     }
 }

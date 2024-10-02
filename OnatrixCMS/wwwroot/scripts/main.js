@@ -16,31 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Ta bort observer när sektionen har visats
+                observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 }); // Tröskelvärdet, 0.1 betyder att sektionen måste vara 10% synlig
+    }, { threshold: 0.1 });
 
     sections.forEach(section => {
         observer.observe(section);
     });
 });
-
-document.querySelector("form").addEventListener("submit", function () {
-    window.addEventListener("beforeunload", function () {
-        localStorage.setItem("scrollPosition", window.scrollY);
-    });
-});
-
-window.addEventListener("load", function () {
-    const scrollPosition = localStorage.getItem("scrollPosition");
-    if (scrollPosition) {
-        window.scrollTo({
-            top: scrollPosition,
-            behavior: "auto"
-        });
-    }
-    localStorage.removeItem("scrollPosition");
-});
-
 

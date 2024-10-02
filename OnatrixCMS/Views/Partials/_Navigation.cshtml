@@ -3,6 +3,7 @@
 @using Umbraco.Cms.Core.Models.PublishedContent
 @using Umbraco.Cms.Core.Routing
 @using Umbraco.Extensions
+@using OnatrixCMS.Model;
 
 @inject IPublishedValueFallback PublishedValueFallback
 @inject IPublishedUrlProvider PublishedUrlProvider
@@ -21,11 +22,18 @@
         <ul class="navUl">
             @foreach (var item in selection)
             {
-                var test = item.IsAncestorOrSelf(Model);
-                <li class="navLi">
-                    <a href="@item.Url(PublishedUrlProvider)" class="@(item.IsAncestorOrSelf(Model) ? "current" : null) navLinkText">@item.Name</a>
-                </li>
+                if (item.Name != "Search")
+                {
+                    var test = item.IsAncestorOrSelf(Model);
+                    <li class="navLi">
+                        <a href="@item.Url(PublishedUrlProvider)" class="@(item.IsAncestorOrSelf(Model) ? "current" : null) navLinkText">@item.Name</a>
+                    </li>
+                }
                 <div class="lineBetween"></div>
             }
+            <li class="navLi searchHeader">
+                <a style="display: flex; align-items: center; gap: 1rem; margin: 0;" href="/search/" class="navLinkText">Search <i class="fa-solid fa-magnifying-glass"></i></a>
+            </li>
+            <div class="lineBetween"></div>
         </ul>
 }

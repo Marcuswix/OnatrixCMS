@@ -100,6 +100,7 @@
 }
 .aLink:hover {
   color: var(--color-mediumgray);
+  transform: scale(1.01);
 }
 
 body {
@@ -250,11 +251,7 @@ p {
 
 .wrapper {
   display: grid;
-}
-@media (min-width: 10px) {
-  .wrapper {
-    grid-template-rows: auto 1fr;
-  }
+  grid-template-rows: auto 1fr;
 }
 @media (min-width: 1400px) {
   .wrapper {
@@ -264,14 +261,54 @@ p {
 
 .section {
   position: relative;
-  z-index: 0;
+  z-index: 1;
   width: 100%;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top;
+  overflow: hidden;
+}
+
+.sectionFullWidth {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top;
+  overflow: hidden;
+}
+@media (max-width: 768px) {
+  .sectionFullWidth {
+    background-image: none !important;
+  }
+}
+
+.sectionFullWidthBlurry {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top;
+  overflow: hidden;
 }
 @media (max-width: 1400px) {
-  .section {
+  .sectionFullWidthBlurry::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-position: top;
+    background-image: inherit;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+    filter: blur(14px);
+  }
+}
+@media (max-width: 768px) {
+  .sectionFullWidthBlurry {
     background-image: none !important;
   }
 }
@@ -326,11 +363,7 @@ p {
 .elementContainer {
   display: flex;
   align-items: center;
-}
-@media (min-width: 10px) {
-  .elementContainer {
-    text-align: center;
-  }
+  text-align: center;
 }
 @media (min-width: 768px) {
   .elementContainer {
@@ -412,11 +445,9 @@ p {
   align-items: center;
 }
 
-@media (min-width: 10px) {
-  .sectionHeadlineParentLeft {
-    text-align: center;
-    align-items: center;
-  }
+.sectionHeadlineParentLeft {
+  text-align: center;
+  align-items: center;
 }
 @media (min-width: 768px) {
   .sectionHeadlineParentLeft {
@@ -538,17 +569,13 @@ img {
 
 .imageContainer {
   position: relative;
-}
-@media (min-width: 10px) {
-  .imageContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media (min-width: 768px) {
   .imageContainer {
-    justify-content: left;
+    justify-content: left !important;
   }
 }
 .imageContainer .image {
@@ -629,7 +656,7 @@ img {
 }
 @media (min-width: 768px) {
   .formContainer {
-    width: 696px;
+    width: 648px;
   }
 }
 @media (min-width: 1400px) {
@@ -908,11 +935,8 @@ img {
     display: none;
     gap: 4rem;
   }
-  .headerOuterContainer .container .headerInnerContainer .searchContainer {
+  .headerOuterContainer .container .headerInnerContainer .serachFunctionHeaderContainer {
     display: none;
-  }
-  .headerOuterContainer .container .headerInnerContainer .searchContainer .inputSearch {
-    border: none;
   }
   .headerOuterContainer .container .headerInnerContainer .barContainer {
     display: flex;
@@ -969,6 +993,33 @@ img {
   .headerOuterContainer .container .headerInnerContainer .sideMenu .navSideMenu .navLinkTextBar:active {
     background-color: var(--color-mediumgray);
   }
+  .serachFunctionHeaderContainer {
+    display: none;
+  }
+  .searchFunctionContainer {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+  }
+  .searchContainer {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.1rem;
+    border: solid 1px var(--color-lightgray);
+  }
+}
+@media (min-width: 10px) and (min-width: 1400px) {
+  .searchContainer {
+    border: none;
+  }
+}
+@media (min-width: 10px) {
+  .searchContainer .inputSearch {
+    border: none;
+    padding: 0.1rem;
+  }
 }
 @media (min-width: 768px) {
   .headerOuterContainer {
@@ -988,30 +1039,13 @@ img {
   .headerOuterContainer .container .headerInnerContainer .barContainer {
     display: none;
   }
-  .headerOuterContainer .container .headerInnerContainer .searchContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
+  .headerOuterContainer .container .headerInnerContainer .serachFunctionHeaderContainer {
+    display: block;
   }
   .headerOuterContainer .container .headerInnerContainer .navDesktop {
     display: flex;
   }
 }
-.container {
-  width: 100%;
-}
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-@media (min-width: 1400px) {
-  .container {
-    max-width: 1320px;
-  }
-}
-
 .footer {
   background-color: var(--color-black);
 }
@@ -1031,20 +1065,6 @@ img {
 .containerFooter .footerContent .aLinkFooter:hover {
   color: var(--color-beige);
   text-decoration: underline;
-}
-
-.container {
-  width: 100%;
-}
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-@media (min-width: 1400px) {
-  .container {
-    max-width: 1320px;
-  }
 }
 
 @media (min-width: 10px) {
@@ -1067,7 +1087,7 @@ img {
     transform: scale(1.05);
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 568px) {
   .itemsContainerCoups {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -1741,9 +1761,11 @@ img {
     display: flex;
     justify-content: center;
     align-items: start;
+    max-width: 360px;
+    max-height: 240px;
   }
   .sectionProjectContainer .projectBigContainer .projectItem .projectImage {
-    width: 370px;
+    width: 100%;
     max-height: 240px;
     overflow: hidden;
   }
@@ -1753,6 +1775,7 @@ img {
     justify-content: center;
     flex-direction: column;
     gap: 0.1rem;
+    max-width: 340px;
   }
   .sectionProjectContainer .projectBigContainer .projectItem .projectTextContainer .projectLink {
     display: inline-flex;
@@ -2164,6 +2187,9 @@ img {
     background-color: var(--color-mediumgray);
     box-shadow: 1px 0px 24px var(--color-lightgray);
   }
+  .searchHeader {
+    display: block;
+  }
 }
 @media (min-width: 1400px) {
   .navUl {
@@ -2178,6 +2204,12 @@ img {
     color: var(--color-darkgray);
   }
   .navUl .lineBetween {
+    display: none;
+  }
+  .searchHeader {
+    display: none;
+  }
+  .searchFunctionContainer {
     display: none;
   }
 }

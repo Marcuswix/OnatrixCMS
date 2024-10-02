@@ -1,0 +1,186 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using OnatrixCMS.Model;
+@using Microsoft.AspNetCore.Http;
+
+@{
+    string search;
+
+    if(!string.IsNullOrEmpty(Context.Request.Query["searchWord"]))
+    {
+        search = Context.Request.Query["searchWord"].ToString();
+    }
+    else
+    {
+        search = "";
+    }
+
+    TempData["SearchWord"] = search;
+
+    var searchResult = new List<SearchModel>();
+
+    if(!string.IsNullOrWhiteSpace(search))
+    {
+        var selectionServices = Umbraco.Content(Guid.Parse("69c40923-74c6-4282-9b7c-57ac00e1094c"))?
+        .Children()
+        .Where(x => x.IsVisible());
+
+        if(selectionServices != null && selectionServices.Count() > 0)
+        {
+            foreach (var service in selectionServices!)
+            {
+                var serviceTitle = service.Value<string>("pageTitle")?.ToLower() ?? "";
+                var servicesTitleToShow = service.Value<string>("pageTitle") ?? "";
+                var servicesIngress = service.Value<string>("pageIngress") ?? "";
+                if (serviceTitle.Contains(search.ToLower()) || servicesIngress.ToLower().Contains(search.ToLower()))
+                {
+                    var result = new SearchModel
+                            {
+                                SearchTitle = servicesTitleToShow,
+                                SearchIngress = servicesIngress,
+                                SearchUrl = service.Url().ToString()
+                            };
+                    searchResult.Add(result);
+                }
+            }
+        }
+
+        var selectionProject = Umbraco.Content(Guid.Parse("07c1562e-2477-45d2-81b0-61f427f19850"))?
+        .Children()
+        .Where(x => x.IsVisible());
+
+        if(selectionProject != null && selectionProject.Count() > 0)
+        {
+            foreach (var project in selectionProject!)
+            {
+                var projectTitle = project.Value<string>("pageTitle")?.ToLower() ?? "";
+                var projectTitleToShow = project.Value<string>("pageTitle") ?? "";
+                var projectIngress = project.Value<string>("projectIngress")?.ToLower() ?? "";
+                if (projectTitle.Contains(search.ToLower()) || projectIngress.ToLower().Contains(search.ToLower()))
+                {
+                    var result = new SearchModel
+                            {
+                                SearchTitle = projectTitleToShow,
+                                SearchIngress = projectIngress,
+                                SearchUrl = project.Url().ToString()
+                            };
+
+                    searchResult.Add(result);
+                }
+            }
+        }
+
+        var selection = Umbraco.ContentAtRoot().FirstOrDefault()?
+        .Children()
+        .Where(x => x.IsVisible());
+
+        if(selection != null && selection!.Count() > 0)
+        {
+            foreach (var title in selection!)
+            {
+                var pageTitle = title.Value<string>("pageTitle")?.ToLower() ?? "";
+                var pageTitleToShow = title.Value<string>("pageTitle") ?? "";
+                if (pageTitle.Contains(search.ToLower()))
+                {
+                    var result = new SearchModel
+                            {
+                                SearchTitle = pageTitleToShow,
+                                SearchIngress = "",
+                                SearchUrl = title.Url().ToString()
+                            };
+
+                    searchResult.Add(result);
+                }
+            }
+        }
+    }
+
+    if (!int.TryParse(Context.Request.Query["page"], out int currentPage))
+        currentPage = 1;
+    int countSearchResult = searchResult.Count();
+    var searchItemsToShow = searchResult.Skip((currentPage -1) * 8).Take(8);
+
+    <div class="searchFunctionContainer">
+        @await Html.PartialAsync("/Views/Partials/static/searchFunction.cshtml", new SearchModel())
+    </div>
+
+    if(!string.IsNullOrWhiteSpace(search))
+    {
+        <h3 style="padding-top: 2rem; padding-bottom: 1rem;" class="h3Headline noMargin">Results for "@search"</h3>
+    }
+
+
+    @if (countSearchResult != 0 && searchItemsToShow != null)
+    {
+        <div class="lineBetween"></div>
+
+        @foreach (var result in searchItemsToShow)
+        {
+            var name = result.SearchTitle ?? "";
+            var ingress = result.SearchIngress ?? "";
+            if(ingress!.Length > 120)
+            {
+                ingress = ingress.Substring(0, 120) + "...";
+            }
+
+            var url = result.SearchUrl ?? "";
+
+            <div class="backofficeContainer">
+                <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; padding-block: 1rem;">
+                    <a class="aLink" href="@url">
+                        <b>@name</b>
+                        @if(!string.IsNullOrEmpty(ingress))
+                        {
+                            <p>@ingress</p>                      
+                        }
+                    </a>
+                </div>
+            </div>
+
+            <div class="lineBetween"></div>
+        }
+
+        @if (countSearchResult > 8)
+        {
+            <section class="pagination">
+                <div class="paginationInnerContainer">
+                    @if (currentPage > 1)
+                    {
+                        <a href="?searchWord=@search&page=@(currentPage - 1)" class="change">Prev</a>
+                    }
+                    else
+                    {
+                        <span class="change inactive">Prev</span>
+                    }
+                    <ul class="pages">
+                        @for (int i = 1; i <= Math.Ceiling((decimal)countSearchResult / 8); i++)
+                        {
+                            <li class="@((currentPage == i) ? "active pagLi" : "pagLi")">
+                                <a class="number" href="?searchWord=@search&page=@i">@i</a>
+                            </li>
+                        }
+                    </ul>
+                    @if (searchItemsToShow?.Count() > 7)
+                    {
+                        <a class="change" href="?searchWord=@search&page=@(currentPage + 1)">Next</a>
+                    }
+                    else
+                    {
+                        <span class="change inactive" href="">Next</span>
+                    }
+                </div>
+            </section>
+        }
+    }
+    else if (!string.IsNullOrEmpty(search))
+    {
+        <div class="backofficeContainer">
+            <p>Couldn't find any content containing "@search"...</p>
+        </div>
+    }
+    else
+    {
+    }
+}

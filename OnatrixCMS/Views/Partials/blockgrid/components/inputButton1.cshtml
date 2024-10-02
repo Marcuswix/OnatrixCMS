@@ -12,6 +12,26 @@
 @if(!string.IsNullOrEmpty(buttonText))
 {
     <div>
-        <button style="color: var(--color-@buttonTextColor); background-color: var(--color-@buttonColor)" type="@buttonType" class="btn">@buttonText</button>
+        <button id="formButton" style="color: var(--color-@buttonTextColor); background-color: var(--color-@buttonColor)" type="@buttonType" class="btn">@buttonText</button>
     </div>
 }
+
+
+<script>
+    {
+       document.getElementById("formButton").addEventListener("click", function () {
+           localStorage.setItem("scrollposition", window.scrollY);
+        });
+
+        window.addEventListener("load", function () {
+            const scrollPosition = localStorage.getItem("scrollposition");
+            if (scrollPosition) {
+                window.scrollTo({
+                    top: scrollPosition,
+                    behavior: "auto"
+                });
+                localStorage.removeItem("scrollposition");
+            }
+        });
+    }
+</script>

@@ -41,9 +41,8 @@
             </nav>
         </div>
 
-        <div class="searchContainer">
-            <input class="inputSearch">
-            <i class="fa-solid fa-magnifying-glass"></i>
+        <div class="serachFunctionHeaderContainer">
+            @await Html.PartialAsync("/Views/Partials/static/searchFunction.cshtml")
         </div>
 
         <div class="barContainer" onclick="showMenu()">
@@ -53,13 +52,12 @@
         <div id="sideMenu" class="sideMenu">
 
             <div class="xmarkContainer" onclick="hideMenu()">
-                                <a href="@Model.Root().Url()">
+                <a href="@Model.Root().Url()">
                     <img src="~/defaultPictures/logotype/onatrixInverted.png" alt="Onatrix logotype"/>
                 </a>
                 <i id="xmark" class="fa-solid fa-xmark"></i>
             </div>
             <nav class="navSideMenu">
-
                 @await Html.PartialAsync("/Views/Partials/_Navigation.cshtml")
             </nav>
         </div>

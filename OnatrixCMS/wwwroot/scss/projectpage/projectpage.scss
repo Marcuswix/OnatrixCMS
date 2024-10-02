@@ -63,10 +63,12 @@
                     display: flex;
                     justify-content: center;
                     align-items: start;
+                    max-width: 360px;
+                    max-height: 240px;
                 }
 
                 .projectImage {
-                    width: 370px;
+                    width: 100%;
                     max-height: 240px;
                     overflow: hidden;
                 }
@@ -77,6 +79,7 @@
                     justify-content: center;
                     flex-direction: column;
                     gap: 0.1rem;
+                    max-width: 340px;
 
                     .projectLink {
                         display: inline-flex;
