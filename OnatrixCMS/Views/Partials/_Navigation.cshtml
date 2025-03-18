@@ -19,21 +19,19 @@
 
 @if (selection?.Length > 0)
 {
-        <ul class="navUl">
+    <ul class="navigation__ul">
             @foreach (var item in selection)
             {
                 if (item.Name != "Search")
                 {
-                    var test = item.IsAncestorOrSelf(Model);
-                    <li class="navLi">
-                        <a href="@item.Url(PublishedUrlProvider)" class="@(item.IsAncestorOrSelf(Model) ? "current" : null) navLinkText">@item.Name</a>
-                    </li>
+                var test = item.IsAncestorOrSelf(Model);
+                <li class="navigation__li">
+                    <a href="@item.Url(PublishedUrlProvider)" class="@(item.IsAncestorOrSelf(Model) ? "current" : null) navigation__text">@item.Name</a>
+                </li>
                 }
-                <div class="lineBetween"></div>
             }
-            <li class="navLi searchHeader">
-                <a style="display: flex; align-items: center; gap: 1rem; margin: 0;" href="/search/" class="navLinkText">Search <i class="fa-solid fa-magnifying-glass"></i></a>
-            </li>
-            <div class="lineBetween"></div>
-        </ul>
+        <li class="navigation__li search">
+            <a style="display: flex; align-items: center; gap: 1rem; margin: 0;" href="/search/" class="navigation__text">Search <i class="fa-solid fa-magnifying-glass"></i></a>
+        </li>
+    </ul>
 }

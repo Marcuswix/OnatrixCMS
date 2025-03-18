@@ -1,0 +1,25 @@
+.social-media {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    gap: var(--size-16);
+}
+
+.social-media__btn {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: var(--size-32);
+    width: var(--size-32);
+    padding: var(--size-8);
+    border-radius: 50%;
+    color: var(--color-white);
+    background-color: transparent;
+    transition: all ease-in-out 120ms;
+    text-decoration: none;
+
+    &:hover {
+        background-color: var(--color-mediumgray);
+        box-shadow: 0 0 2px var(--color-white);
+    }
+}

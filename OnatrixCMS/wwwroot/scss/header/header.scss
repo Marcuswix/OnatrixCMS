@@ -1,179 +1,247 @@
-@import "../core/mixins/_mixins.scss";
 
-//Mobil >576px
-@media(min-width: 10px)
-{
-    .headerOuterContainer {
+@mixin flexCenterCenter {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+@mixin flexSpaceCenter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__wrapper {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 100;
+    display: block;
+    opacity: 0.96;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--size-64);
+    padding-inline: var(--size-32);
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0px 10px 24px var(--color-lightgray);
+
+    @media(min-width: 1400px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+.header__homelink {
+    text-decoration: none;
+    color: var(--color-theme);
+}
+
+.header__nav-desktop {
+    display: none;
+
+    @media(min-width: 1400px) {
         width: 100%;
-        overflow: hidden;
-        padding-inline: 1rem;
-        position: relative;
-        height: 76px;
-        z-index: 100;
-        box-shadow: 0px 10px 24px var(--color-lightgray);
+        @include flexCenterCenter;
+    }
+}
 
+.header__logotype-container {
+    width: var(--size-64);
+    height: auto;
+    max-height: var(--size-64);
+}
 
-        .container {
-            position: relative;
-            width: 100%;
+.header__logotype {
+    width: 100%;
+    height: 100%;
+}
 
-            .headerInnerContainer {
-                position: fixed;
-                width: auto;
-                height: auto;
-                top: 0;
-                left: 0;
-                width: 100%;
-                @include space;
-                padding: 1rem;
-                box-shadow: 0px 10px 24px var(--color-lightgray);
+.header__btnbar {
+    display: none;
 
+    @media(min-width: 1400px) {
+        @include flexCenterCenter;
+        gap: var(--size-16);
+    }
+}
 
-                .logotypeContainer {
-                    @include centerFlex;
-                }
+.header__mobilmenu-icon {
+    z-index: 12;
+    font-size: var(--size-24);
+    cursor: pointer;
+    display: flex;
+    justify-content: end;
+    transition: transform 0.4s ease-in-out;
 
-                .navDesktop {
-                    display: none;
-                    gap: 4rem;
-                }
-
-                .serachFunctionHeaderContainer {
-                    display: none;
-                }
-
-                .barContainer {
-                    display: flex;
-
-                    .fa-solid.fa-bars {
-                        font-size: 1.6rem;
-                        transition: all ease-in-out 120ms;
-
-                        &:active {
-                            color: var(--color-mediumgray);
-                        }
-                    }
-                }
-
-                .sideMenu {
-                    position: fixed;
-                    right: -70%;
-                    top: 0;
-                    height: 100vh;
-                    width: 55%;
-                    background-color: var(--color-darkgray);
-                    z-index: 2;
-                    transition: right 0.3s ease;
-                    box-shadow: -5px 0px 24px var(--color-mediumgray);
-
-                    .xmarkContainer {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        margin-right: 0.5rem;
-                        padding: 1rem;
-
-                        .fa-solid.fa-xmark {
-                            font-size: 1.6rem;
-                            color: var(--color-white);
-                            transition: all ease-in-out 120ms;
-
-
-                            &:active {
-                                color: var(--color-mediumgray);
-                            }
-                        }
-                    }
-
-                    .navSideMenu {
-                        display: grid;
-                        grid-template-columns: 1fr;
-                        transition: all ease-in-out 240ms;
-
-
-                        .navLinkTextBar {
-                            padding-inline: 1rem;
-                            padding-block: 0.8rem;
-                            color: var(--color-white);
-                            text-decoration: none;
-                            border-bottom: 1px solid var(--color-mediumgray);
-                            transition: all ease-in-out 120ms;
-
-                            &:hover {
-                                background-color: var(--color-mediumgray);
-                            }
-
-                            &:active {
-                                background-color: var(--color-mediumgray);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    &.header__mobilmenu-icon--rotate {
+        transform: rotate(180deg);
     }
 
-    .serachFunctionHeaderContainer {
+    @media(min-width: 1400px) {
         display: none;
     }
+}
 
-    .searchFunctionContainer
-    {
-        @include center;
+.header__mobilmenu-icon--fade-in {
+    opacity: 0;
+    animation: fadeIn 120ms ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
     }
 
-    .searchContainer {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.1rem;
-        border: solid 1px var(--color-lightgray);
-
-        @media(min-width: 1400px) {
-            border: none;
-        }
-
-        .inputSearch {
-            border: none;
-            padding: 0.1rem;
-        }
+    to {
+        opacity: 1;
     }
 }
 
-//Tablet >768px
-@media(min-width: 768px)
-{
-    .headerOuterContainer {
-        height: 18px;
-    }
-}
 
-//Desktop >1400px
-@media(min-width: 1400px)
-{
-    .headerOuterContainer {
-        height: auto;
 
-        .container {
-            .headerInnerContainer {
-                position: relative;
-                width: 100%;
-                padding: 0.5rem;
-                box-shadow: none;
+//@import "../core/mixins/_mixins.scss";
 
-                .barContainer {
-                    display: none;
-                }
+//.header {
+//    width: 100%;
+//    overflow: hidden;
+//    padding-inline: 1rem;
+//    position: relative;
+//    height: var(--size-72);
+//    z-index: 10;
+//    box-shadow: 0px 10px 24px var(--color-lightgray);
 
-                .serachFunctionHeaderContainer {
-                    display: block;
-                }
+//    @media (min-width: 768px) {
+//        height: var(--size-20);
+//    }
 
-                .navDesktop {
-                    display: flex;
-                }
-            }
-        }
-    }
-}
+//    @media (min-width: 1400px) {
+//        height: auto;
+//    }
+//}
+
+//.header__menu-toggle {
+//    display: flex;
+
+//    @media(min-widht: 1400px) {
+//        display: none;
+//    }
+//}
+
+//.fa-solid {
+//    font-size: 1.6rem;
+//    transition: all ease-in-out 120ms;
+//    color: var(--color-white);
+
+//    &:active {
+//        color: var(--color-mediumgray);
+//    }
+//}
+
+//.header__search {
+//    display: none;
+
+//    @media(min-widht: 1400px) {
+//        display: block;
+//    }
+//}
+
+//.header__nav-desktop {
+//    display: none;
+
+//    @media(min-widht: 1400px) {
+//        display: flex;
+//    }
+//}
+
+//.header__inner {
+//    position: fixed;
+//    top: 0;
+//    left: 0;
+//    width: 100%;
+//    height: auto;
+//    @include space;
+//    padding: 1rem;
+//    box-shadow: 0px 10px 24px var(--color-lightgray);
+//    gap: 4rem;
+
+//    @media(min-width: 1400px) {
+//        position: relative;
+//        padding: 0.5rem;
+//        box-shadow: none;
+//    }
+//}
+
+//.header__logo {
+//    @include centerFlex;
+//}
+
+//.header__side-menu {
+//    position: fixed;
+//    right: -70%;
+//    top: 0;
+//    height: 100vh;
+//    width: 55%;
+//    background-color: var(--color-darkgray);
+//    z-index: 2;
+//    transition: right 0.3s ease;
+//    box-shadow: -5px 0px 24px var(--color-mediumgray);
+//}
+
+//.header__side-menu-top {
+//    display: flex;
+//    justify-content: space-between;
+//    align-items: center;
+//    margin-right: 0.5rem;
+//    padding: 1rem;
+//}
+
+//.header__nav-side {
+//    display: grid;
+//    grid-template-columns: 1fr;
+//    transition: all ease-in-out 240ms;
+
+//}
+
+//.navLinkTextBar {
+//    padding-inline: 1rem;
+//    padding-block: 0.8rem;
+//    color: var(--color-white);
+//    text-decoration: none;
+//    border-bottom: 1px solid var(--color-mediumgray);
+//    transition: all ease-in-out 120ms;
+
+//    &:hover,
+//    &:active {
+//        background-color: var(--color-mediumgray);
+//    }
+//}
+
+//SEARCH!!!!!
+
+//.header__search {
+//    @include center;
+//}
+
+//.search 
+//{
+//    display: inline-flex;
+//    justify-content: center;
+//    align-items: center;
+//    gap: 0.5rem;
+//    padding: 0.1rem;
+//    border: solid 1px var(--color-lightgray);
+
+//    @media (min-width: 1400px) {
+//        border: none;
+//    }
+//}
+
+//.search__input {
+//    border: none;
+//    padding: 0.1rem;
+//}

@@ -129,3 +129,22 @@ p{
         max-width: 380px;
     }
 }
+
+
+//Nya klasser
+
+.italic {
+    font-style: italic !important;
+}
+
+.bold {
+    font-weight: 700 !important;
+}
+
+.marginBottom {
+    margin-bottom: var(--sizie-8);
+}
+
+.noMargin {
+    margin: 0 !important;
+}

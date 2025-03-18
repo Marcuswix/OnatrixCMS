@@ -3,16 +3,16 @@
     background-color: var(--color-black);
 }
 
-.containerFooter {
+.footer__container {
     padding-block: 1rem;
 
-    .footerContent {
-        .footerText {
+    .footer__content {
+        .footer__text {
             color: var(--color-mediumgray);
             margin: 0;
         }
 
-        .aLinkFooter {
+        .footer__link {
             color: var(--color-sand);
             transition: color ease-in-out 120ms;
             text-decoration: none;

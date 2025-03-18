@@ -6,54 +6,47 @@
 @{
     var topHeader = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "topHeader") ?? null;
     var socialmediaList = topHeader.Value<IEnumerable<Umbraco.Cms.Core.Models.Blocks.BlockListItem>>("socialmedia") ?? null;
-
-    var blockCount = socialmediaList?.Count() ?? 0;
-
-    var countSocialMediaItems = 0;
 }
 
 @if(socialmediaList != null)
 {
-                <div class="socialMediaContainer">
+    <div class="social-media">
 
-                    @foreach(var block in socialmediaList)
-                    {
+        @foreach(var block in socialmediaList)
+        {
+            var blockItem = block.Content;
+            var socialmediaUrl = blockItem.Value<string>("socialmediaUrl");
+            var socialmediaName = blockItem.Value<string>("socialmediaName");
+            string icon = "";
 
-                        var isLast = ++countSocialMediaItems == blockCount;
-                        var blockItem = block.Content;
-                        var socialmediaUrl = blockItem.Value<string>("socialmediaUrl");
-                        var socialmediaName = blockItem.Value<string>("socialmediaName");
-                        string icon = "";
+            switch(socialmediaName.ToLower())
+            {
+                case "facebook": 
+                    icon = "fa-facebook";
+                    break;
 
-                        switch(socialmediaName.ToLower())
-                        {
-                            case "facebook": 
-                                icon = "fa-facebook-f";
-                                break;
+                case "instagram":
+                    icon = "fa-instagram";
+                    break;
 
-                            case "instagram":
-                                icon = "fa-instagram";
-                                break;
+                case "linkedin":
+                    icon = "fa-linkedin";
+                    break;
 
-                            case "linkedin":
-                                icon = "fa-linkedin";
-                                break;
+                case "x":
+                    icon = "fa-x-twitter";
+                            break;
 
-                            case "x":
-                                icon = "fa-x-twitter";
-                                        break;
+                case "tiktok":
+                    icon = "fa-tiktok";
+                    break;
 
-                            case "tiktok":
-                                icon = "fa-tiktok";
-                                break;
+                case "youtube":
+                    icon = "fa-youtube";
+                    break;
+            }
+            <a class="social-media__btn" href="@socialmediaUrl"><i class="fa-brands @icon"></i></a>
+        }
 
-                            case "youtube":
-                                icon = "fa-youtube";
-                                break;
-                        }
-
-                        <a class="@(isLast ? "socialMediaButtonLast" : "socialMediaButton")" href="@socialmediaUrl"><i class="fa-brands @icon"></i></a>
-                    }
-
-                </div>   
+    </div>   
 }

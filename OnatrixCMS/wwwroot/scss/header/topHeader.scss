@@ -1,0 +1,28 @@
+.top-header {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    padding: var(--size-8);
+    height: var(--size-56);
+
+    @media(max-width: 1399px) {
+        display: none;
+    }
+}
+
+.top-header__hidden {
+    display: none !important;
+}
+
+.top-header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.top-header__text {
+    color: var(--color-white);
+    font-weight: 200;
+    font-size: 0.9rem;
+}

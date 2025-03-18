@@ -1,32 +1,55 @@
-@mixin btn
-{
+@mixin btn {
     display: inline-flex;
     cursor: pointer;
     justify-content: center;
     align-items: center;
-    padding-inline: 18px;
-    padding-block: 12px;
-    border-radius: 0.2rem;
+    padding-block: var(--size-8);
+    border-radius: var(--br-standard);
     border: none;
+    outline: none;
     transition: all ease-in-out 120ms;
-    text-decoration: none; 
+    text-decoration: none;
+    gap: var(--size-8);
+    box-shadow: 0 1px 2px var(--color-mediumgray);
 
-    &:hover
-    {
+    &:hover {
+        box-shadow: 0 1px 6px var(--color-mediumgray) !important;
+        opacity: 0.7;
+    }
+}
+
+.btn{
+    @include btn;
+}
+
+.btn__small {
+    @include btn;
+    padding-inline: var(--size-8);
+    font-size: var(--size-16);
+    font-weight: 600;
+    min-width: var(--size-128);
+    width: 100%;
+}
+
+.btn__standard {
+    @include btn;
+    padding-inline: var(--size-16);
+    min-width: var(--size-160);
+    font-size: var(--size-16);
+    font-weight: 500;
+}
+
+.btn__color-theme {
+    background-color: var(--color-lightgray);
+    color: var(--color-black);
+
+    &:hover {
         background-color: var(--color-mediumgray) !important;
         color: var(--color-white) !important;
     }
 }
 
-.btn
-{
-    @include btn;
-    min-width: 180px;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.btnTheme {
+.btn-theme {
     @include btn;
     font-size: 1rem;
     font-weight: 500;
@@ -36,7 +59,7 @@
     max-width: 180px;
 }
 
-.btnBeige
+.btn-beige
 {
     @include btn;
     font-size: 1rem;

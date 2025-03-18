@@ -4,7 +4,6 @@
 @using Umbraco.Cms.Core.Routing
 @using Umbraco.Extensions
 @using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
-
 @inject IPublishedValueFallback PublishedValueFallback
 @inject IPublishedUrlProvider PublishedUrlProvider
 
@@ -14,53 +13,93 @@
     // Hämta adressen
     var logotype = header?.Value<IPublishedContent>("logotype")?.Url() ?? null;
 
-    var backgroundColor = header?.Value<PickedColor>("backgroundColor")?.Label.ToLower() ?? "transparent";  
+    var backgroundColor = header?.Value<PickedColor>("backgroundColor")?.Label.ToLower() ?? "transparent";
+    var textColor = "var(--color-lightgray)";
+
+    var topHeader = false;
+    var btnBar = false;
+    var menuClass = "header__mobilmenu header__mobilmenu-hidden";
+
 }
 
 <!-- Header -->
-<div style="background-color: var(--color-@backgroundColor)" class="headerOuterContainer">
-    <div style="background-color: var(--color-@backgroundColor)" class="container">
-    <div style="background-color: var(--color-@backgroundColor)" class="headerInnerContainer">
-        <div class="logotypeContainer">
+<div class="header__wrapper">
 
-                <a href="@Model.Root().Url()">
-                @if (logotype != null)
+    @if(topHeader)
+    {
+        @await Html.PartialAsync("/Views/Partials/static/_TopHeader.cshtml")
+    }
+    else
+    {
+        <div></div>
+    }
+
+    <div class="header" style="background-color: var(--color-@backgroundColor);">
+
+        <a class="header__homelink" href="/">
+            <div class="header__logotype-container">
+
+                @if (!string.IsNullOrEmpty(logotype))
                 {
-                    <img src="@logotype" alt="Company logotype">
+                    <img class="header__logotype" src="@logotype" alt="Logotyp" />
                 }
                 else
                 {
-                        <img src="/defaultPictures/logotype/logotypeGray.svg" alt="Onatrix logotype">
+                    <div>HOME</div>
                 }
-                </a>
-        </div>
-
-        <div>
-            <nav class="navDesktop">
-                @await Html.PartialAsync("/Views/Partials/_Navigation.cshtml")
-            </nav>
-        </div>
-
-        <div class="serachFunctionHeaderContainer">
-            @await Html.PartialAsync("/Views/Partials/static/searchFunction.cshtml")
-        </div>
-
-        <div class="barContainer" onclick="showMenu()">
-            <i id="bars" class="fa-solid fa-bars"></i>
-        </div>
-
-        <div id="sideMenu" class="sideMenu">
-
-            <div class="xmarkContainer" onclick="hideMenu()">
-                <a href="@Model.Root().Url()">
-                    <img src="~/defaultPictures/logotype/onatrixInverted.png" alt="Onatrix logotype"/>
-                </a>
-                <i id="xmark" class="fa-solid fa-xmark"></i>
             </div>
-            <nav class="navSideMenu">
-                @await Html.PartialAsync("/Views/Partials/_Navigation.cshtml")
-            </nav>
+        </a>
+
+
+        <nav class="header__nav-desktop">
+            @await Html.PartialAsync("/Views/Partials/_Navigation.cshtml")
+        </nav>
+
+        @if(btnBar)
+        {
+            @await Html.PartialAsync("/Views/Partials/static/_BtnBar.cshtml")
+        }
+        else
+        {
+            <div></div>
+        }
+
+
+        <div id="menuToggleBtn" class="header__mobilmenu-icon" style="color: var(--color-@textColor);">
+            <i id="menuToggleIcon" class="fa-solid fa-bars"></i>
         </div>
-    </div>
+
+        <div id="mobileMenu" class="@menuClass">
+            @Html.Partial("/Views/Partials/static/_HeaderSideMenu.cshtml")
+        </div>
+
     </div>
 </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleBtn = document.getElementById('menuToggleBtn');
+        const toggleIcon = document.getElementById('menuToggleIcon');
+        const menu = document.getElementById('mobileMenu');
+        let isMenuOpen = false;
+
+        toggleBtn.addEventListener('click', function () {
+            if (isMenuOpen) {
+                menu.classList.remove('header__mobilmenu--visble');
+                menu.classList.add('header__mobilmenu-hidden');
+                toggleIcon.classList.remove('fa-xmark');
+                toggleIcon.classList.add('fa-bars');
+                toggleBtn.classList.remove('header__mobilmenu-icon--rotate', 'header__mobilmenu-icon--fade-in');
+                isMenuOpen = false;
+            } else {
+                menu.classList.remove('header__mobilmenu-hidden');
+                menu.classList.add('header__mobilmenu--visble');
+                toggleIcon.classList.remove('fa-bars');
+                toggleIcon.classList.add('fa-xmark');
+                toggleBtn.classList.add('header__mobilmenu-icon--rotate', 'header__mobilmenu-icon--fade-in');
+                isMenuOpen = true;
+            }
+        });
+    });
+</script>

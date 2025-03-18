@@ -1,0 +1,24 @@
+﻿@{
+    var imageOne = "";
+    var imageTwo = "";
+}
+
+<div>
+    <div class="header__mobilmenu--top-container">
+        @if (!string.IsNullOrEmpty(imageOne))
+        {
+            <img class="header__mobilmenu--top-container--item" src="@Model.ImageOne" />
+        }
+        @if (!string.IsNullOrEmpty(imageTwo))
+        {
+            <img class="header__mobilmenu--top-container--item" src="@Model.ImageTwo" />
+        }
+        <div class="header__mobilmenu--top-container--item"></div>
+    </div>
+
+    <nav class="header__nav-side">
+         @await Html.PartialAsync("/Views/Partials/_Navigation.cshtml")
+    </nav>
+</div>
+
+

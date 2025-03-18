@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="umbraco\" />
+    <Folder Include="wwwroot\scss\components\partials\socialMedia\" />
   </ItemGroup>
 
   <PropertyGroup>

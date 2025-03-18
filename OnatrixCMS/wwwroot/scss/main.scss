@@ -1,13 +1,19 @@
+//Core
 @import "core/colors/colors.scss";
+@import "core/borderRadius/borderRadius.scss";
 @import "core/mixins/_mixins.scss";
 @import "core/buttons/buttons.scss";
 @import "core/text/text.scss";
 @import "core/generel/general.scss";
-@import "topHeader/topHeader.scss";
-@import "header/header.scss";
+@import "core/size/size.scss";
+@import "components/components.scss";
+
+
+//Components
+@import "components/partials/socialMedia/SocialMedia.scss";
+@import "header/headerMain.scss";
 @import "footer/footer.scss";
 @import "homepage/homepage.scss";
 @import "aboutpage/aboutuspage.scss";
 @import "servicepage/servicepage.scss";
 @import "projectpage/projectpage.scss";
-@import "components/components.scss";

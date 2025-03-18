@@ -15,19 +15,32 @@
     // Hämta adressen
     var address = topHeader?.Value<string>("address");
 
-    var backgroundColor = topHeader?.Value<ColorPickerValueConverter.PickedColor>("backgroundColor")?.Label.ToLower() ?? "transparent";
+    //Backgrundsfärg
+    var extractedbackgroundColor = topHeader?.Value<ColorPickerValueConverter.PickedColor>("backgroundColor")?.Label.ToLower() ?? "transparent";
+    var backgroundColor = $"background-color: {extractedbackgroundColor}";
+    var textColor = "var(--color-white)";
 }
 
 <!-- Top Header -->
-<div style="background-color: var(--color-@backgroundColor)" class="siteContainer">
+<div id="topHeader" class="top-header" style="@backgroundColor">
     <div class="container">
-        <div class="contentContainer">
-            <p class="topHeaderText">@address</p>
-                <div class="socialMediaContainer">
-
-                    @await Html.PartialAsync("/Views/Partials/other/_Socialmedia.cshtml")
-
-                </div>
+        <div class="top-header__container">
+            <address class="top-header__text noMargin" style="color: @textColor">@address</address>
+            @await Html.PartialAsync("/Views/Partials/other/_Socialmedia.cshtml")
         </div>
     </div>
 </div>
+
+@* <script> *@
+@*     document.addEventListener("DOMContentLoaded", function () { *@
+@*     const topHeader = document.getElementById("topHeader"); *@
+
+@*     window.addEventListener('scroll', function () { *@
+@*         if (window.scrollY > 0) { *@
+@*             topHeader.classList.add('top-header__hidden'); *@
+@*         } else { *@
+@*             topHeader.classList.remove('top-header__hidden'); *@
+@*         } *@
+@*     }); *@
+@*     }); *@
+@* </script> *@
