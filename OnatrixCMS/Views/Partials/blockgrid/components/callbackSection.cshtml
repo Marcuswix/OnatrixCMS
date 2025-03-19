@@ -30,14 +30,14 @@
 
         <div class="backofficeContainer">
         <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; padding-block: 1rem;">
-            <b>Name: @name</b>
+            <b>Namn: @name</b>
             <p>Email: @email</p>
-            <P>Message: @message</P>
+            <P>Meddelande: @message</P>
             @if (!string.IsNullOrEmpty(phone))
             {
-                <p>Phone: @phone</p>
+                <p>Telefon-nr: @phone</p>
             }
-            <p>Date: @date</p>
+            <p>Datum: @date</p>
         </div>
         <button class="btnBeige" onclick="DeleteCallBackRequest(@contentId)">Delete</button>
     </div>

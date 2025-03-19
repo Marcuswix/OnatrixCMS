@@ -8,15 +8,16 @@
 @inject IPublishedUrlProvider PublishedUrlProvider
 
 @{
-    // Hämta "Top Header" innehållsnoden
+    // Hämta "Header" från innehållsnoden
     var header = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "header");
+
     // Hämta adressen
     var logotype = header?.Value<IPublishedContent>("logotype")?.Url() ?? null;
 
     var backgroundColor = header?.Value<PickedColor>("backgroundColor")?.Label.ToLower() ?? "transparent";
     var textColor = "var(--color-lightgray)";
 
-    var topHeader = false;
+
     var btnBar = false;
     var menuClass = "header__mobilmenu header__mobilmenu-hidden";
 
@@ -24,15 +25,6 @@
 
 <!-- Header -->
 <div class="header__wrapper">
-
-    @if(topHeader)
-    {
-        @await Html.PartialAsync("/Views/Partials/static/_TopHeader.cshtml")
-    }
-    else
-    {
-        <div></div>
-    }
 
     <div class="header" style="background-color: var(--color-@backgroundColor);">
 

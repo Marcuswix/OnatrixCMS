@@ -10,10 +10,12 @@
 @inject IPublishedUrlProvider PublishedUrlProvider
 
 @{
-    // Hämta "Top Header" innehållsnoden
-    var topHeader = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "topHeader");
+    // Hämta "Top Header" från innehållsnoden
+    var topHeader = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "topHeader") ?? null;
+    var settings = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "settingsPage") ?? null;
+    
     // Hämta adressen
-    var address = topHeader?.Value<string>("address");
+    var address = settings?.Value<string>("address");
 
     //Backgrundsfärg
     var extractedbackgroundColor = topHeader?.Value<ColorPickerValueConverter.PickedColor>("backgroundColor")?.Label.ToLower() ?? "transparent";

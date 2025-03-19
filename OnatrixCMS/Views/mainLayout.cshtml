@@ -4,6 +4,7 @@
 	Layout = null;
 	var pageTitle = !string.IsNullOrEmpty(ViewBag.Title) ? $"{ViewBag.Title} | Onatrix - Finacial Solutions for Your Buisness" : "Onatrix - Finacial Solutions for Your Buisness";
 	var pageDescription = Model?.Value<string>("pageDescription") ?? "";
+	var topHeader = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "topHeader") ?? null;
 }
 
 <!doctype html>
@@ -22,7 +23,12 @@
 
 	<div class="wrapper">
 
-        @await Html.PartialAsync("static/_TopHeader")
+
+		@if(topHeader != null)
+		{
+			@await Html.PartialAsync("static/_TopHeader")
+		}
+
 
         @await Html.PartialAsync("static/_Header")
 

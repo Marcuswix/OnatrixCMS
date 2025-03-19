@@ -6,20 +6,20 @@ namespace OnatrixCMS.Model
     {
         public string? FormName { get; set; }
 
-        [Required(ErrorMessage = "You must enter a name")]
-        [Display(Name = "Name", Order = 0, Prompt = "Name")]
+        [Required(ErrorMessage = "Du måste ange ett namn")]
+        [Display(Name = "Name", Order = 0, Prompt = "Namn")]
         [MaxLength(100)]
         public string Name { get; set; } = null!;
 
-        [Required(ErrorMessage = "You must enter an email address")]
+        [Required(ErrorMessage = "Du måste ange en epost")]
         [EmailAddress]
-        [RegularExpression("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", ErrorMessage = "You must enter a valid email (xx@xx.xx)")]
+        [RegularExpression("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", ErrorMessage = "Du måste ange en giltlig epost (xx@xx.xx)")]
         [MaxLength(100)]
-        [Display(Name = "Email", Order = 0, Prompt = "Email Address")]
+        [Display(Name = "Email", Order = 0, Prompt = "Epost adress")]
         public string Email { get; set; } = null!;
 
-        [Required(ErrorMessage = "You must enter a question")]
-        [Display(Name = "Message", Order = 3, Prompt = "Your question")]
+        [Required(ErrorMessage = "Du måste skriva ett meddelande")]
+        [Display(Name = "Message", Order = 3, Prompt = "Ditt meddelande")]
         public string Message { get; set; } = null!;
 
         public string DateTime { get; set; } = System.DateTime.Now.ToString();

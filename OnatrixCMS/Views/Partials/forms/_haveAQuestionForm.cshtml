@@ -1,0 +1,144 @@
+﻿@using OnatrixCMS.Model;
+@model OnatrixCMS.Model.QuestionFormModel;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using static Umbraco.Cms.Core.PropertyEditors.ValueConverters.ColorPickerValueConverter;
+
+@{
+    var regExEx = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    
+    //Text
+    var headline = Model?.Content.Value<string>("title") ?? "Skicka ett meddelande!";
+    var messageSendMessage = Model?.Content.Value<string>("messageSendMessage") ?? "Tack för ditt meddelande!";
+
+
+    //Layout
+    var backgroundColorTop = Model?.Value<PickedColor>("backgroundColorTop")?.Label.ToLower() ?? "white";
+    var backgroundColor = Model?.Value<PickedColor>("backgroundColorTop")?.Label.ToLower() ?? "white";
+    var textColorTop = Model?.Value<PickedColor>("textColorTop")?.Label.ToLower() ?? "black";
+    var textColor = Model?.Value<PickedColor>("textColor")?.Label.ToLower() ?? "black";
+
+    var logotype = header?.Value<IPublishedContent>("logotype")?.Url() ?? null;
+
+    var backgroundColor = header?.Value<PickedColor>("backgroundColor")?.Label.ToLower() ?? "transparent";
+}
+
+@using (Html.BeginUmbracoForm("HandleQuestionSubmit", "ContactSurface", FormMethod.Post, new { novalidate = "novalidate" }))
+{
+    <div class="serviceFormContainer">
+        @if (TempData["Success"] != null)
+        {
+            <span class="successMessage">@messageSendMessage</span>
+        }
+        else if (TempData["ContactErrorMessage"] != null)
+        {
+            <span class="errorMessage">@TempData["ContactErrorMessage"] </span>
+        }
+        else
+        {
+            <h3 class="h3Headline noMargin">@headline</h3>
+        }
+        <div class="serviceFormInputContainer">
+            <input hidden value="Questions" Name="FormName" />
+            <div id="Name" class="inputAndSpan">
+                <input id="QuestionNameInput" asp-for="Name" Name="Name" class="formInput questionInput" style="margin: 0px;" value="@TempData["Name"]" />
+                <span id="QuestionNameSpan" asp-validation-for="Name" class="errorMessage"></span>
+            </div>
+
+            <div id="Email" class="inputAndSpan">
+                <input id="QuestionEmailInput" asp-for="Email" Name="Email" class="formInput questionInput" style="margin: 0px;" value="@TempData["Email"]" />
+                <span id="QuestionEmailSpan" asp-validation-for="Email" class="errorMessage"></span>
+            </div>
+
+            <div id="Question" class="inputAndSpan">
+                <textarea id="QuestionQuestionInput" asp-for="Message" Name="Message" class="formInput" style="margin: 0px;">@TempData["QuestionQuestion"]</textarea>
+                <span id="QuestionQuestionSpan" asp-validation-for="Message" class="errorMessage"></span>
+            </div>
+        </div>
+        <button id="questionButton" class="btnTheme" type="submit">Skicka</button>
+    </div>
+}
+
+<script>
+    let questionNameInput = document.getElementById('QuestionNameInput');
+    let questionEmailInput = document.getElementById('QuestionEmailInput');
+    let questionQuestionInput = document.getElementById('QuestionQuestionInput');
+    const questionNameSpan = document.getElementById("QuestionNameSpan");
+    const questionEmailSpan = document.getElementById("QuestionEmailSpan");
+    const questionQuestionSpan = document.getElementById("QuestionQuestionSpan");
+
+    const emailRegexEx = new RegExp(@Html.Raw($"\"{regExEx}\""));
+    console.log("inne")
+
+    document.getElementById("questionButton").addEventListener("click", function () {
+        localStorage.setItem("scrollPosition", window.scrollY);
+        console.log("inneButtonnnn")
+    });
+
+    window.addEventListener("load", function () {
+        const scrollPosition = localStorage.getItem("scrollPosition");
+        if (scrollPosition) {
+            window.scrollTo({
+                top: scrollPosition,
+                behavior: "auto"
+            });
+            localStorage.removeItem("scrollPosition");
+        }
+    });
+
+    questionEmailInput.addEventListener('keyup', (e) => {
+        emailQuestionValidator(e.target);
+    });
+
+    questionNameInput.addEventListener('keyup', (e) => {
+        let questionNameIsValid = false;
+        if (e.target.value.length > 1) 
+        {
+            questionNameIsValid = true;
+        }
+        nameErrorHandler(questionNameIsValid);
+    });
+
+    questionQuestionInput.addEventListener('keyup', (e) => {
+       let questionQuestionIsValid = false;
+        if (e.target.value.length > 3) { 
+            questionQuestionIsValid = true;
+        }
+        questionErrorHandler(questionQuestionIsValid);
+    });
+
+    function emailQuestionValidator(targetElement) {
+        emailQuestionErrorHandler(targetElement, emailRegexEx.test(targetElement.value));
+    }
+
+    function emailQuestionErrorHandler(targetElement, validationResult) {
+
+        if (validationResult) {
+            questionEmailSpan.style.display = "none";
+        } else {
+            questionEmailSpan.style.display = "flex";
+            questionEmailSpan.style.justifyContent = "center";
+        }
+    }
+
+    function nameErrorHandler(validationResult) {
+
+        if (validationResult) {
+            questionNameSpan.style.display = "none";
+        } else {
+            questionNameSpan.style.display = "flex";
+            questionNameSpan.style.justifyContent = "center";
+        }
+    }
+
+    function questionErrorHandler(validationResult) {
+
+        if (validationResult) {
+            questionQuestionSpan.style.display = "none";
+        } else {
+            questionQuestionSpan.style.display = "flex";
+            questionQuestionSpan.style.justifyContent = "center";
+        }
+    }
+</script>
+
